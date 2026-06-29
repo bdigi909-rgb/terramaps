@@ -1,4 +1,5 @@
 ﻿"use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -32,6 +33,11 @@ const navItems = [
 const bottomItems: { label: string; icon: any; href: string }[] = [];
 
 export default function Sidebar() {
+  const router = useRouter();
+  async function logout() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+  }
   const pathname = usePathname();
 
   return (
