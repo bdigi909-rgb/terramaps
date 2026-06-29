@@ -133,6 +133,12 @@ export default function Sidebar() {
       </div>
 
       {/* Bottom nav */}
+      <div style={{ padding: "8px 12px", marginBottom: 8 }}>
+        <button onClick={logout} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", background: "transparent", border: "1px solid #2a3f5f", borderRadius: 8, padding: "9px 14px", color: "#EF4444", cursor: "pointer", fontSize: 13 }}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Déconnexion
+        </button>
+      </div>
       <div style={{ padding: "8px", borderTop: "1px solid var(--border)" }}>
         {bottomItems.map((item) => (
           <Link
