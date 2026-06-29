@@ -1,4 +1,5 @@
-"use client";
+﻿"use client";
+import ExportPDF from "@/components/ExportPDF";
 import { useState, useEffect, useCallback } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
@@ -87,7 +88,7 @@ export default function VolumesPage() {
         subtitle="Cubatures déblai/remblai — Méthode trapézoïdale / prismatique"
         actions={
           <div style={{ display: "flex", gap: 8 }}>
-            <button className="btn-secondary" style={{ fontSize: 11 }}><Download size={12} /> Rapport PDF</button>
+            <ExportPDF report={{ projectName: "Rapport Volumes", date: new Date().toLocaleDateString("fr-FR"), totalCut: totalCut, totalFill: totalFill, netVolume: netBalance, sections: data.map(d => ({ station: d.station, cutArea: d.cutArea, fillArea: d.fillArea, cutVolume: d.cutVolume, fillVolume: d.fillVolume })) }} projectId={0} />
             <button className="btn-secondary" style={{ fontSize: 11 }}><FileText size={12} /> Export CSV</button>
             <button className="btn-primary" onClick={generate} style={{ fontSize: 11 }}><RefreshCw size={12} /> Recalculer</button>
           </div>

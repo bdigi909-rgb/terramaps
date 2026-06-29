@@ -1,4 +1,5 @@
-"use client";
+﻿"use client";
+import MapView from "@/components/MapView";
 import { useEffect, useRef, useState, useCallback } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
@@ -264,43 +265,16 @@ export default function SurveyPage() {
               ))}
             </div>
             {view === "map" && (
-              <>
-                <button className="tool-btn" onClick={() => setZoom((z) => Math.min(z * 1.3, 5))}><ZoomIn size={14} /></button>
-                <button className="tool-btn" onClick={() => setZoom((z) => Math.max(z / 1.3, 0.1))}><ZoomOut size={14} /></button>
-              </>
+              <div style={{ width: "100%", height: "100%" }}>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+                <MapView points={filtered} epsg={undefined} />
+              </div>
             )}
-            <span style={{ fontSize: 11, color: "#4b6080", marginLeft: "auto" }}>
-              {filtered.length} / {points.length} points
-            </span>
-          </div>
-
-          {/* Content */}
-          <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
             {view === "map" && (
-              <canvas
-                ref={canvasRef}
-                width={1200}
-                height={800}
-                style={{ display: "block", width: "100%", height: "100%", background: "#0a1520", cursor: "crosshair" }}
-                onWheel={(e) => {
-                  e.preventDefault();
-                  const f = e.deltaY > 0 ? 0.9 : 1.1;
-                  setZoom((z) => Math.max(0.1, Math.min(5, z * f)));
-                }}
-                onClick={(e) => {
-                  const rect = canvasRef.current!.getBoundingClientRect();
-                  const wx = (e.clientX - rect.left - pan.x) / zoom;
-                  const wy = (e.clientY - rect.top - pan.y) / zoom;
-                  let nearest: SurveyPoint | null = null;
-                  let nearestDist = Infinity;
-                  filtered.forEach((p) => {
-                    const d = Math.sqrt((p.x - wx) ** 2 + (p.y - wy) ** 2);
-                    if (d < nearestDist) { nearestDist = d; nearest = p; }
-                  });
-                  if (nearest && nearestDist < 15 / zoom) setSelectedPoint(nearest);
-                  else setSelectedPoint(null);
-                }}
-              />
+              <div style={{ width: "100%", height: "100%" }}>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+                <MapView points={filtered} epsg={undefined} />
+              </div>
             )}
 
             {view === "table" && (
