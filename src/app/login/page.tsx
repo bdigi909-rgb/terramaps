@@ -8,6 +8,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -69,7 +71,7 @@ export default function LoginPage() {
               Mot de passe
             </label>
             <input
-              type="password"
+              type={showPwd ? "text" : "password"}
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
