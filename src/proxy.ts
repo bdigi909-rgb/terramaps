@@ -5,7 +5,7 @@ const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-sec
 
 const publicRoutes = ["/login", "/api/auth/login"];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (publicRoutes.some(r => pathname.startsWith(r))) return NextResponse.next();
   if (pathname.startsWith("/_next") || pathname.startsWith("/favicon")) return NextResponse.next();
