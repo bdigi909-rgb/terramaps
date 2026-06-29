@@ -29,8 +29,7 @@ const navItems = [
   { label: "Drawing Canvas", icon: Map, href: "/canvas" },
 ];
 
-const bottomItems = [
-];
+const bottomItems: { label: string; icon: any; href: string }[] = [];
 
 export default function Sidebar() {
   const pathname = usePathname();
