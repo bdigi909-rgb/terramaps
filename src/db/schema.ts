@@ -1,4 +1,4 @@
-import {
+﻿import {
   pgTable,
   serial,
   text,
@@ -182,4 +182,13 @@ export const entities = pgTable("entities", {
   geometry: jsonb("geometry").notNull(),
   properties: jsonb("properties"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
+  role: text('role').notNull().default('agent'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
