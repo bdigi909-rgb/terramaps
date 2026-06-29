@@ -23,6 +23,7 @@ const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Projects", icon: FolderOpen, href: "/projects" },
   { label: "Survey Points", icon: Compass, href: "/survey" },
+  { label: "Import Points", icon: FileText, href: "/import" },
   { label: "Terrain Model", icon: Mountain, href: "/terrain" },
   { label: "Road Alignment", icon: Route, href: "/alignment" },
   { label: "Volumes & Reports", icon: BarChart3, href: "/volumes" },
