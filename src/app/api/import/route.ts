@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
     if (points.length === 0) return NextResponse.json({ error: "Aucun point détecté dans le fichier" }, { status: 400 });
 
-    const inserted = [];
+    const inserted: any[] = [];
     for (const pt of points) {
       const [row] = await db.insert(surveyPoints).values({
         projectId,
