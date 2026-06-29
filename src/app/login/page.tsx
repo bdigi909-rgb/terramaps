@@ -9,7 +9,6 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPwd, setShowPwd] = useState(false);
-  const [showPwd, setShowPwd] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
