@@ -3,11 +3,8 @@ import { Pool } from 'pg';
 import * as schema from './schema';
 
 const pool = new Pool({
-  host: '127.0.0.1',
-  port: 5433,
-  database: 'cad_srm',
-  user: 'postgres',
-  password: 'postgres',
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL?.includes('neon.tech') ? { rejectUnauthorized: false } : false,
 });
 
 export const db = drizzle(pool, { schema });
