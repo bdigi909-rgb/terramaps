@@ -192,3 +192,14 @@ export const users = pgTable('users', {
   role: text('role').notNull().default('agent'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const activityLogs = pgTable('activity_logs', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id'),
+  userName: text('user_name'),
+  action: text('action').notNull(),
+  entity: text('entity').notNull(),
+  entityId: integer('entity_id'),
+  details: text('details'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
