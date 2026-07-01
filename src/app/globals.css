@@ -300,3 +300,20 @@ body {
     margin-left: var(--sidebar-width);
   }
 }
+
+/* FORCE hide sidebar on mobile */
+@media (max-width: 768px) {
+  aside.sidebar {
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+  }
+  aside.sidebar.sidebar-open {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+  }
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
