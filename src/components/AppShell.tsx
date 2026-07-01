@@ -9,7 +9,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const check = () => setIsMobile(window.innerWidth <= 768);
+    const check = () => setIsMobile(window.innerWidth < 1100 || 'ontouchstart' in window);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
