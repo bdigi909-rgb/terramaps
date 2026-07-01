@@ -52,7 +52,6 @@ export default function Sidebar() {
     <aside
       style={{
         width: "var(--sidebar-width)",
-        "@media (max-width: 768px)": { display: "none" },
         background: "var(--sidebar-bg)",
         borderRight: "1px solid var(--border)",
         display: "flex",
