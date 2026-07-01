@@ -58,6 +58,7 @@ export default function Sidebar() {
 
   return (
     <aside
+      className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`}
       style={{
         width: isMobile && !mobileOpen ? "0" : "var(--sidebar-width)",
         overflow: isMobile && !mobileOpen ? "hidden" : "visible",
