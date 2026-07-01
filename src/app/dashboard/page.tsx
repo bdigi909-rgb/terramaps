@@ -117,7 +117,7 @@ export default function DashboardPage() {
     <AppShell>
       <Header
         title="Tableau de Bord"
-        subtitle="Vue d'ensemble de vos projets SRM"
+        subtitle="Vue d'ensemble de vos projets TerraMaps"
         actions={
           <Link href="/projects" className="btn-primary" style={{ textDecoration: "none" }}>
             <Plus size={16} />
