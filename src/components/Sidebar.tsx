@@ -59,8 +59,12 @@ export default function Sidebar() {
   return (
     <aside
       style={{
-        width: "var(--sidebar-width)",
-        ...(isMobile && !mobileOpen ? { display: "none" } : {}),
+        width: isMobile && !mobileOpen ? "0" : "var(--sidebar-width)",
+        overflow: isMobile && !mobileOpen ? "hidden" : "visible",
+        minWidth: isMobile && !mobileOpen ? "0" : "var(--sidebar-width)",
+        position: isMobile ? "fixed" : "relative",
+        zIndex: isMobile ? 1000 : "auto",
+        transition: "width 0.3s ease",
         background: "var(--sidebar-bg)",
         borderRight: "1px solid var(--border)",
         display: "flex",
