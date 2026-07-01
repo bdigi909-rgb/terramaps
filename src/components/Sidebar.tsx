@@ -106,6 +106,7 @@ export default function Sidebar() {
               key={item.href}
               href={item.href}
               style={{
+                display: "flex",
                 alignItems: "center",
                 gap: 10,
                 padding: "8px 10px",
