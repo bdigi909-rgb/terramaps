@@ -70,10 +70,6 @@ export default function Sidebar() {
         display: "flex",
         flexDirection: "column",
         height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        zIndex: 50,
         overflowY: "auto",
       }}
     >
