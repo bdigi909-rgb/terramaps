@@ -44,7 +44,7 @@ export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
+    const check = () => setIsMobile(window.innerWidth < 1400);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -178,4 +178,5 @@ export default function Sidebar() {
     </aside>
   );
 }
+
 
