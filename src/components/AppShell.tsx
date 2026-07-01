@@ -1,5 +1,7 @@
 ﻿"use client";
-import Sidebar from "./Sidebar";
+import dynamic from "next/dynamic";
+
+const Sidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
