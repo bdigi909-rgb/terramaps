@@ -304,16 +304,8 @@ export default function AdminPage() {
         )}
 
         {/* ── ACTIVITY TAB ── */}
-        {activeTab === "activity" && (
-          <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
-            <h3 style={{ margin: "0 0 20px", fontSize: 14, fontWeight: 600, color: "#8BACC8" }}>Activité récente</h3>
-            <div style={{ textAlign: "center", padding: "60px 20px", color: "#4B6080" }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>📊</div>
-              <div style={{ fontSize: 14, marginBottom: 8 }}>Historique des activités</div>
-              <div style={{ fontSize: 12 }}>Cette fonctionnalité sera disponible prochainement.</div>
-            </div>
-          </div>
-        )}
+        {/* ── ACTIVITY TAB ── */}
+        {activeTab === "activity" && <ActivityFeed />}
       </div>
     </div>
   );
