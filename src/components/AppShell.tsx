@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -6,8 +6,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar />
       <div
+        className="main-content"
         style={{
-          marginLeft: "var(--sidebar-width)",
           flex: 1,
           minHeight: "100vh",
           display: "flex",

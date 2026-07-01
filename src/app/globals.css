@@ -293,3 +293,10 @@ body {
 @media (max-width: 768px) {
   .mobile-hamburger { display: flex !important; }
 }
+
+/* Desktop: add margin for sidebar */
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: var(--sidebar-width);
+  }
+}
