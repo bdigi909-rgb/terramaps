@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -41,6 +42,13 @@ const bottomItems: { label: string; icon: any; href: string }[] = [];
 
 export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   const router = useRouter();
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -52,6 +60,7 @@ export default function Sidebar() {
     <aside
       style={{
         width: "var(--sidebar-width)",
+        ...(isMobile && !mobileOpen ? { display: "none" } : {}),
         background: "var(--sidebar-bg)",
         borderRight: "1px solid var(--border)",
         display: "flex",
