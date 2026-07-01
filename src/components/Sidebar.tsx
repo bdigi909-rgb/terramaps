@@ -42,7 +42,7 @@ const bottomItems: { label: string; icon: any; href: string }[] = [];
 
 export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
