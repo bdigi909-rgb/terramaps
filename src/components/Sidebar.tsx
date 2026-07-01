@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   LayoutDashboard,
   FolderOpen,
@@ -39,6 +40,7 @@ const navItems = [
 const bottomItems: { label: string; icon: any; href: string }[] = [];
 
 export default function Sidebar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });

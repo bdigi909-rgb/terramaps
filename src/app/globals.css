@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
   --sidebar-width: 260px;
@@ -230,4 +230,38 @@ body {
   padding: 8px 0 4px;
   border-bottom: 1px solid #1a2535;
   margin-bottom: 6px;
+}
+
+/* Mobile responsive sidebar */
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: flex !important; }
+  aside {
+    position: fixed !important;
+    left: -300px !important;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  aside.sidebar-open {
+    left: 0 !important;
+  }
+  main, .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Mobile responsive sidebar */
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: flex !important; }
+  aside {
+    position: fixed !important;
+    left: -300px !important;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  aside.sidebar-open {
+    left: 0 !important;
+  }
+  main, .main-content {
+    margin-left: 0 !important;
+  }
 }
