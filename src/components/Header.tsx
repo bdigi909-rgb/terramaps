@@ -1,5 +1,6 @@
 ﻿"use client";
 import NotificationBell from "@/components/NotificationBell";
+import LangSwitcher from "@/components/LangSwitcher";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
 interface HeaderProps {
@@ -67,6 +68,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       {actions}
 
+      <LangSwitcher />
       <NotificationBell />
 
       {/* AI badge */}
