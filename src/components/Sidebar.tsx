@@ -60,12 +60,11 @@ export default function Sidebar() {
     <aside
       className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`}
       style={{
-        width: isMobile && !mobileOpen ? "0" : "var(--sidebar-width)",
-        overflow: isMobile && !mobileOpen ? "hidden" : "visible",
-        minWidth: isMobile && !mobileOpen ? "0" : "var(--sidebar-width)",
-        position: isMobile ? "fixed" : "relative",
+        display: isMobile && !mobileOpen ? "none" : "flex",
+        position: isMobile ? "fixed" as const : "relative" as const,
         zIndex: isMobile ? 1000 : "auto",
-        transition: "width 0.3s ease",
+        width: "var(--sidebar-width)",
+        transition: "all 0.3s ease",
         background: "var(--sidebar-bg)",
         borderRight: "1px solid var(--border)",
         display: "flex",
