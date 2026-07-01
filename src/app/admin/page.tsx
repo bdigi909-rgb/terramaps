@@ -3,6 +3,52 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+function ActivityFeed() {
+  const [logs, setLogs] = useState<any[]>([]);
+  useEffect(() => {
+    fetch("/api/activity").then(r => r.json()).then(d => { if (Array.isArray(d)) setLogs(d); });
+  }, []);
+  const actionColor: Record<string, string> = { CREATE: "#22C55E", UPDATE: "#3B82F6", DELETE: "#EF4444", IMPORT: "#F59E0B", LOGIN: "#A855F7", LOGOUT: "#64748B", ASSIGN: "#F97316" };
+  const actionIcon: Record<string, string> = { CREATE: "➕", UPDATE: "✏️", DELETE: "🗑️", IMPORT: "📥", LOGIN: "🔑", LOGOUT: "🚪", ASSIGN: "👤" };
+  function timeAgo(date: string) {
+    const diff = Date.now() - new Date(date).getTime();
+    const mins = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    if (mins < 1) return "À instant";
+    if (mins < 60) return `Il y a ${mins} min`;
+    if (hours < 24) return `Il y a ${hours}h`;
+    return new Date(date).toLocaleDateString("fr-FR");
+  }
+  return (
+    <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
+      <h3 style={{ margin: "0 0 20px", fontSize: 14, fontWeight: 600, color: "#8BACC8" }}>Activité récente ({logs.length} actions)</h3>
+      {logs.length === 0 ? (
+        <div style={{ textAlign: "center", padding: 40, color: "#4B6080" }}>
+          <div style={{ fontSize: 32, marginBottom: 8 }}>📋</div>
+          <div>Aucune activité enregistrée</div>
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {logs.map((log: any) => (
+            <div key={log.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", background: `${actionColor[log.action] || "#64748B"}22`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>{actionIcon[log.action] || "⚡"}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>{log.userName || "Système"}</span>
+                  <span style={{ background: `${actionColor[log.action] || "#64748B"}22`, color: actionColor[log.action] || "#64748B", fontSize: 10, fontWeight: 700, padding: "1px 8px", borderRadius: 20 }}>{log.action}</span>
+                  <span style={{ fontSize: 11, color: "#64748B" }}>{log.entity}</span>
+                </div>
+                {log.details && <div style={{ fontSize: 11, color: "#64748B", marginTop: 2 }}>{log.details}</div>}
+              </div>
+              <div style={{ fontSize: 11, color: "#4B6080", flexShrink: 0 }}>{timeAgo(log.createdAt)}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface User { id: number; name: string; email: string; role: string; createdAt: string; }
 interface Stats { totalProjects: number; totalPoints: number; totalUsers: number; activeProjects: number; }
 
