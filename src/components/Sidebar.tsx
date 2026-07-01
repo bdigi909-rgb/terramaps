@@ -17,6 +17,7 @@ import {
   FileText,
   Users,
   Activity,
+  User,
   HelpCircle,
 } from "lucide-react";
 
