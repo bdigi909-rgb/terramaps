@@ -1,6 +1,7 @@
 ﻿"use client";
 import NotificationBell from "@/components/NotificationBell";
 import LangSwitcher from "@/components/LangSwitcher";
+import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
 interface HeaderProps {
@@ -11,6 +12,10 @@ interface HeaderProps {
 
 export default function Header({ title, subtitle, actions }: HeaderProps) {
   return (
+    <>
+    <button id="mobile-menu-trigger" onClick={() => { const s = document.querySelector(".sidebar"); if(s) s.classList.toggle("sidebar-open"); }} style={{ display: "none", position: "fixed", top: 14, left: 14, zIndex: 1001, background: "#F97316", border: "none", borderRadius: 8, padding: "8px 10px", cursor: "pointer" }} className="mobile-hamburger">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <header
       style={{
         height: "var(--header-height)",
@@ -121,5 +126,6 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         <ChevronDown size={13} color="#4b6080" />
       </div>
     </header>
+  </>
   );
 }
