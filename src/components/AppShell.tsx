@@ -4,21 +4,32 @@ import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    setMounted(true);
+    const check = () => setIsMobile(window.innerWidth <= 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  if (!mounted) {
+    return (
+      <div style={{ display: "flex", minHeight: "100vh" }}>
+        <Sidebar />
+        <div style={{ flex: 1, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", marginLeft: "var(--sidebar-width)" }}>
+          {children}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar toujours présente sur desktop */}
       {!isMobile && <Sidebar />}
 
-      {/* Mobile hamburger */}
       {isMobile && (
         <button onClick={() => setSidebarOpen(o => !o)}
           style={{ position: "fixed", top: 12, left: 12, zIndex: 1100, background: "#F97316", border: "none", borderRadius: 8, padding: "8px 10px", cursor: "pointer", display: "flex" }}>
@@ -30,7 +41,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </button>
       )}
 
-      {/* Mobile drawer */}
       {isMobile && sidebarOpen && (
         <>
           <div onClick={() => setSidebarOpen(false)}
