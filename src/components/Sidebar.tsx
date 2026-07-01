@@ -27,6 +27,7 @@ const navItems = [
   { label: "Import Points", icon: FileText, href: "/import" },
   { label: "Assignation", icon: Users, href: "/assign" },
   { label: "Activité", icon: Activity, href: "/activity" },
+  { label: "Mon Profil", icon: User, href: "/profile" },
   { label: "Terrain Model", icon: Mountain, href: "/terrain" },
   { label: "Road Alignment", icon: Route, href: "/alignment" },
   { label: "Volumes & Reports", icon: BarChart3, href: "/volumes" },
