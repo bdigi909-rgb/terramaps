@@ -1,4 +1,5 @@
-"use client";
+﻿"use client";
+import NotificationBell from "@/components/NotificationBell";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
 interface HeaderProps {
@@ -66,36 +67,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       {actions}
 
-      {/* Notification */}
-      <button
-        style={{
-          position: "relative",
-          width: 34,
-          height: 34,
-          borderRadius: 8,
-          background: "#0f1923",
-          border: "1px solid #1e3048",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          color: "#8bacc8",
-        }}
-      >
-        <Bell size={16} />
-        <span
-          style={{
-            position: "absolute",
-            top: 6,
-            right: 6,
-            width: 7,
-            height: 7,
-            background: "#f97316",
-            borderRadius: "50%",
-            border: "1.5px solid var(--sidebar-bg)",
-          }}
-        />
-      </button>
+      <NotificationBell />
 
       {/* AI badge */}
       <div

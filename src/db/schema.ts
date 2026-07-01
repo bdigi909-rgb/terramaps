@@ -203,3 +203,13 @@ export const activityLogs = pgTable('activity_logs', {
   details: text('details'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const notifications = pgTable('notifications', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull(),
+  title: text('title').notNull(),
+  message: text('message').notNull(),
+  type: text('type').default('info'),
+  read: boolean('read').default(false),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
