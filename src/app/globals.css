@@ -265,3 +265,21 @@ body {
     margin-left: 0 !important;
   }
 }
+
+/* Hide sidebar on mobile by default */
+@media (max-width: 768px) {
+  aside {
+    display: none !important;
+  }
+  aside.sidebar-open {
+    display: flex !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 1000;
+    height: 100vh;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
