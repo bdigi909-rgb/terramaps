@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [mobile, setMobile] = useState(false);
+  const [mobile, setMobile] = useState(true);
 
   useEffect(() => {
     const fn = () => setMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 1024);
