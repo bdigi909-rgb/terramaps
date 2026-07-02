@@ -2,6 +2,7 @@
 import NotificationBell from "@/components/NotificationBell";
 import GlobalSearch from "@/components/GlobalSearch";
 import LangSwitcher from "@/components/LangSwitcher";
+import AIAssist from "@/components/AIAssist";
 import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
@@ -49,25 +50,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
       <LangSwitcher />
       <NotificationBell />
 
-      {/* AI badge */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 5,
-          padding: "5px 10px",
-          background: "rgba(59,130,246,0.1)",
-          border: "1px solid rgba(59,130,246,0.2)",
-          borderRadius: 8,
-          cursor: "pointer",
-          fontSize: 12,
-          color: "#60a5fa",
-          fontWeight: 600,
-        }}
-      >
-        <Zap size={13} />
-        AI Assist
-      </div>
+      <AIAssist />
 
       {/* User */}
       <div
