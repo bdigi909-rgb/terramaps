@@ -1,8 +1,9 @@
 ﻿import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function sendWelcomeEmail(to: string, name: string, password: string, role: string) {
+  if (!resend) { console.log('RESEND_API_KEY not set'); return; }
   await resend.emails.send({
     from: "TerraMaps <onboarding@resend.dev>",
     to,
@@ -50,6 +51,7 @@ export async function sendWelcomeEmail(to: string, name: string, password: strin
 
 export async function sendPasswordResetEmail(to: string, name: string, resetToken: string) {
   const resetUrl = `https://terramaps.vercel.app/reset-password?token=${resetToken}`;
+  if (!resend) { console.log('RESEND_API_KEY not set'); return; }
   await resend.emails.send({
     from: "TerraMaps <onboarding@resend.dev>",
     to,
