@@ -21,7 +21,6 @@ import {
   Activity,
   User,
   HelpCircle,
-  HelpCircle,
 } from "lucide-react";
 
 const navItems = [
