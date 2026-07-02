@@ -63,12 +63,29 @@ interface DashboardData {
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+
+  useEffect(() => {
+    const refresh = () => {
+      fetch("/api/dashboard").then(r => r.json()).then(d => { setData(d); setLastUpdate(new Date()); }).catch(() => {});
+    };
+    const interval = setInterval(refresh, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     fetch("/api/dashboard")
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false); })
+      .then((d) => { setData(d); setLoading(false); })
       .catch(() => setLoading(false));
+  }, []);
+
+  // Auto-refresh toutes les 30 secondes
+  useEffect(() => {
+    const refresh = () => fetch("/api/dashboard").then(r => r.json()).then(d => setData(d)).catch(() => {});
+    const interval = setInterval(refresh, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const stats = [
