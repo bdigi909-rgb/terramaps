@@ -24,7 +24,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       e.stopPropagation();
       e.stopPropagation();
       open = !open;
-      drawer.style.transform = open ? "translateX(0)" : "translateX(-100%)";
+      drawer.style.left = open ? "0" : "-300px";
       overlay.style.display = open ? "block" : "none";
     });
 
@@ -64,9 +64,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile drawer */}
       <div id="drawer" style={{
-        position: "fixed", left: 0, top: 0, zIndex: 1800,
-        height: "100vh", transform: "translateX(-100%)",
-        transition: "transform 0.3s ease"
+        position: "fixed", left: "-300px", top: 0, zIndex: 1800, height: "100vh", width: "280px", transition: "left 0.3s ease", background: "var(--sidebar-bg)"
       }}>
         <Sidebar />
       </div>
