@@ -44,6 +44,28 @@ export default function SurveyPage() {
   const [search, setSearch] = useState("");
   const [filterCode, setFilterCode] = useState("all");
   const [mapExpanded, setMapExpanded] = useState(false);
+  const [mapHeight, setMapHeight] = useState(400);
+  const resizing = useRef<boolean>(false);
+  const startY = useRef(0);
+  const startH = useRef(0);
+
+  function onMouseDown(e: React.MouseEvent) {
+    resizing.current = true;
+    startY.current = e.clientY;
+    startH.current = mapHeight;
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }
+  function onMouseMove(e: MouseEvent) {
+    if (!resizing.current) return;
+    const diff = e.clientY - startY.current;
+    setMapHeight(Math.max(200, Math.min(window.innerHeight - 100, startH.current + diff)));
+  }
+  function onMouseUp() {
+    resizing.current = false;
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
   const [view, setView] = useState<"map" | "table" | "chart">("map");
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -270,6 +292,11 @@ export default function SurveyPage() {
               ))}
             </div>
             {view === "map" && (
+            <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
+              <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
+            </div>
+          )}
+          {view === "map" && (
             <div style={{ position: "absolute", top: 8, right: 8, zIndex: 500 }}>
               <button onClick={() => setMapExpanded(e => !e)}
                 style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
@@ -278,7 +305,7 @@ export default function SurveyPage() {
             </div>
           )}
           {view === "map" && (
-              <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 60px)" : "400px", minHeight: "500px", transition: "height 0.3s ease" }}>
+              <div style={{ width: "100%", height: `${mapHeight}px`, minHeight: "500px", transition: "height 0.3s ease" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
               </div>
