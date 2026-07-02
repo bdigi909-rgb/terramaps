@@ -13,7 +13,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     const drawer = document.getElementById("drawer");
     const overlay = document.getElementById("overlay");
 
-    if (!btn || !drawer || !overlay) return;
+    if (!btn || !drawer || !overlay) { console.log('Elements not found'); return; }
+    console.log('Elements found, attaching listeners');
 
     let open = false;
 
@@ -41,7 +42,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Hamburger button */}
-      <button id="hamburger" style={{
+      <button id="hamburger" type="button" style={{
         display: "none", position: "fixed", top: 12, left: 12,
         zIndex: 2000, background: "#F97316", border: "none",
         borderRadius: 8, padding: "10px 12px", cursor: "pointer",
