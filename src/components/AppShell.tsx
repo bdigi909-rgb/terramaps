@@ -4,25 +4,19 @@ import Sidebar from "./Sidebar";
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell">
-      <input type="checkbox" id="sidebar-toggle" className="sidebar-checkbox" />
-      
-      <label htmlFor="sidebar-toggle" className="hamburger-label">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
+      <input type="checkbox" id="tm-toggle" className="tm-toggle" />
+      <label htmlFor="tm-toggle" className="tm-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
       </label>
-
-      <label htmlFor="sidebar-toggle" className="sidebar-overlay" />
-
-      <div className="sidebar-drawer">
+      <label htmlFor="tm-toggle" className="tm-overlay"></label>
+      <aside className="tm-drawer">
         <Sidebar />
-      </div>
-
-      <div className="app-main">
+      </aside>
+      <main className="tm-main">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

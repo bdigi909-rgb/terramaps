@@ -324,3 +324,90 @@ body.is-mobile #hamburger { display: flex !important; }
     display: block;
   }
 }
+
+/* TerraMaps Mobile Sidebar */
+.tm-toggle { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.app-shell { display: flex; min-height: 100vh; position: relative; }
+
+.tm-hamburger {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 9999;
+  width: 44px; height: 44px;
+  background: #F97316;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow: 0 2px 12px rgba(249,115,22,0.5);
+}
+
+.tm-hamburger span {
+  display: block;
+  width: 22px; height: 2.5px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.tm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9990;
+  cursor: pointer;
+}
+
+.tm-drawer {
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+}
+
+.tm-main {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left: var(--sidebar-width);
+}
+
+@media (pointer: coarse), (max-width: 1024px) {
+  .tm-hamburger { display: flex; }
+
+  .tm-drawer {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 9995;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+
+  .tm-main { margin-left: 0 !important; }
+
+  .tm-toggle:checked ~ .tm-drawer {
+    transform: translateX(0);
+  }
+
+  .tm-toggle:checked ~ .tm-overlay {
+    display: block;
+  }
+
+  .tm-toggle:checked ~ .tm-hamburger span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .tm-toggle:checked ~ .tm-hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .tm-toggle:checked ~ .tm-hamburger span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+}
