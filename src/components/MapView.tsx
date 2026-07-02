@@ -140,6 +140,8 @@ export default function MapView({ points, epsg }: MapViewProps) {
         }
       });
 
+      // Remove old legends
+      document.querySelectorAll(".leaflet-control-container .leaflet-bottom.leaflet-left").forEach(el => el.innerHTML = "");
       // Add legend
       const legend = (L.control as any)({ position: "bottomleft" });
       legend.onAdd = () => {
