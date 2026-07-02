@@ -67,7 +67,7 @@ const tutorials = [
 
 function AnimationProject() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <style>{`
         @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
@@ -106,7 +106,7 @@ function AnimationProject() {
 
 function AnimationImport() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <style>{`
         @keyframes upload { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
         @keyframes progress { from { width: 0; } to { width: 100%; } }
@@ -133,7 +133,7 @@ function AnimationImport() {
 
 function AnimationMap() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <style>{`
         @keyframes ping { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -171,7 +171,7 @@ function AnimationMap() {
 
 function AnimationPDF() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <style>{`
         @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes growBar { from { height: 0; } to { height: var(--h); } }
@@ -205,7 +205,7 @@ function AnimationPDF() {
 
 function AnimationExcel() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <div style={{ background: "#0D1117", borderRadius: 8, padding: 12, height: "100%" }}>
         <div style={{ background: "#161B22", borderRadius: 6, overflow: "hidden" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", background: "#1E2D3D" }}>
@@ -235,7 +235,7 @@ function AnimationExcel() {
 
 function AnimationUsers() {
   return (
-    <div style={{ position: "relative", width: "100%", height: 180, overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: 220, overflow: "hidden" }}>
       <div style={{ background: "#0D1117", borderRadius: 8, padding: 12, height: "100%" }}>
         {[
           { name: "Ahmed Benali", role: "Agent", color: "#22C55E", delay: 0.2 },
