@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { sendWelcomeEmail } from "@/lib/email";
 import { jwtVerify } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
   const { name, email, password, role } = await req.json();
   const hash = await bcrypt.hash(password, 10);
   const [created] = await db.insert(users).values({ name, email, password: hash, role }).returning();
+  await sendWelcomeEmail(email, name, password, role).catch(() => {});
   return NextResponse.json({ id: created.id, name: created.name, email: created.email, role: created.role });
 }
 

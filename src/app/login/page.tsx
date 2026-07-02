@@ -95,7 +95,7 @@ export default function LoginPage() {
         </form>
 
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 12, color: "#4B6080" }}>
-          TerraMaps v2.0 — Accès réservé aux utilisateurs autorisés
+          <a href="/forgot-password" style={{ color: "#F97316", textDecoration: "none", fontSize: 13 }}>Mot de passe oublié ?</a>
         </p>
       </div>
     </div>
