@@ -61,7 +61,21 @@ export default function AdminPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "agent" });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
-  const [activeTab, setActiveTab] = useState<"overview"|"users"|"activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview"|"users"|"activity"|"stats">("overview");
+  const [agentStats, setAgentStats] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/dashboard").then(r => r.json()).then(data => {
+      if (data?.totals) {
+        setStats({
+          totalProjects: data.totals.projects || 0,
+          totalPoints: data.totals.points || 0,
+          totalUsers: 0,
+          activeProjects: data.statusBreakdown?.find((s: any) => s.status === "active")?.count || 0,
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     fetch("/api/auth/me").then(r => r.json()).then(d => {
@@ -148,6 +162,7 @@ export default function AdminPage() {
           { key: "overview", label: "Vue d'ensemble" },
           { key: "users", label: "Utilisateurs" },
           { key: "activity", label: "Activité" },
+          { key: "stats", label: "Stats Agents" },
         ].map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
             style={{ background: "transparent", border: "none", borderBottom: activeTab === tab.key ? "2px solid #F97316" : "2px solid transparent", color: activeTab === tab.key ? "#F97316" : "#64748B", padding: "14px 20px", cursor: "pointer", fontSize: 13, fontWeight: activeTab === tab.key ? 600 : 400 }}>
@@ -306,6 +321,45 @@ export default function AdminPage() {
         {/* ── ACTIVITY TAB ── */}
         {/* ── ACTIVITY TAB ── */}
         {activeTab === "activity" && <ActivityFeed />}
+        {/* ── STATS TAB ── */}
+        {activeTab === "stats" && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+            {users.filter(u => u.role === "agent" || u.role === "manager").map(u => (
+              <div key={u.id} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: "50%", background: u.role === "manager" ? "rgba(59,130,246,0.2)" : "rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 700, color: u.role === "manager" ? "#3B82F6" : "#22C55E" }}>
+                    {u.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#E2EAF2" }}>{u.name}</div>
+                    <div style={{ fontSize: 11, color: "#64748B" }}>{u.email}</div>
+                    <span style={{ background: u.role === "manager" ? "rgba(59,130,246,0.2)" : "rgba(34,197,94,0.2)", color: u.role === "manager" ? "#3B82F6" : "#22C55E", fontSize: 9, fontWeight: 700, padding: "2px 8px", borderRadius: 20, textTransform: "uppercase" }}>{u.role}</span>
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  {[
+                    { label: "Membre depuis", value: new Date(u.createdAt).toLocaleDateString("fr-FR"), color: "#64748B" },
+                    { label: "Statut", value: "Actif", color: "#22C55E" },
+                  ].map(s => (
+                    <div key={s.label} style={{ background: "#0D1117", borderRadius: 8, padding: 10 }}>
+                      <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>{s.label}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: s.color }}>{s.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {users.filter(u => u.role === "agent" || u.role === "manager").length === 0 && (
+              <div style={{ gridColumn: "1/-1", textAlign: "center", padding: 40, color: "#64748B" }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>👥</div>
+                <div>Aucun agent ou manager créé.</div>
+                <button onClick={() => setActiveTab("users")} style={{ background: "#F97316", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: "pointer", marginTop: 12, fontSize: 13 }}>
+                  + Créer des agents
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
