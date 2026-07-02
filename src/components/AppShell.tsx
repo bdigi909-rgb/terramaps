@@ -1,81 +1,87 @@
 ﻿"use client";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const [mobile, setMobile] = useState(false);
+
   useEffect(() => {
-    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    if (!isTouch) return;
-
-    document.body.classList.add("is-mobile");
-
-    const btn = document.getElementById("hamburger");
-    const drawer = document.getElementById("drawer");
-    const overlay = document.getElementById("overlay");
-
-    if (!btn || !drawer || !overlay) { console.log('Elements not found'); return; }
-    console.log('Elements found, attaching listeners');
-
-    let open = false;
-
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      alert('clicked!');
-      e.stopPropagation();
-      e.stopPropagation();
-      open = !open;
-      drawer.style.left = open ? "0" : "-300px";
-      overlay.style.display = open ? "block" : "none";
-    });
-
-    overlay.addEventListener("click", () => {
-      open = false;
-      drawer.style.transform = "translateX(-100%)";
-      overlay.style.display = "none";
-    });
+    const fn = () => setMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 1024);
+    fn();
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
   }, []);
 
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Desktop sidebar */}
-      <div id="desktop-sidebar">
-        <Sidebar />
-      </div>
+    <>
+      {/* Desktop layout */}
+      {!mobile && (
+        <div style={{ display: "flex", minHeight: "100vh" }}>
+          <div style={{ width: "var(--sidebar-width)", flexShrink: 0 }}>
+            <Sidebar />
+          </div>
+          <div style={{ flex: 1, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+            {children}
+          </div>
+        </div>
+      )}
 
-      {/* Hamburger button */}
-      <button id="hamburger" type="button" style={{
-        display: "none", position: "fixed", top: 12, left: 12,
-        zIndex: 2000, background: "#F97316", border: "none",
-        borderRadius: 8, padding: "10px 12px", cursor: "pointer",
-        alignItems: "center", justifyContent: "center"
-      }}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
+      {/* Mobile layout */}
+      {mobile && (
+        <div style={{ minHeight: "100vh" }}>
+          {/* Hamburger */}
+          <button
+            onClick={() => setOpen(true)}
+            style={{
+              position: "fixed", top: 14, left: 14, zIndex: 9999,
+              width: 42, height: 42, background: "#F97316",
+              border: "none", borderRadius: 10, cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "0 2px 8px rgba(249,115,22,0.4)"
+            }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
 
-      {/* Overlay */}
-      <div id="overlay" style={{
-        display: "none", position: "fixed", inset: 0,
-        background: "rgba(0,0,0,0.6)", zIndex: 1500
-      }} />
+          {/* Overlay */}
+          {open && (
+            <div
+              onClick={() => setOpen(false)}
+              style={{
+                position: "fixed", inset: 0, zIndex: 9998,
+                background: "rgba(0,0,0,0.5)",
+                backdropFilter: "blur(2px)"
+              }}
+            />
+          )}
 
-      {/* Mobile drawer */}
-      <div id="drawer" style={{
-        position: "fixed", left: "-300px", top: 0, zIndex: 1800, height: "100vh", width: "280px", minWidth: "280px", transition: "left 0.3s ease", background: "#161B22", overflowY: "auto"
-      }}>
-        <Sidebar />
-      </div>
+          {/* Drawer */}
+          <div style={{
+            position: "fixed", top: 0, left: 0, zIndex: 9999,
+            height: "100vh", width: "280px",
+            transform: open ? "translateX(0)" : "translateX(-100%)",
+            transition: "transform 0.3s cubic-bezier(0.4,0,0.2,1)",
+            overflowY: "auto"
+          }}>
+            <Sidebar onClose={() => setOpen(false)} />
+          </div>
 
-      {/* Main content */}
-      <div id="main-content" style={{
-        flex: 1, minHeight: "100vh", display: "flex",
-        flexDirection: "column", overflow: "hidden"
-      }}>
-        {children}
-      </div>
-    </div>
+          {/* Content */}
+          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            {children}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
