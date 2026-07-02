@@ -223,3 +223,5 @@ body {
 @media (min-width: 1024px) {
   .main-content { margin-left: var(--sidebar-width); }
 }
+
+.hide-on-touch { display: none !important; width: 0 !important; overflow: hidden !important; }
