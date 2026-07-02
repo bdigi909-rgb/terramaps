@@ -20,6 +20,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+      alert('clicked!');
       e.stopPropagation();
       e.stopPropagation();
       open = !open;
