@@ -191,7 +191,7 @@ export default function SurveyPage() {
     <AppShell>
       <Header
         title="Points de Levé Topographique"
-        subtitle="Import / Export · Visualisation carte · Analyse statistique"
+        subtitle=""
         actions={
           <div style={{ display: "flex", gap: 8 }}>
             <button className="btn-secondary" style={{ fontSize: 11 }}><Upload size={12} /> Import CSV</button>
