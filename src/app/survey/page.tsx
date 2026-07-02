@@ -278,7 +278,7 @@ export default function SurveyPage() {
             </div>
           )}
           {view === "map" && (
-              <div style={{ width: "100%", height: mapExpanded ? "90vh" : "70vh", minHeight: "500px", transition: "height 0.3s ease" }}>
+              <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 60px)" : "400px", minHeight: "500px", transition: "height 0.3s ease" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
               </div>
