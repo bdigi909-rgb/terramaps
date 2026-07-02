@@ -1,12 +1,12 @@
 ﻿"use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fn = () => setMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches || window.innerWidth < 1024);
     fn();
     window.addEventListener("resize", fn);
