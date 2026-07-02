@@ -189,7 +189,7 @@ function AnimationPDF() {
                 <div style={{ fontSize: 10, fontWeight: 700, color: s.color }}>{s.value}</div>
                 <div style={{ fontSize: 9, color: "#64748B" }}>{s.label}</div>
                 <div style={{ height: 40, display: "flex", alignItems: "flex-end", justifyContent: "center", marginTop: 4 }}>
-                  <div style={{ width: "60%", background: s.color, borderRadius: 2, animation: `growBar 1s ease ${0.5 + i * 0.2}s both`, "--h": `${s.h}%` as any, height: `${s.h}%` }} />
+                  <div style={{ width: "60%", background: s.color, borderRadius: 2, animation: `growBar 1s ease ${0.5 + i * 0.2}s both`, height: `${s.h}%` }} />
                 </div>
               </div>
             </div>
