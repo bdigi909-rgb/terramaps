@@ -1,4 +1,5 @@
 ﻿"use client";
+import Onboarding from "@/components/Onboarding";
 import { useEffect, useState } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
@@ -115,6 +116,7 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
+      <Onboarding />
       <Header
         title="Tableau de Bord"
         subtitle="Vue d'ensemble de vos projets TerraMaps"
