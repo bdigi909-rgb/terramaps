@@ -18,6 +18,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     let open = false;
 
     btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       e.stopPropagation();
       open = !open;
       drawer.style.transform = open ? "translateX(0)" : "translateX(-100%)";
