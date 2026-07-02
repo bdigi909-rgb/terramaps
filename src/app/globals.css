@@ -421,3 +421,13 @@ body.is-mobile #hamburger { display: flex !important; }
   flex-direction: column !important;
   overflow-y: auto !important;
 }
+
+/* Fix zoom on high-DPR mobile */
+@media (pointer: coarse) and (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+  .tm-main {
+    font-size: 14px;
+  }
+}
