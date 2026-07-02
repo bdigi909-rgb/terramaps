@@ -22,8 +22,7 @@ export default function LangSwitcher() {
   const [lang, setLang] = useLang();
   const langs = [
     { code: "fr", label: "FR", flag: "🇫🇷" },
-    { code: "ar", label: "AR", flag: "🇲🇦" },
-    { code: "en", label: "EN", flag: "🇬🇧" },
+  
   ];
   return (
     <div style={{ display: "flex", gap: 4, background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: 3 }}>
