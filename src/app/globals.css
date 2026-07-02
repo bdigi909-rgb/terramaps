@@ -411,3 +411,13 @@ body.is-mobile #hamburger { display: flex !important; }
     transform: translateY(-7.5px) rotate(-45deg);
   }
 }
+
+/* Force sidebar background in drawer */
+.tm-drawer aside {
+  background: #161B22 !important;
+  height: 100vh !important;
+  width: 280px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important;
+}
