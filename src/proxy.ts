@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
 
-const publicRoutes = ["/login", "/api/auth/login"];
+const publicRoutes = ["/login", "/api/auth/login", "/forgot-password", "/reset-password", "/api/forgot-password", "/api/reset-password"];
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
