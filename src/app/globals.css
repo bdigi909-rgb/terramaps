@@ -245,3 +245,82 @@ body {
 body.is-mobile #desktop-sidebar { display: none !important; }
 body.is-mobile #main-content { margin-left: 0 !important; }
 body.is-mobile #hamburger { display: flex !important; }
+
+/* AppShell CSS-only mobile */
+.sidebar-checkbox { display: none; }
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Hamburger - hidden on desktop */
+.hamburger-label {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 9999;
+  width: 42px;
+  height: 42px;
+  background: #F97316;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(249,115,22,0.4);
+}
+
+/* Overlay - hidden by default */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 9997;
+  cursor: pointer;
+}
+
+/* Sidebar drawer */
+.sidebar-drawer {
+  position: relative;
+  z-index: 9998;
+  flex-shrink: 0;
+}
+
+/* Main content */
+.app-main {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left: var(--sidebar-width);
+}
+
+/* Mobile styles */
+@media (pointer: coarse), (max-width: 1024px) {
+  .hamburger-label { display: flex; }
+  
+  .sidebar-drawer {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    height: 100vh;
+    transition: left 0.3s ease;
+    width: 280px;
+  }
+
+  .app-main {
+    margin-left: 0 !important;
+  }
+
+  /* When checkbox is checked - open sidebar */
+  .sidebar-checkbox:checked ~ .sidebar-drawer {
+    left: 0;
+  }
+
+  .sidebar-checkbox:checked ~ .sidebar-overlay {
+    display: block;
+  }
+}
