@@ -4,33 +4,19 @@ import Sidebar from "./Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const check = () => setIsMobile(window.innerWidth < 1100 || 'ontouchstart' in window);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
-
-  if (!mounted) {
-    return (
-      <div style={{ display: "flex", minHeight: "100vh" }}>
-        <Sidebar />
-        <div style={{ flex: 1, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", marginLeft: "var(--sidebar-width)" }}>
-          {children}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-      {!isMobile && <Sidebar />}
+      <div className={isTouch ? "sidebar-hidden" : "sidebar-visible"}>
+        <Sidebar />
+      </div>
 
-      {isMobile && (
+      {isTouch && (
         <button onClick={() => setSidebarOpen(o => !o)}
           style={{ position: "fixed", top: 12, left: 12, zIndex: 1100, background: "#F97316", border: "none", borderRadius: 8, padding: "8px 10px", cursor: "pointer", display: "flex" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
@@ -41,7 +27,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </button>
       )}
 
-      {isMobile && sidebarOpen && (
+      {isTouch && sidebarOpen && (
         <>
           <div onClick={() => setSidebarOpen(false)}
             style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 1000 }} />
@@ -51,7 +37,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </>
       )}
 
-      <div style={{ flex: 1, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", marginLeft: isMobile ? 0 : "var(--sidebar-width)" }}>
+      <div style={{ flex: 1, minHeight: "100vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
         {children}
       </div>
     </div>
