@@ -17,7 +17,7 @@ interface Project { id: number; name: string }
 
 function generateSamplePoints(n = 50): Omit<SurveyPoint, "id" | "projectId">[] {
   const pts = [];
-  const codes = ["TN", "CB", "PT", "MUR", "AR", "EP", "EU", "TRO"];
+  const codes = ["TN", "LIM", "VOI", "BAT", "MUR", "RTE", "CAN", "ARB", "BOR", "AXE", "BN"];
   for (let i = 0; i < n; i++) {
     const angle = (i / n) * 2 * Math.PI * 3;
     const r = 50 + (i / n) * 300 + (Math.random() - 0.5) * 60;
@@ -132,6 +132,9 @@ export default function SurveyPage() {
     const CODE_COLORS: Record<string, string> = {
       TN: "#10b981", CB: "#f97316", PT: "#3b82f6",
       MUR: "#8b5cf6", AR: "#6b7280", EP: "#06b6d4",
+      LIM: "#EF4444", VOI: "#F59E0B", BAT: "#3B82F6",
+      RTE: "#6B7280", CAN: "#06B6D4", ARB: "#22C55E",
+      BOR: "#A855F7", AXE: "#F97316", BN: "#EC4899",
       EU: "#a78bfa", TRO: "#ec4899",
     };
 

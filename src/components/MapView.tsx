@@ -64,6 +64,9 @@ export default function MapView({ points, epsg }: MapViewProps) {
       markersRef.current = [];
 
       const codeColors: Record<string, string> = {
+        LIM: "#EF4444", VOI: "#F59E0B", BAT: "#3B82F6",
+        RTE: "#6B7280", CAN: "#06B6D4", ARB: "#22C55E",
+        BOR: "#A855F7", AXE: "#F97316", BN: "#EC4899",
         AXE: "#f97316", TN: "#22c55e", BN: "#3b82f6", BOR: "#a855f7",
         GP: "#ec4899", IMP: "#f59e0b", BATH: "#06b6d4", BERGE: "#14b8a6",
       };
@@ -120,6 +123,36 @@ export default function MapView({ points, epsg }: MapViewProps) {
         markersRef.current.push(marker);
         bounds.push([lat, lng]);
       });
+
+      // Connect points of same code with polylines
+      const codeGroups: Record<string, [number, number][]> = {};
+      bounds.forEach((b, i) => {
+        const code = points[i]?.code || "—";
+        if (!codeGroups[code]) codeGroups[code] = [];
+        codeGroups[code].push(b);
+      });
+
+      const connectCodes = ["LIM", "VOI", "BAT", "MUR", "RTE", "CAN", "AXE"];
+      Object.entries(codeGroups).forEach(([code, pts]) => {
+        if (connectCodes.includes(code) && pts.length > 1) {
+          const color = codeColors[code] || "#64748b";
+          L.polyline(pts, { color, weight: 2, opacity: 0.7, dashArray: code === "LIM" ? "5,5" : undefined })
+            .addTo(mapInstanceRef.current);
+        }
+      });
+
+      // Add legend
+      const legend = (L.control as any)({ position: "bottomleft" });
+      legend.onAdd = () => {
+        const div = L.DomUtil.create("div", "");
+        div.style.cssText = "background:rgba(13,17,23,0.9);padding:8px 12px;border-radius:8px;border:1px solid #1E2D3D;font-size:11px;color:#E2EAF2;";
+        const activeCodes = Object.keys(codeGroups);
+        div.innerHTML = "<b style=color:#F97316>Légende</b><br/>" + activeCodes.map(c => 
+          `<span style="color:${codeColors[c]||"#64748b"}">● </span>${c} (${codeGroups[c].length})`
+        ).join("<br/>");
+        return div;
+      };
+      legend.addTo(mapInstanceRef.current);
 
       if (bounds.length > 0) {
         mapInstanceRef.current.fitBounds(bounds, { padding: [40, 40] });
