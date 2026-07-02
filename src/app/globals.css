@@ -235,3 +235,13 @@ body {
   #tm-sidebar-desktop { display: none !important; }
   #tm-main { margin-left: 0 !important; }
 }
+
+/* Desktop */
+#desktop-sidebar { display: flex; }
+#main-content { margin-left: var(--sidebar-width); }
+#hamburger { display: none !important; }
+
+/* Mobile touch */
+body.is-mobile #desktop-sidebar { display: none !important; }
+body.is-mobile #main-content { margin-left: 0 !important; }
+body.is-mobile #hamburger { display: flex !important; }
