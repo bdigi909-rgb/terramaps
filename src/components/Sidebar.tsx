@@ -40,7 +40,7 @@ const navItems = [
 
 const bottomItems: { label: string; icon: any; href: string }[] = [];
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }: { onClose?: () => void } = {}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
   useEffect(() => {
