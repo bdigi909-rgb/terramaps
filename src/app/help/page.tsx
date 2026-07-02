@@ -83,7 +83,7 @@ function AnimationProject() {
         <div style={{ animation: "slideIn 0.5s ease 0.3s both" }}>
           <div style={{ background: "#161B22", borderRadius: 6, padding: 10, marginBottom: 8 }}>
             <div style={{ fontSize: 10, color: "#64748B", marginBottom: 4 }}>Nom du projet</div>
-            <div style={{ fontSize: 12, color: "#F97316", overflow: "hidden", whiteSpace: "nowrap", animation: "typing 2s steps(20) 0.8s both", borderRight: "2px solid #F97316", animation: "typing 2s steps(20) 0.8s both, blink 0.5s step-end infinite" }}>RN9 — Déviation Béni Mellal</div>
+            <div style={{ fontSize: 12, color: "#F97316", overflow: "hidden", whiteSpace: "nowrap", borderRight: "2px solid #F97316", animation: "typing 2s steps(20) 0.8s both" }}>RN9 — Déviation Béni Mellal</div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, animation: "fadeInUp 0.5s ease 1s both" }}>
             <div style={{ background: "#161B22", borderRadius: 6, padding: 8 }}>
