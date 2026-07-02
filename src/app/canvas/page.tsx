@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
@@ -405,9 +405,19 @@ export default function CanvasPage() {
             <button className="btn-secondary" style={{ fontSize: 11 }}>
               <Download size={12} /> Exporter DXF
             </button>
-            <button className="btn-primary" style={{ fontSize: 11 }}>
-              <Save size={12} /> Sauvegarder
-            </button>
+            <button className="btn-secondary" style={{ fontSize: 11 }} onClick={() => {
+                const canvas = document.querySelector("canvas");
+                if (!canvas) return;
+                const win = window.open("");
+                if (!win) return;
+                win.document.write(`<html><head><title>TerraMaps — Plan</title><style>@page{size:A4 landscape;margin:10mm}body{margin:0}img{width:100%;height:auto}</style></head><body><img src="${canvas.toDataURL()}" /><script>window.onload=()=>{window.print();window.close()}<\/script></body></html>`);
+                win.document.close();
+              }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Imprimer A4
+              </button>
+              <button className="btn-primary" style={{ fontSize: 11 }}>
+                <Save size={12} /> Sauvegarder
+              </button>
           </div>
         }
       />
