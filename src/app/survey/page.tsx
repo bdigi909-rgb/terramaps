@@ -1,4 +1,5 @@
 ﻿"use client";
+import ExportExcel from "@/components/ExportExcel";
 import MapView from "@/components/MapView";
 import { useEffect, useRef, useState, useCallback } from "react";
 import AppShell from "@/components/AppShell";
@@ -191,7 +192,7 @@ export default function SurveyPage() {
         actions={
           <div style={{ display: "flex", gap: 8 }}>
             <button className="btn-secondary" style={{ fontSize: 11 }}><Upload size={12} /> Import CSV</button>
-            <button className="btn-secondary" style={{ fontSize: 11 }}><Download size={12} /> Export</button>
+            <ExportExcel points={filtered} projectName={projects.find(p => p.id === selectedProject)?.name} />
             {selectedProject && (
               <button className="btn-primary" style={{ fontSize: 11 }} onClick={generateSample}>
                 <RefreshCw size={12} /> Générer échantillon
