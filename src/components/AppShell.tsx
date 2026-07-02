@@ -64,7 +64,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile drawer */}
       <div id="drawer" style={{
-        position: "fixed", left: "-300px", top: 0, zIndex: 1800, height: "100vh", width: "280px", transition: "left 0.3s ease", background: "var(--sidebar-bg)"
+        position: "fixed", left: "-300px", top: 0, zIndex: 1800, height: "100vh", width: "280px", minWidth: "280px", transition: "left 0.3s ease", background: "#161B22", overflowY: "auto"
       }}>
         <Sidebar />
       </div>
