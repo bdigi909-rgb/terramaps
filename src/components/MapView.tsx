@@ -67,7 +67,6 @@ export default function MapView({ points, epsg }: MapViewProps) {
         LIM: "#EF4444", VOI: "#F59E0B", BAT: "#3B82F6",
         RTE: "#6B7280", CAN: "#06B6D4", ARB: "#22C55E",
         BOR: "#A855F7", AXE: "#F97316", BN: "#EC4899",
-        AXE: "#f97316", TN: "#22c55e", BN: "#3b82f6", BOR: "#a855f7",
         GP: "#ec4899", IMP: "#f59e0b", BATH: "#06b6d4", BERGE: "#14b8a6",
       };
 
