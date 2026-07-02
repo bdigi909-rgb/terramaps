@@ -43,6 +43,7 @@ export default function SurveyPage() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [filterCode, setFilterCode] = useState("all");
+  const [mapExpanded, setMapExpanded] = useState(false);
   const [view, setView] = useState<"map" | "table" | "chart">("map");
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -269,7 +270,15 @@ export default function SurveyPage() {
               ))}
             </div>
             {view === "map" && (
-              <div style={{ width: "100%", height: "70vh", minHeight: "500px" }}>
+            <div style={{ position: "absolute", top: 8, right: 8, zIndex: 500 }}>
+              <button onClick={() => setMapExpanded(e => !e)}
+                style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
+                {mapExpanded ? "⊡ Réduire" : "⊞ Agrandir"}
+              </button>
+            </div>
+          )}
+          {view === "map" && (
+              <div style={{ width: "100%", height: mapExpanded ? "90vh" : "70vh", minHeight: "500px", transition: "height 0.3s ease" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
               </div>
