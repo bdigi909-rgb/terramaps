@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
       const [row] = await db.insert(surveyPoints).values({
         projectId,
         name: pt.name || `P${inserted.length + 1}`,
-        code,
+        code: (pt.name?.match(/^([A-Z]+)/)?.[1]) || code,
         x: pt.x,
         y: pt.y,
         z: pt.z,
