@@ -31,7 +31,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         zIndex: 40,
       }}
     >
-      <div style={{ flex: "none" }}>
+      <div style={{ flex: "none", minWidth: 200 }}>
         <h1 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: "#e2eaf2" }}>
           {title}
         </h1>
@@ -42,7 +42,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         )}
       </div>
 
-      <GlobalSearch />
+      <div style={{ flex: 1, maxWidth: 500 }}><GlobalSearch /></div>
 
       {actions}
 
