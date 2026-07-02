@@ -1,5 +1,6 @@
 ﻿"use client";
 import NotificationBell from "@/components/NotificationBell";
+import GlobalSearch from "@/components/GlobalSearch";
 import LangSwitcher from "@/components/LangSwitcher";
 import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
@@ -41,35 +42,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         )}
       </div>
 
-      {/* Search bar */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          background: "#0f1923",
-          border: "1px solid #1e3048",
-          borderRadius: 8,
-          padding: "6px 12px",
-          width: 220,
-          cursor: "pointer",
-        }}
-      >
-        <Search size={14} color="#4b6080" />
-        <span style={{ fontSize: 13, color: "#4b6080" }}>Search projects...</span>
-        <span
-          style={{
-            marginLeft: "auto",
-            fontSize: 10,
-            color: "#4b6080",
-            background: "#1e3048",
-            padding: "1px 5px",
-            borderRadius: 3,
-          }}
-        >
-          ⌘K
-        </span>
-      </div>
+      <GlobalSearch />
 
       {actions}
 
