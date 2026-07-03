@@ -238,7 +238,7 @@ export default function SearchTopoPage() {
         {searched && results.length > 0 && (
           <SearchMap points={results} centerX={parseFloat(x)} centerY={parseFloat(y)} radius={parseFloat(radius)} />
         )}
-        {/* Results */
+        {/* Results */}
         {searched && (
           <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
