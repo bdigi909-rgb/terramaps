@@ -162,83 +162,147 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
 
     // ── PLAN SCHÉMATIQUE ──────────────────────────────────────────
     const planY = (doc as any).lastAutoTable.finalY + (superficieCalc > 0 ? 20 : 10);
-    const planH = H - m - 4 - planY - 25;
+    const planH = H - m - 4 - planY - 30;
 
-    if (planH > 40 && data.points.length > 0) {
+    if (planH > 50 && data.points.length > 0) {
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
-      doc.text("PLAN SCHÉMATIQUE", W / 2, planY, { align: "center" });
+      doc.setTextColor(0, 0, 0);
+      doc.text("CROQUIS DE SITUATION", W / 2, planY, { align: "center" });
 
       const planX = m + 4;
       const planW = W - m * 2 - 8;
       doc.setDrawColor(0);
-      doc.setLineWidth(0.3);
+      doc.setLineWidth(0.5);
       doc.rect(planX, planY + 3, planW, planH);
 
-      // Normaliser les coordonnées pour le plan
-      const xs = data.points.map(p => p.x);
-      const ys = data.points.map(p => p.y);
+      const allPts = data.points;
+      const xs = allPts.map((p: any) => p.x);
+      const ys = allPts.map((p: any) => p.y);
       const minX = Math.min(...xs), maxX = Math.max(...xs);
       const minY = Math.min(...ys), maxY = Math.max(...ys);
-      const rangeX = maxX - minX || 1;
-      const rangeY = maxY - minY || 1;
-      const padding = 10;
+      const rangeX = maxX - minX || 100;
+      const rangeY = maxY - minY || 100;
+      const pad = 20;
 
-      function toPageX(x: number) { return planX + padding + ((x - minX) / rangeX) * (planW - padding * 2); }
-      function toPageY(y: number) { return planY + 3 + planH - padding - ((y - minY) / rangeY) * (planH - padding * 2); }
+      const toX = (x: number) => planX + pad + ((x - minX) / rangeX) * (planW - pad * 2);
+      const toY = (y: number) => planY + 3 + planH - pad - ((y - minY) / rangeY) * (planH - pad * 2);
 
-      const codeColors: Record<string, number[]> = {
-        LIM: [220, 38, 38], VOI: [217, 119, 6], BAT: [37, 99, 235],
-        AXE: [249, 115, 22], TN: [16, 185, 129], IMP: [245, 158, 11],
-        MUR: [139, 92, 246], RTE: [107, 114, 128],
-      };
+      // Grid
+      doc.setDrawColor(220, 220, 220);
+      doc.setLineWidth(0.1);
+      for (let i = 0; i <= 4; i++) {
+        doc.line(planX + pad + (i/4)*(planW-pad*2), planY+3, planX + pad + (i/4)*(planW-pad*2), planY+3+planH);
+        doc.line(planX, planY+3+pad+(i/4)*(planH-pad*2), planX+planW, planY+3+pad+(i/4)*(planH-pad*2));
+      }
 
-      // Dessiner les lignes LIM
-      const limPts = data.points.filter(p => p.code === "LIM");
+      // Coordonnées axes
+      doc.setFontSize(4.5);
+      doc.setTextColor(120, 120, 120);
+      doc.text(`X=${minX.toFixed(0)}`, planX + pad, planY + 3 + planH - 2);
+      doc.text(`X=${maxX.toFixed(0)}`, planX + planW - pad - 8, planY + 3 + planH - 2);
+      doc.text(`Y=${maxY.toFixed(0)}`, planX + 1, planY + 3 + pad + 3);
+      doc.text(`Y=${minY.toFixed(0)}`, planX + 1, planY + 3 + planH - pad);
+
+      // LIM — limites parcelle
+      const limPts = data.points.filter((p: any) => p.code === "LIM");
       if (limPts.length >= 2) {
-        doc.setDrawColor(220, 38, 38);
-        doc.setLineWidth(0.5);
+        doc.setDrawColor(200, 0, 0);
+        doc.setLineWidth(0.8);
         for (let i = 0; i < limPts.length; i++) {
           const j = (i + 1) % limPts.length;
-          doc.line(toPageX(limPts[i].x), toPageY(limPts[i].y), toPageX(limPts[j].x), toPageY(limPts[j].y));
+          doc.line(toX(limPts[i].x), toY(limPts[i].y), toX(limPts[j].x), toY(limPts[j].y));
         }
       }
 
-      // Dessiner les lignes AXE
-      const axePts = data.points.filter(p => p.code === "AXE");
+      // AXE — axe route
+      const axePts = data.points.filter((p: any) => p.code === "AXE");
       if (axePts.length >= 2) {
         doc.setDrawColor(249, 115, 22);
-        doc.setLineWidth(0.4);
+        doc.setLineWidth(0.5);
         for (let i = 0; i < axePts.length - 1; i++) {
-          doc.line(toPageX(axePts[i].x), toPageY(axePts[i].y), toPageX(axePts[i+1].x), toPageY(axePts[i+1].y));
+          doc.line(toX(axePts[i].x), toY(axePts[i].y), toX(axePts[i+1].x), toY(axePts[i+1].y));
         }
       }
 
-      // Dessiner les points
-      data.points.forEach(p => {
-        const px = toPageX(p.x);
-        const py = toPageY(p.y);
-        const color = codeColors[p.code] || [100, 116, 139];
-        doc.setFillColor(color[0], color[1], color[2]);
-        doc.circle(px, py, 1, "F");
-        doc.setFontSize(5);
-        doc.setTextColor(0, 0, 0);
-        doc.text(p.name, px + 1.5, py - 1);
+      // VOI — voisins pointillés
+      const voiPts = data.points.filter((p: any) => p.code === "VOI");
+      if (voiPts.length >= 2) {
+        doc.setDrawColor(217, 119, 6);
+        doc.setLineWidth(0.3);
+        for (let i = 0; i < voiPts.length - 1; i++) {
+          doc.line(toX(voiPts[i].x), toY(voiPts[i].y), toX(voiPts[i+1].x), toY(voiPts[i+1].y));
+        }
+      }
+
+      // BAT — bâtiments rectangles
+      const batPts = data.points.filter((p: any) => p.code === "BAT");
+      batPts.forEach((p: any) => {
+        doc.setFillColor(200, 220, 255);
+        doc.setDrawColor(37, 99, 235);
+        doc.setLineWidth(0.3);
+        doc.rect(toX(p.x) - 3, toY(p.y) - 2, 6, 4, "FD");
+      });
+
+      // Points avec croix et numéros
+      const colors: Record<string, number[]> = {
+        LIM: [200,0,0], VOI: [217,119,6], BAT: [37,99,235],
+        AXE: [249,115,22], TN: [16,185,129], IMP: [100,100,100],
+        MUR: [139,92,246], RTE: [107,114,128], PT: [80,80,80],
+      };
+      allPts.forEach((p: any) => {
+        const px = toX(p.x);
+        const py = toY(p.y);
+        const c = colors[p.code] || [0,0,0];
+        doc.setDrawColor(c[0], c[1], c[2]);
+        doc.setLineWidth(0.4);
+        doc.line(px-1.5, py, px+1.5, py);
+        doc.line(px, py-1.5, px, py+1.5);
+        doc.setFontSize(4.5);
+        doc.setTextColor(c[0], c[1], c[2]);
+        doc.text(p.name, px + 2, py - 1);
       });
 
       // Rose des vents
-      const roseX = planX + planW - 15;
-      const roseY = planY + 10;
-      doc.setFontSize(7);
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(0, 0, 0);
-      doc.text("N", roseX, roseY - 5, { align: "center" });
-      doc.setDrawColor(0);
-      doc.setLineWidth(0.3);
-      doc.line(roseX, roseY - 4, roseX, roseY + 4);
-      doc.line(roseX - 4, roseY, roseX + 4, roseY);
-      doc.setFillColor(0, 0, 0);
-      doc.triangle(roseX - 1, roseY, roseX + 1, roseY, roseX, roseY - 4, "F");
+      const rX = planX + planW - 20;
+      const rY = planY + 18;
+      doc.setDrawColor(0); doc.setFillColor(0,0,0);
+      doc.setLineWidth(0.4);
+      doc.line(rX, rY+8, rX, rY-8);
+      doc.line(rX-5, rY, rX+5, rY);
+      doc.triangle(rX-2, rY-3, rX+2, rY-3, rX, rY-9, "F");
+      doc.setFontSize(8); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,0);
+      doc.text("N", rX, rY-12, { align: "center" });
+
+      // Échelle graphique
+      const scX = planX + 5;
+      const scY = planY + 3 + planH - 8;
+      doc.setDrawColor(0); doc.setLineWidth(0.4);
+      doc.line(scX, scY, scX+20, scY);
+      doc.line(scX, scY-2, scX, scY+2);
+      doc.line(scX+20, scY-2, scX+20, scY+2);
+      doc.setFontSize(5); doc.setFont("helvetica","normal"); doc.setTextColor(0,0,0);
+      doc.text("0", scX, scY-3, { align: "center" });
+      doc.text(`${data.echelle}m`, scX+20, scY-3, { align: "center" });
+      doc.text(`Échelle 1:${data.echelle}`, scX+10, scY+5, { align: "center" });
+
+      // Légende
+      const lX = planX + 5;
+      const lY = planY + 10;
+      doc.setFontSize(5); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,0);
+      doc.text("LÉGENDE :", lX, lY);
+      [
+        { c: [200,0,0], l: "Limite parcelle (LIM)" },
+        { c: [217,119,6], l: "Voisins (VOI)" },
+        { c: [37,99,235], l: "Bâtiments (BAT)" },
+        { c: [249,115,22], l: "Axe route (AXE)" },
+      ].forEach((item, i) => {
+        doc.setDrawColor(item.c[0], item.c[1], item.c[2]);
+        doc.setLineWidth(0.8);
+        doc.line(lX, lY+5+i*5, lX+5, lY+5+i*5);
+        doc.setFont("helvetica","normal"); doc.setTextColor(0,0,0);
+        doc.text(item.l, lX+7, lY+5+i*5+0.5);
+      });
     }
 
     // ── FOOTER ────────────────────────────────────────────────────
