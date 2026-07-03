@@ -59,6 +59,63 @@ function SearchMap({ points, centerX, centerY, radius }: { points: any[], center
   );
 }
 
+function SearchMap({ points, centerX, centerY, radius }: { points: any[], centerX: number, centerY: number, radius: number }) {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInst = useRef<any>(null);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    if (mapInst.current) { mapInst.current.remove(); mapInst.current = null; }
+    
+    import("leaflet").then(L => {
+      const map = L.map(mapRef.current!, { center: [31.9, -5.5], zoom: 6 });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap", maxZoom: 19
+      }).addTo(map);
+
+      const codeColors: Record<string, string> = {
+        LIM: "#EF4444", VOI: "#F59E0B", BAT: "#3B82F6",
+        AXE: "#F97316", TN: "#10B981", IMP: "#64748B",
+        MUR: "#8B5CF6", RTE: "#6B7280", PT: "#64748B",
+      };
+
+      const bounds: [number, number][] = [];
+
+      points.forEach(pt => {
+        const lat = 30 + (pt.y - 300000) / 111320;
+        const lng = -5 + (pt.x - 500000) / (111320 * Math.cos(lat * Math.PI / 180));
+        
+        const color = codeColors[pt.code] || "#64748B";
+        const icon = L.divIcon({
+          className: "",
+          html: `<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4)"></div>`,
+          iconSize: [12, 12], iconAnchor: [6, 6],
+        });
+
+        L.marker([lat, lng], { icon })
+          .bindPopup(`<b style="color:${color}">${pt.name}</b><br/>Code: ${pt.code}<br/>Distance: <b>${pt.distance.toFixed(2)}m</b><br/>Projet: ${pt.projectName}`)
+          .addTo(map);
+        bounds.push([lat, lng]);
+      });
+
+      if (bounds.length > 0) map.fitBounds(bounds, { padding: [30, 30] });
+      mapInst.current = map;
+    });
+
+    return () => { if (mapInst.current) { mapInst.current.remove(); mapInst.current = null; } };
+  }, [points]);
+
+  return (
+    <div style={{ marginBottom: 24, borderRadius: 16, overflow: "hidden", border: "1px solid #1E2D3D" }}>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+      <div style={{ background: "#161B22", padding: "10px 16px", fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>
+        🗺️ Carte des points trouvés — Rayon {radius}m
+      </div>
+      <div ref={mapRef} style={{ height: 350, width: "100%" }} />
+    </div>
+  );
+}
+
 interface NearPoint {
   id: number;
   name: string;
