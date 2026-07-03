@@ -37,7 +37,6 @@ function wgs84ToLambert(lat: number, lng: number): { x: number; y: number } {
   const y = y0 + r0 - r * Math.cos(theta);
   return { x: Math.round(x*1000)/1000, y: Math.round(y*1000)/1000 };
 }
-}
 
 export default function MapToolsPage() {
   const mapRef = useRef<HTMLDivElement>(null);
