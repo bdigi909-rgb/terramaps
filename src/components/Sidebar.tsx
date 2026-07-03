@@ -21,6 +21,7 @@ import {
   Activity,
   User,
   HelpCircle,
+  Search,
 } from "lucide-react";
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
   { label: "Activité", icon: Activity, href: "/activity" },
   { label: "Mon Profil", icon: User, href: "/profile" },
   { label: "Aide", icon: HelpCircle, href: "/help" },
+  { label: "Recherche Topo", icon: Search, href: "/search-topo" },
   { label: "Terrain Model", icon: Mountain, href: "/terrain" },
   { label: "Road Alignment", icon: Route, href: "/alignment" },
   { label: "Volumes & Reports", icon: BarChart3, href: "/volumes" },
