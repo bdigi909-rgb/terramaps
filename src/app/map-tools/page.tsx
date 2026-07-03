@@ -12,36 +12,31 @@ interface PickedPoint {
 
 // Conversion WGS84 -> Lambert Maroc (EPSG:26191) approximation
 function wgs84ToLambert(lat: number, lng: number): { x: number; y: number } {
-  // Paramètres Lambert Zone 1 Maroc (approximation)
   const a = 6378249.2;
-  const e = 0.08248325676;
-  const lat0 = (33.3 * Math.PI) / 180;
-  const lng0 = (-5.4 * Math.PI) / 180;
-  const k0 = 0.999625769;
+  const b = 6356515.0;
+  const e2 = 1 - (b*b)/(a*a);
+  const e = Math.sqrt(e2);
+  const lat1 = (31.0 + 44/60) * Math.PI / 180;
+  const lat2 = (34.0 + 40/60) * Math.PI / 180;
+  const lat0 = (33.0 + 18/60) * Math.PI / 180;
+  const lng0 = -5.4 * Math.PI / 180;
   const x0 = 500000;
   const y0 = 300000;
-
-  const latR = (lat * Math.PI) / 180;
-  const lngR = (lng * Math.PI) / 180;
-
-  const sinLat = Math.sin(latR);
-  const N = a / Math.sqrt(1 - e * e * sinLat * sinLat);
-  const T = Math.tan(latR) * Math.tan(latR);
-  const C = (e * e / (1 - e * e)) * Math.cos(latR) * Math.cos(latR);
-  const A = Math.cos(latR) * (lngR - lng0);
-
-  const M = a * ((1 - e*e/4 - 3*e*e*e*e/64) * latR
-    - (3*e*e/8 + 3*e*e*e*e/32) * Math.sin(2*latR)
-    + (15*e*e*e*e/256) * Math.sin(4*latR));
-
-  const M0 = a * ((1 - e*e/4 - 3*e*e*e*e/64) * lat0
-    - (3*e*e/8 + 3*e*e*e*e/32) * Math.sin(2*lat0)
-    + (15*e*e*e*e/256) * Math.sin(4*lat0));
-
-  const x = x0 + k0 * N * (A + (1-T+C)*A*A*A/6);
-  const y = y0 + k0 * (M - M0 + N * Math.tan(latR) * (A*A/2 + (5-T+9*C)*A*A*A*A/24));
-
-  return { x: Math.round(x * 1000) / 1000, y: Math.round(y * 1000) / 1000 };
+  const latR = lat * Math.PI / 180;
+  const lngR = lng * Math.PI / 180;
+  const mF = (l: number) => Math.cos(l) / Math.sqrt(1 - e2 * Math.sin(l)**2);
+  const tF = (l: number) => Math.tan(Math.PI/4 - l/2) / Math.pow((1 - e*Math.sin(l))/(1 + e*Math.sin(l)), e/2);
+  const m1 = mF(lat1), m2 = mF(lat2);
+  const t1 = tF(lat1), t2 = tF(lat2), t0 = tF(lat0), tP = tF(latR);
+  const n = (Math.log(m1) - Math.log(m2)) / (Math.log(t1) - Math.log(t2));
+  const F = m1 / (n * Math.pow(t1, n));
+  const r0 = a * F * Math.pow(t0, n);
+  const r = a * F * Math.pow(tP, n);
+  const theta = n * (lngR - lng0);
+  const x = x0 + r * Math.sin(theta);
+  const y = y0 + r0 - r * Math.cos(theta);
+  return { x: Math.round(x*1000)/1000, y: Math.round(y*1000)/1000 };
+}
 }
 
 export default function MapToolsPage() {
