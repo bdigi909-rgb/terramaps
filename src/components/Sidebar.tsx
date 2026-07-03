@@ -35,6 +35,7 @@ const navItems = [
   { label: "Aide", icon: HelpCircle, href: "/help" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
   { label: "Levé Topo", icon: FileText, href: "/leve-topo" },
+  { label: "Outils Carte", icon: Map, href: "/map-tools" },
   { label: "Terrain Model", icon: Mountain, href: "/terrain" },
   { label: "Road Alignment", icon: Route, href: "/alignment" },
   { label: "Volumes & Reports", icon: BarChart3, href: "/volumes" },
