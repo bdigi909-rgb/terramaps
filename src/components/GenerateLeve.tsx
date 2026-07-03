@@ -161,7 +161,9 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     }
 
     // ── PLAN SCHÉMATIQUE ──────────────────────────────────────────
-    const planY = (doc as any).lastAutoTable.finalY + (superficieCalc > 0 ? 20 : 10);
+    // Nouvelle page pour le croquis
+    doc.addPage();
+    const planY = 15;
     const planH = H - m - 4 - planY - 30;
 
     if (planH > 50 && data.points.length > 0) {
