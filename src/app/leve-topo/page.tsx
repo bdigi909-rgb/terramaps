@@ -37,7 +37,7 @@ export default function LeveTopoPage() {
   useEffect(() => {
     if (!selectedProject) return;
     fetch(`/api/projects/${selectedProject}/survey-points`).then(r => r.json()).then(data => {
-      if (Array.isArray(data)) setPoints(data);
+      if (Array.isArray(data)) setPoints(data.filter((p: any, i: number, self: any[]) => i === self.findIndex((q: any) => q.x === p.x && q.y === p.y && q.name === p.name)));
     });
   }, [selectedProject]);
 
