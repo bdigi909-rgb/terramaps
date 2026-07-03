@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       return { ...pt, distance, projectName: project?.name };
     })
     .filter(pt => pt.distance <= radius)
-    .filter((pt, index, self) => index === self.findIndex(p => p.id === pt.id))
+    .filter((pt, index, self) => index === self.findIndex(p => p.x === pt.x && p.y === pt.y && p.name === pt.name))
     .sort((a, b) => a.distance - b.distance);
 
   return NextResponse.json(nearby);
