@@ -40,7 +40,33 @@ function SearchMap({ points, centerX, centerY, radius }: { points: any[], center
           .addTo(map);
         bounds.push([lat, lng]);
       });
+      // Relier les points LIM (limites parcelle)
+      const coordsMap: Record<string, [number,number][]> = {};
+      points.forEach(pt => {
+        const lat = 30 + (pt.y - 300000) / 111320;
+        const lng = -5 + (pt.x - 500000) / (111320 * Math.cos(lat * Math.PI / 180));
+        if (!coordsMap[pt.code]) coordsMap[pt.code] = [];
+        coordsMap[pt.code].push([lat, lng]);
+      });
 
+      // LIM — polygone rouge fermé
+      if (coordsMap["LIM"] && coordsMap["LIM"].length >= 2) {
+        const limClosed = [...coordsMap["LIM"], coordsMap["LIM"][0]];
+        L.polyline(limClosed, { color: "#EF4444", weight: 2.5, opacity: 0.9 }).addTo(map);
+        L.polygon(coordsMap["LIM"], { color: "#EF4444", weight: 1, fillColor: "#EF4444", fillOpacity: 0.05 }).addTo(map);
+      }
+      // VOI — ligne orange pointillée
+      if (coordsMap["VOI"] && coordsMap["VOI"].length >= 2) {
+        L.polyline(coordsMap["VOI"], { color: "#F59E0B", weight: 1.5, dashArray: "5,5" }).addTo(map);
+      }
+      // AXE — ligne orange
+      if (coordsMap["AXE"] && coordsMap["AXE"].length >= 2) {
+        L.polyline(coordsMap["AXE"], { color: "#F97316", weight: 2 }).addTo(map);
+      }
+      // RTE — ligne grise
+      if (coordsMap["RTE"] && coordsMap["RTE"].length >= 2) {
+        L.polyline(coordsMap["RTE"], { color: "#6B7280", weight: 2 }).addTo(map);
+      }
       if (bounds.length > 0) map.fitBounds(bounds, { padding: [30, 30] });
       mapInst.current = map;
     });
