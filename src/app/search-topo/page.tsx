@@ -51,7 +51,15 @@ function SearchMap({ points, centerX, centerY, radius }: { points: any[], center
 
       // LIM — polygone rouge fermé
       if (coordsMap["LIM"] && coordsMap["LIM"].length >= 2) {
-        const limClosed = [...coordsMap["LIM"], coordsMap["LIM"][0]];
+        // Trier les points LIM par angle pour former un vrai polygone
+        const centLat = coordsMap["LIM"].reduce((s,p) => s+p[0], 0) / coordsMap["LIM"].length;
+        const centLng = coordsMap["LIM"].reduce((s,p) => s+p[1], 0) / coordsMap["LIM"].length;
+        const sortedLIM = [...coordsMap["LIM"]].sort((a, b) => {
+          const angA = Math.atan2(a[0]-centLat, a[1]-centLng);
+          const angB = Math.atan2(b[0]-centLat, b[1]-centLng);
+          return angA - angB;
+        });
+        const limClosed = [...sortedLIM, sortedLIM[0]];
         L.polyline(limClosed, { color: "#EF4444", weight: 2.5, opacity: 0.9 }).addTo(map);
         L.polygon(coordsMap["LIM"], { color: "#EF4444", weight: 1, fillColor: "#EF4444", fillOpacity: 0.05 }).addTo(map);
       }
