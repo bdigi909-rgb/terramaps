@@ -73,21 +73,17 @@ export default function MapView({ points, epsg }: MapViewProps) {
       const bounds: [number, number][] = [];
 
       points.forEach((pt) => {
-        // Convert Lambert Maroc to lat/lng (approximation)
+        // Convert Lambert Maroc (EPSG:26191) to WGS84
         let lat = pt.y, lng = pt.x;
-        
-        // If coordinates look like Lambert (large numbers), convert approximately
         if (Math.abs(pt.x) > 180 || Math.abs(pt.y) > 90) {
-          // Simple approximation for Maroc Lambert (EPSG:26191)
-          lat = pt.y / 111320;
-          lng = pt.x / (111320 * Math.cos(lat * Math.PI / 180));
-          // Offset for Morocco
-          if (pt.x > 100000 && pt.x < 1000000) {
-            lat = 30 + (pt.y - 3500000) / 111320;
-            lng = -5 + (pt.x - 500000) / 111320;
-          }
+          const x0 = 500000, y0 = 300000;
+          const lng0 = -5.4 * Math.PI / 180;
+          const lat0 = 33.3 * Math.PI / 180;
+          const dx = pt.x - x0;
+          const dy = pt.y - y0;
+          lat = (lat0 + dy / 111320) * 180 / Math.PI;
+          lng = (lng0 + dx / (111320 * Math.cos(lat0))) * 180 / Math.PI;
         }
-
         if (isNaN(lat) || isNaN(lng)) return;
 
         const color = codeColors[pt.code ?? ''] || '#64748b';
