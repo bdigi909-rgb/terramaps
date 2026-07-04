@@ -35,8 +35,7 @@ export default function MapView({ points, epsg }: MapViewProps) {
       });
 
       const map = L.map(mapRef.current, {
-        center: [31.9, -5.5],
-        zoom: 6,
+        center: [31.9, -5.5], zoom: 6,
       });
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -152,7 +151,7 @@ export default function MapView({ points, epsg }: MapViewProps) {
       legend.addTo(mapInstanceRef.current);
 
       if (bounds.length > 0) {
-        mapInstanceRef.current.fitBounds(bounds, { padding: [40, 40] });
+        mapInstanceRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
       }
     });
   }, [points]);
