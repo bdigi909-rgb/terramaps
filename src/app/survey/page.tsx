@@ -467,7 +467,6 @@ export default function SurveyPage() {
                 )}
               </div>
             )}
-            )}
 
             {/* Selected point info */}
             {selectedPoint && (
