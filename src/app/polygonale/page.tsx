@@ -256,43 +256,6 @@ export default function PolygonalePage() {
           </div>
         </div>
       </div>
-            {/* Compensation Bowditch */}
-        <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 20, marginTop: 20 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-            <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#8BACC8" }}>🔧 Compensation (Méthode Bowditch)</h3>
-            <button onClick={compensate} style={{ background: "#22C55E", border: "none", color: "#fff", padding: "7px 16px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>⬇️ Export compensé</button>
-          </div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
-            <thead>
-              <tr style={{ borderBottom: "1px solid #1E2D3D" }}>
-                {["Point", "X brut", "Y brut", "Corr. X", "Corr. Y", "X compensé", "Y compensé"].map(h => (
-                  <th key={h} style={{ padding: "6px 8px", color: "#64748B", textAlign: "left", fontSize: 9, textTransform: "uppercase" }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((r, i) => {
-                const corrX = perimetre > 0 ? -fx * (parseFloat(r.distance) / perimetre) * (i+1) : 0;
-                const corrY = perimetre > 0 ? -fy * (parseFloat(r.distance) / perimetre) * (i+1) : 0;
-                return (
-                  <tr key={i} style={{ borderBottom: "1px solid #0D1117" }}>
-                    <td style={{ padding: "6px 8px", color: "#F97316", fontWeight: 700 }}>{r.point}</td>
-                    <td style={{ padding: "6px 8px", color: "#3B82F6", fontFamily: "monospace" }}>{r.x}</td>
-                    <td style={{ padding: "6px 8px", color: "#22C55E", fontFamily: "monospace" }}>{r.y}</td>
-                    <td style={{ padding: "6px 8px", color: "#EF4444", fontFamily: "monospace" }}>{corrX.toFixed(3)}</td>
-                    <td style={{ padding: "6px 8px", color: "#EF4444", fontFamily: "monospace" }}>{corrY.toFixed(3)}</td>
-                    <td style={{ padding: "6px 8px", color: "#3B82F6", fontFamily: "monospace", fontWeight: 700 }}>{(parseFloat(r.x)+corrX).toFixed(3)}</td>
-                    <td style={{ padding: "6px 8px", color: "#22C55E", fontFamily: "monospace", fontWeight: 700 }}>{(parseFloat(r.y)+corrY).toFixed(3)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <div style={{ marginTop: 12, padding: 12, background: "#0D1117", borderRadius: 8, fontSize: 11, color: "#64748B" }}>
-            Note: La methode Bowditch distribue lecart de fermeture proportionnellement aux distances.
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
