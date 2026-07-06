@@ -289,7 +289,7 @@ export default function PolygonalePage() {
             </tbody>
           </table>
           <div style={{ marginTop: 12, padding: 12, background: "#0D1117", borderRadius: 8, fontSize: 11, color: "#64748B" }}>
-            💡 La méthode Bowditch distribue l'écart de fermeture proportionnellement aux distances parcourues.
+            💡 La methode Bowditch distribue lecart de fermeture proportionnellement aux distances parcourues.
           </div>
         </div>
       </div>
