@@ -21,7 +21,8 @@ export default function PolygonalePage() {
     { id: 3, point: "C", angle: "142.1530", distance: "110.780" },
     { id: 4, point: "D", angle: "210.4512", distance: "87.650" },
     { id: 5, point: "E", angle: "290.1845", distance: "134.220" },
-  ]);
+    ];
+  });
   const [xDepart, setXDepart] = useState(() => typeof window !== "undefined" ? localStorage.getItem("tm_poly_x") || "500.000" : "500.000");
   const [yDepart, setYDepart] = useState(() => typeof window !== "undefined" ? localStorage.getItem("tm_poly_y") || "300.000" : "300.000");
 
