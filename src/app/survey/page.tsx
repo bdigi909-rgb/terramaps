@@ -362,6 +362,7 @@ export default function SurveyPage() {
                   </ScatterChart>
                 </ResponsiveContainer>
               </div>
+            )}
             {view === "profile" && (
               <div style={{ padding: 24, overflowY: "auto", height: "100%" }}>
                 <h3 style={{ color: "#8bacc8", margin: "0 0 8px", fontSize: 13 }}>📈 Profil Altimétrique — Variation de Z</h3>
