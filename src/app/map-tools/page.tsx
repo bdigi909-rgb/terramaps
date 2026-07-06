@@ -77,7 +77,7 @@ export default function MapToolsPage() {
       let totalDistance = 0;
 
       // Bouton mesure distance
-      const measureBtn = L.control({ position: "topleft" });
+      const measureBtn = (L as any).control({ position: "topleft" });
       measureBtn.onAdd = () => {
         const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
         div.innerHTML = `<a href="#" title="Mesurer distance" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">📏</a>`;
@@ -96,7 +96,7 @@ export default function MapToolsPage() {
       measureBtn.addTo(map);
 
       // Bouton superficie
-      const areaBtn = L.control({ position: "topleft" });
+      const areaBtn = (L as any).control({ position: "topleft" });
       areaBtn.onAdd = () => {
         const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
         div.innerHTML = `<a href="#" title="Calculer superficie" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">📐</a>`;
@@ -115,7 +115,7 @@ export default function MapToolsPage() {
       areaBtn.addTo(map);
 
       // Bouton effacer mesures
-      const clearBtn = L.control({ position: "topleft" });
+      const clearBtn = (L as any).control({ position: "topleft" });
       clearBtn.onAdd = () => {
         const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
         div.innerHTML = `<a href="#" title="Effacer mesures" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">🗑️</a>`;
