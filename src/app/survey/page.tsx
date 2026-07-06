@@ -66,7 +66,7 @@ export default function SurveyPage() {
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   }
-  const [view, setView] = useState<"map" | "table" | "chart">("map");
+  const [view, setView] = useState<"map" | "table" | "chart" | "profile">("map");
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [selectedPoint, setSelectedPoint] = useState<SurveyPoint | null>(null);
@@ -284,10 +284,10 @@ export default function SurveyPage() {
               <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Nom ou code..." style={{ background: "transparent", border: "none", color: "#e2eaf2", fontSize: 12, outline: "none", flex: 1 }} />
             </div>
             <div style={{ display: "flex", border: "1px solid #1e3048", borderRadius: 7, overflow: "hidden" }}>
-              {(["map", "table", "chart"] as const).map((v) => (
+              {(["map", "table", "chart", "profile"] as const).map((v) => (
                 <button key={v} onClick={() => setView(v)}
                   style={{ padding: "6px 12px", background: view === v ? "#1e3048" : "transparent", border: "none", color: view === v ? "#e2eaf2" : "#4b6080", cursor: "pointer", fontSize: 11 }}>
-                  {v === "map" ? "🗺 Carte" : v === "table" ? "≡ Tableau" : "📊 Graphique"}
+                  {v === "map" ? "🗺 Carte" : v === "table" ? "≡ Tableau" : v === "chart" ? "📊 Graphique" : "📈 Profil"}
                 </button>
               ))}
             </div>
@@ -362,6 +362,110 @@ export default function SurveyPage() {
                   </ScatterChart>
                 </ResponsiveContainer>
               </div>
+            {view === "profile" && (
+              <div style={{ padding: 24, overflowY: "auto", height: "100%" }}>
+                <h3 style={{ color: "#8bacc8", margin: "0 0 8px", fontSize: 13 }}>📈 Profil Altimétrique — Variation de Z</h3>
+                <p style={{ color: "#64748B", fontSize: 11, marginBottom: 16 }}>Points triés par distance croissante — altitude Z en mètres</p>
+                {filtered.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: 40, color: "#64748B" }}>Sélectionnez un projet avec des points</div>
+                ) : (
+                  <>
+                    {/* Stats altimétriques */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
+                      {[
+                        { label: "Z min", value: Math.min(...filtered.map(p => p.z)).toFixed(3) + " m", color: "#3B82F6" },
+                        { label: "Z max", value: Math.max(...filtered.map(p => p.z)).toFixed(3) + " m", color: "#EF4444" },
+                        { label: "Z moyen", value: (filtered.reduce((s, p) => s + p.z, 0) / filtered.length).toFixed(3) + " m", color: "#F97316" },
+                        { label: "Dénivelé", value: (Math.max(...filtered.map(p => p.z)) - Math.min(...filtered.map(p => p.z))).toFixed(3) + " m", color: "#22C55E" },
+                      ].map(s => (
+                        <div key={s.label} style={{ background: "#111c28", border: "1px solid #1e3048", borderRadius: 8, padding: "12px 14px" }}>
+                          <div style={{ fontSize: 16, fontWeight: 700, color: s.color }}>{s.value}</div>
+                          <div style={{ fontSize: 10, color: "#64748B", textTransform: "uppercase", marginTop: 2 }}>{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Graphique profil */}
+                    <ResponsiveContainer width="100%" height={300}>
+                      <ScatterChart margin={{ top: 10, right: 20, bottom: 40, left: 60 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
+                        <XAxis 
+                          dataKey="x" type="number" name="X (Est)"
+                          tick={{ fill: "#4b6080", fontSize: 9 }}
+                          label={{ value: "X — Coordonnée Est (m)", position: "insideBottom", offset: -10, fill: "#64748B", fontSize: 10 }}
+                          domain={["auto", "auto"]}
+                        />
+                        <YAxis 
+                          dataKey="z" type="number" name="Altitude Z"
+                          tick={{ fill: "#4b6080", fontSize: 9 }}
+                          label={{ value: "Z — Altitude (m)", angle: -90, position: "insideLeft", offset: -10, fill: "#64748B", fontSize: 10 }}
+                          domain={["auto", "auto"]}
+                        />
+                        <ZAxis range={[30, 30]} />
+                        <Tooltip 
+                          contentStyle={{ background: "#111c28", border: "1px solid #f97316", borderRadius: 6, fontSize: 11 }}
+                          formatter={(v: any, name: string) => [typeof v === "number" ? v.toFixed(3) + " m" : v, name]}
+                          content={({ active, payload }: any) => {
+                            if (active && payload?.length) {
+                              const pt = payload[0]?.payload;
+                              return (
+                                <div style={{ background: "#111c28", border: "1px solid #F97316", borderRadius: 8, padding: "10px 14px", fontSize: 11 }}>
+                                  <div style={{ fontWeight: 700, color: "#F97316", marginBottom: 4 }}>{pt?.name || "Point"}</div>
+                                  <div style={{ color: "#3B82F6" }}>X: {pt?.x?.toFixed(3)} m</div>
+                                  <div style={{ color: "#22C55E" }}>Y: {pt?.y?.toFixed(3)} m</div>
+                                  <div style={{ color: "#F97316", fontWeight: 700 }}>Z: {pt?.z?.toFixed(3)} m</div>
+                                  <div style={{ color: "#64748B" }}>Code: {pt?.code}</div>
+                                </div>
+                              );
+                            }
+                            return null;
+                          }}
+                        />
+                        <Scatter 
+                          data={[...filtered].sort((a, b) => a.x - b.x)} 
+                          fill="#F97316" 
+                          opacity={0.9}
+                          line={{ stroke: "#F97316", strokeWidth: 1.5, strokeDasharray: "4 2" }}
+                          lineType="joint"
+                        />
+                      </ScatterChart>
+                    </ResponsiveContainer>
+
+                    {/* Tableau altimétrique */}
+                    <div style={{ marginTop: 20 }}>
+                      <h4 style={{ color: "#8BACC8", fontSize: 12, marginBottom: 10 }}>Tableau altimétrique</h4>
+                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                        <thead>
+                          <tr style={{ borderBottom: "1px solid #1e3048" }}>
+                            {["#", "Nom", "Code", "X (m)", "Y (m)", "Z (m)", "ΔZ"].map(h => (
+                              <th key={h} style={{ padding: "6px 10px", color: "#64748B", textAlign: "left", fontSize: 10, textTransform: "uppercase" }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[...filtered].sort((a, b) => a.x - b.x).map((p, i, arr) => {
+                            const dz = i > 0 ? p.z - arr[i-1].z : 0;
+                            return (
+                              <tr key={p.id} style={{ borderBottom: "1px solid #0D1117" }}>
+                                <td style={{ padding: "6px 10px", color: "#64748B" }}>{i+1}</td>
+                                <td style={{ padding: "6px 10px", color: "#F97316", fontWeight: 600 }}>{p.name}</td>
+                                <td style={{ padding: "6px 10px", color: "#22C55E" }}>{p.code}</td>
+                                <td style={{ padding: "6px 10px", color: "#3B82F6", fontFamily: "monospace" }}>{p.x.toFixed(3)}</td>
+                                <td style={{ padding: "6px 10px", color: "#22C55E", fontFamily: "monospace" }}>{p.y.toFixed(3)}</td>
+                                <td style={{ padding: "6px 10px", color: "#F97316", fontFamily: "monospace", fontWeight: 700 }}>{p.z.toFixed(3)}</td>
+                                <td style={{ padding: "6px 10px", color: dz > 0 ? "#EF4444" : dz < 0 ? "#22C55E" : "#64748B", fontFamily: "monospace" }}>
+                                  {i === 0 ? "—" : (dz > 0 ? "+" : "") + dz.toFixed(3)}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
             )}
 
             {/* Selected point info */}
