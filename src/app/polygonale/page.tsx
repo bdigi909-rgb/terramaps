@@ -36,6 +36,16 @@ export default function PolygonalePage() {
     if (savedY) setYDepart(savedY);
   }, []);
 
+  // Load saved data on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_poly_stations");
+    if (saved) setStations(JSON.parse(saved));
+    const savedX = localStorage.getItem("tm_poly_x");
+    const savedY = localStorage.getItem("tm_poly_y");
+    if (savedX) setXDepart(savedX);
+    if (savedY) setYDepart(savedY);
+  }, []);
+
   // Auto-save
   useEffect(() => {
     localStorage.setItem("tm_poly_stations", JSON.stringify(stations));
