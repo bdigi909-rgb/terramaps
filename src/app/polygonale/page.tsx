@@ -1,5 +1,5 @@
 ﻿"use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface Station {
@@ -10,15 +10,27 @@ interface Station {
 }
 
 export default function PolygonalePage() {
-  const [stations, setStations] = useState<Station[]>([
+  const [stations, setStations] = useState<Station[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("tm_polygonale_stations");
+      if (saved) return JSON.parse(saved);
+    }
+    return [
     { id: 1, point: "A", angle: "0.0000", distance: "125.450" },
     { id: 2, point: "B", angle: "78.3215", distance: "98.320" },
     { id: 3, point: "C", angle: "142.1530", distance: "110.780" },
     { id: 4, point: "D", angle: "210.4512", distance: "87.650" },
     { id: 5, point: "E", angle: "290.1845", distance: "134.220" },
   ]);
-  const [xDepart, setXDepart] = useState("500.000");
-  const [yDepart, setYDepart] = useState("300.000");
+  const [xDepart, setXDepart] = useState(() => typeof window !== "undefined" ? localStorage.getItem("tm_poly_x") || "500.000" : "500.000");
+  const [yDepart, setYDepart] = useState(() => typeof window !== "undefined" ? localStorage.getItem("tm_poly_y") || "300.000" : "300.000");
+
+  // Auto-save
+  useEffect(() => {
+    localStorage.setItem("tm_poly_stations", JSON.stringify(stations));
+    localStorage.setItem("tm_poly_x", xDepart);
+    localStorage.setItem("tm_poly_y", yDepart);
+  }, [stations, xDepart, yDepart]);
 
   function addStation() {
     const lastId = Math.max(...stations.map(s => s.id), 0);
