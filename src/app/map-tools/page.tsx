@@ -68,6 +68,117 @@ export default function MapToolsPage() {
 
       L.control.layers({ "OpenStreetMap": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19 }), "Satellite": satellite }).addTo(map);
 
+      // ── OUTILS MESURE ET SUPERFICIE ──────────────────────────
+      let measureMode = false;
+      let areaMode = false;
+      let measurePoints: [number, number][] = [];
+      let measureMarkers: any[] = [];
+      let measureLines: any[] = [];
+      let totalDistance = 0;
+
+      // Bouton mesure distance
+      const measureBtn = L.control({ position: "topleft" });
+      measureBtn.onAdd = () => {
+        const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+        div.innerHTML = `<a href="#" title="Mesurer distance" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">📏</a>`;
+        div.onclick = (e) => {
+          e.preventDefault(); e.stopPropagation();
+          measureMode = !measureMode; areaMode = false;
+          measurePoints = []; totalDistance = 0;
+          measureMarkers.forEach(m => map.removeLayer(m));
+          measureLines.forEach(l => map.removeLayer(l));
+          measureMarkers = []; measureLines = [];
+          div.style.background = measureMode ? "#F97316" : "white";
+          map.getContainer().style.cursor = measureMode ? "crosshair" : "";
+        };
+        return div;
+      };
+      measureBtn.addTo(map);
+
+      // Bouton superficie
+      const areaBtn = L.control({ position: "topleft" });
+      areaBtn.onAdd = () => {
+        const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+        div.innerHTML = `<a href="#" title="Calculer superficie" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">📐</a>`;
+        div.onclick = (e) => {
+          e.preventDefault(); e.stopPropagation();
+          areaMode = !areaMode; measureMode = false;
+          measurePoints = [];
+          measureMarkers.forEach(m => map.removeLayer(m));
+          measureLines.forEach(l => map.removeLayer(l));
+          measureMarkers = []; measureLines = [];
+          div.style.background = areaMode ? "#22C55E" : "white";
+          map.getContainer().style.cursor = areaMode ? "crosshair" : "";
+        };
+        return div;
+      };
+      areaBtn.addTo(map);
+
+      // Bouton effacer mesures
+      const clearBtn = L.control({ position: "topleft" });
+      clearBtn.onAdd = () => {
+        const div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+        div.innerHTML = `<a href="#" title="Effacer mesures" style="font-size:16px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;text-decoration:none">🗑️</a>`;
+        div.onclick = (e) => {
+          e.preventDefault(); e.stopPropagation();
+          measurePoints = []; totalDistance = 0;
+          measureMarkers.forEach(m => map.removeLayer(m));
+          measureLines.forEach(l => map.removeLayer(l));
+          measureMarkers = []; measureLines = [];
+          measureMode = false; areaMode = false;
+          map.getContainer().style.cursor = "";
+        };
+        return div;
+      };
+      clearBtn.addTo(map);
+
+      // Gestion des clics mesure/superficie
+      map.on("click", (e: any) => {
+        if (!measureMode && !areaMode) return;
+        const { lat, lng } = e.latlng;
+        measurePoints.push([lat, lng]);
+
+        // Marqueur point
+        const dot = L.circleMarker([lat, lng], { radius: 5, color: measureMode ? "#F97316" : "#22C55E", fillColor: measureMode ? "#F97316" : "#22C55E", fillOpacity: 1 }).addTo(map);
+        measureMarkers.push(dot);
+
+        if (measureMode && measurePoints.length >= 2) {
+          const prev = measurePoints[measurePoints.length - 2];
+          const curr = measurePoints[measurePoints.length - 1];
+          const line = L.polyline([prev, curr], { color: "#F97316", weight: 2, dashArray: "5,5" }).addTo(map);
+          measureLines.push(line);
+
+          // Distance segment
+          const R = 6371000;
+          const dLat = (curr[0]-prev[0]) * Math.PI/180;
+          const dLng = (curr[1]-prev[1]) * Math.PI/180;
+          const a = Math.sin(dLat/2)**2 + Math.cos(prev[0]*Math.PI/180)*Math.cos(curr[0]*Math.PI/180)*Math.sin(dLng/2)**2;
+          const segDist = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          totalDistance += segDist;
+
+          dot.bindPopup(`<b style="color:#F97316">Distance totale: ${totalDistance.toFixed(2)} m</b><br/>Segment: ${segDist.toFixed(2)} m`).openPopup();
+        }
+
+        if (areaMode && measurePoints.length >= 3) {
+          measureLines.forEach(l => map.removeLayer(l));
+          measureLines = [];
+          const polygon = L.polygon(measurePoints, { color: "#22C55E", fillOpacity: 0.2, weight: 2 }).addTo(map);
+          measureLines.push(polygon);
+
+          // Superficie (formule Shoelace)
+          let area = 0;
+          const lambert = measurePoints.map(p => wgs84ToLambert(p[0], p[1]));
+          for (let i = 0; i < lambert.length; i++) {
+            const j = (i+1) % lambert.length;
+            area += lambert[i].x * lambert[j].y;
+            area -= lambert[j].x * lambert[i].y;
+          }
+          area = Math.abs(area) / 2;
+
+          dot.bindPopup(`<b style="color:#22C55E">Superficie: ${area.toFixed(2)} m²</b><br/>${(area/10000).toFixed(4)} Ha<br/>Points: ${measurePoints.length}`).openPopup();
+        }
+      });
+
       map.on("click", (e: any) => {
         const { lat, lng } = e.latlng;
         const lambert = wgs84ToLambert(lat, lng);
