@@ -405,7 +405,7 @@ export default function SurveyPage() {
                         <ZAxis range={[30, 30]} />
                         <Tooltip 
                           contentStyle={{ background: "#111c28", border: "1px solid #f97316", borderRadius: 6, fontSize: 11 }}
-                          formatter={(v: any, name: string) => [typeof v === "number" ? v.toFixed(3) + " m" : v, name]}
+                          formatter={(v: any, name: any) => [typeof v === "number" ? v.toFixed(3) + " m" : v, name]}
                           content={({ active, payload }: any) => {
                             if (active && payload?.length) {
                               const pt = payload[0]?.payload;
