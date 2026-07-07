@@ -1,6 +1,14 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { surveyPoints } from "@/db/schema";
+import { surveyPoints, notifications } from "@/db/schema";
+import { jwtVerify } from "jose";
+
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
+async function getUser(req: NextRequest) {
+  const token = req.cookies.get("tm_token")?.value;
+  if (!token) return null;
+  try { const { payload } = await jwtVerify(token, SECRET); return payload; } catch { return null; }
+}
 
 function parseCSV(content: string) {
   const lines = content.split(/\r?\n/).filter(l => l.trim() && !l.startsWith("#"));
@@ -66,6 +74,19 @@ export async function POST(req: NextRequest) {
       inserted.push(row);
     }
 
+    // Créer notification automatique
+    try {
+      const user = await getUser(req);
+      if (user) {
+        await db.insert(notifications).values({
+          userId: user.id as number,
+          title: "Import réussi",
+          message: `${inserted.length} points importés dans le projet #${projectId}`,
+          type: "success",
+          read: false,
+        });
+      }
+    } catch {}
     return NextResponse.json({ success: true, count: inserted.length, points: inserted });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
