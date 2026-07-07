@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function WhatsAppButton() {
   const [hovered, setHovered] = useState(false);
-  const phone = "212744037160";
+  const phone = "212664706788";
   const message = "Bonjour TerraMaps, je suis interesse par votre plateforme topographique.";
   const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
   
@@ -28,3 +28,4 @@ export default function WhatsAppButton() {
     </a>
   );
 }
+
