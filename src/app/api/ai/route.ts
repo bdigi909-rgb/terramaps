@@ -10,35 +10,36 @@ export async function POST(req: NextRequest) {
 
   const { message, context } = await req.json();
 
-  const systemPrompt = `Tu es un assistant expert en topographie et géomatique pour TerraMaps, une plateforme SaaS marocaine.
-Tu aides les techniciens topographes avec :
-- Les calculs de volumes de terrassement (déblai/remblai)
-- Les coordonnées X, Y, Z et systèmes Lambert Maroc EPSG:26191
-- Les formats CSV, GSI Leica, DXF, LandXML
-- Le nivellement, polygonale, levé topographique
-- Les normes marocaines de topographie
-Réponds toujours en français de manière concise et professionnelle.
-Contexte : ${context || "Aucun projet sélectionné"}`;
-
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return NextResponse.json({ response: "Clé API Gemini non configurée. Ajoutez GEMINI_API_KEY dans Vercel." });
+  if (!apiKey) return NextResponse.json({ response: "Clé GEMINI_API_KEY manquante dans Vercel." });
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: "user", parts: [{ text: message }] }],
-        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
-      }),
-    }
-  );
+  const systemPrompt = `Tu es un assistant expert en topographie pour TerraMaps Maroc. Reponds en francais. Contexte: ${context || "aucun"}`;
 
-  const data = await response.json();
-  console.log('Gemini:', JSON.stringify(data).slice(0,300));
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
-  return NextResponse.json({ response: text });
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ role: "user", parts: [{ text: message }] }],
+          generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log("Gemini status:", response.status);
+    console.log("Gemini data:", JSON.stringify(data).slice(0, 500));
+    
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text 
+      || data.error?.message 
+      || "Pas de reponse de Gemini";
+    
+    return NextResponse.json({ response: text });
+  } catch (err: any) {
+    console.error("Gemini error:", err.message);
+    return NextResponse.json({ response: "Erreur: " + err.message });
+  }
 }
-
