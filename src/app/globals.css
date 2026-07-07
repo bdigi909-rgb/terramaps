@@ -473,3 +473,45 @@ body.is-mobile #hamburger { display: flex !important; }
     padding: 12px !important;
   }
 }
+
+/* Theme clair */
+body.light-mode {
+  --sidebar-bg: #F8FAFC;
+  --border: #E2E8F0;
+  background: #F1F5F9 !important;
+  color: #1E293B !important;
+}
+
+body.light-mode .tm-drawer,
+body.light-mode aside,
+body.light-mode header,
+body.light-mode nav {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #1E293B !important;
+}
+
+body.light-mode .srm-card,
+body.light-mode [style*="background: #161B22"],
+body.light-mode [style*="background: #0D1117"],
+body.light-mode [style*="background: #111c28"] {
+  background: #FFFFFF !important;
+  color: #1E293B !important;
+}
+
+body.light-mode [style*="color: #E2EAF2"],
+body.light-mode [style*="color: #e2eaf2"] {
+  color: #1E293B !important;
+}
+
+body.light-mode [style*="color: #8BACC8"],
+body.light-mode [style*="color: #8bacc8"],
+body.light-mode [style*="color: #64748B"] {
+  color: #475569 !important;
+}
+
+body.light-mode [style*="border: 1px solid #1E2D3D"],
+body.light-mode [style*="border: 1px solid #1e3048"],
+body.light-mode [style*="borderColor: #1E2D3D"] {
+  border-color: #CBD5E1 !important;
+}

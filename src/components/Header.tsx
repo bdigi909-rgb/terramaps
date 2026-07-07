@@ -2,6 +2,7 @@
 import NotificationBell from "@/components/NotificationBell";
 import GlobalSearch from "@/components/GlobalSearch";
 import LangSwitcher from "@/components/LangSwitcher";
+import ThemeToggle from "@/components/ThemeToggle";
 import AIAssist from "@/components/AIAssist";
 import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
@@ -47,6 +48,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       {actions}
 
+      <ThemeToggle />
       <LangSwitcher />
       <NotificationBell />
 
