@@ -1,4 +1,45 @@
 ﻿"use client";
+
+function ActivityLog({ projectId }: { projectId: string }) {
+  const [logs, setLogs] = useState<any[]>([]);
+  useEffect(() => {
+    fetch("/api/activity").then(r => r.json()).then(data => {
+      if (Array.isArray(data)) setLogs(data.slice(0, 20));
+    });
+  }, [projectId]);
+  const actionColor: Record<string, string> = {
+    LOGIN: "#64748B", IMPORT: "#22C55E", CREATE: "#3B82F6",
+    UPDATE: "#F59E0B", DELETE: "#EF4444", EXPORT: "#A855F7",
+  };
+  return (
+    <div>
+      {logs.length === 0 ? (
+        <div style={{ textAlign: "center", padding: 40, color: "#64748B" }}>Aucune activite enregistree</div>
+      ) : (
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid #1E2D3D" }}>
+              {["Action", "Utilisateur", "Date"].map(h => (
+                <th key={h} style={{ padding: "8px 10px", color: "#64748B", textAlign: "left", fontSize: 10, textTransform: "uppercase" }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {logs.map((log, i) => (
+              <tr key={i} style={{ borderBottom: "1px solid #0D1117" }}>
+                <td style={{ padding: "8px 10px" }}>
+                  <span style={{ background: (actionColor[log.action] || "#64748B") + "22", color: actionColor[log.action] || "#64748B", fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 20 }}>{log.action}</span>
+                </td>
+                <td style={{ padding: "8px 10px", color: "#E2EAF2", fontWeight: 600 }}>{log.userName || "—"}</td>
+                <td style={{ padding: "8px 10px", color: "#64748B" }}>{new Date(log.createdAt).toLocaleDateString("fr-FR")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
 import { useEffect, useState, use } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
