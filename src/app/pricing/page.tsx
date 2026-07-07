@@ -81,7 +81,7 @@ export default function PricingPage() {
         <div style={{ fontSize: 20, fontWeight: 700 }}>Terra<span style={{ color: "#F97316" }}>Maps</span></div>
         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
           <Link href="/" style={{ color: "#8BACC8", fontSize: 13, textDecoration: "none" }}>Accueil</Link>
-          <Link href={plan.name === "Enterprise" ? "https://wa.me/212744037160?text=Bonjour%20TerraMaps%2C%20je%20voudrais%20un%20devis%20Enterprise" : "https://wa.me/212744037160?text=Bonjour%20TerraMaps%2C%20je%20voudrais%20essayer%20le%20plan%20" + plan.name} style={{ display: "block", textAlign: "center", background: plan.popular ? plan.color : "transparent", border: `1px solid ${plan.color}`, color: plan.popular ? "#fff" : plan.color, padding: "12px", borderRadius: 10, textDecoration: "none", fontSize: 14, fontWeight: 600, marginBottom: 24, }}>
+          <Link href="/login" style={{ display: "block", textAlign: "center", background: plan.popular ? plan.color : "transparent", border: "1px solid " + plan.color, color: plan.popular ? "#fff" : plan.color, padding: "12px", borderRadius: 10, textDecoration: "none", fontSize: 14, fontWeight: 600, marginBottom: 24 }}>
                 {plan.name === "Enterprise" ? "📞 Nous contacter" : "🚀 Essayer gratuitement"}
               </Link>
 
