@@ -1,4 +1,5 @@
 ﻿import type { Metadata, Viewport } from "next";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import type { ReactNode } from "react";
 import "./globals.css";
 
@@ -26,8 +27,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
-      <body className="antialiased" style={{ margin: 0, padding: 0 }}>
+      <body className="antialiased" suppressHydrationWarning style={{ margin: 0, padding: 0 }}>
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

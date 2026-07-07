@@ -81,60 +81,8 @@ export default function PricingPage() {
         <div style={{ fontSize: 20, fontWeight: 700 }}>Terra<span style={{ color: "#F97316" }}>Maps</span></div>
         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
           <Link href="/" style={{ color: "#8BACC8", fontSize: 13, textDecoration: "none" }}>Accueil</Link>
-          <Link href="/login" style={{ background: "#F97316", color: "#fff", padding: "8px 20px", borderRadius: 8, textDecoration: "none", fontSize: 13, fontWeight: 600 }}>Connexion</Link>
-        </div>
-      </div>
-
-      <div style={{ padding: "48px 32px", maxWidth: 1100, margin: "0 auto" }}>
-        {/* Hero */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <span style={{ background: "rgba(249,115,22,0.15)", color: "#F97316", fontSize: 12, fontWeight: 700, padding: "4px 16px", borderRadius: 20, border: "1px solid rgba(249,115,22,0.3)" }}>
-            🇲🇦 Plateforme SaaS Topographique Marocaine
-          </span>
-          <h1 style={{ margin: "20px 0 12px", fontSize: 36, fontWeight: 700, lineHeight: 1.2 }}>
-            Tarifs simples et transparents
-          </h1>
-          <p style={{ color: "#64748B", fontSize: 16, maxWidth: 500, margin: "0 auto" }}>
-            Choisissez le plan adapté à votre activité. Sans engagement, sans frais cachés.
-          </p>
-        </div>
-
-        {/* Plans */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 48 }}>
-          {plans.map(plan => (
-            <div key={plan.name} style={{
-              background: "#161B22",
-              border: `2px solid ${plan.popular ? plan.color : "#1E2D3D"}`,
-              borderRadius: 16,
-              padding: 32,
-              position: "relative",
-              transform: plan.popular ? "scale(1.02)" : "scale(1)",
-            }}>
-              {plan.popular && (
-                <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", background: "#F97316", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 16px", borderRadius: 20, whiteSpace: "nowrap" }}>
-                  ⭐ LE PLUS POPULAIRE
-                </div>
-              )}
-
-              <div style={{ marginBottom: 24 }}>
-                <h2 style={{ margin: "0 0 8px", fontSize: 20, fontWeight: 700, color: plan.color }}>{plan.name}</h2>
-                <p style={{ margin: "0 0 16px", fontSize: 13, color: "#64748B" }}>{plan.description}</p>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                  <span style={{ fontSize: 36, fontWeight: 700, color: "#E2EAF2" }}>{plan.price}</span>
-                  <span style={{ fontSize: 14, color: "#64748B" }}>{plan.currency}{plan.period}</span>
-                </div>
-              </div>
-
-              <Link href="/login" style={{
-                display: "block", textAlign: "center",
-                background: plan.popular ? plan.color : "transparent",
-                border: `1px solid ${plan.color}`,
-                color: plan.popular ? "#fff" : plan.color,
-                padding: "12px", borderRadius: 10,
-                textDecoration: "none", fontSize: 14, fontWeight: 600,
-                marginBottom: 24,
-              }}>
-                {plan.name === "Enterprise" ? "Nous contacter" : "Commencer gratuitement"}
+          <Link href={plan.name === "Enterprise" ? "https://wa.me/212744037160?text=Bonjour%20TerraMaps%2C%20je%20voudrais%20un%20devis%20Enterprise" : "https://wa.me/212744037160?text=Bonjour%20TerraMaps%2C%20je%20voudrais%20essayer%20le%20plan%20" + plan.name} style={{ display: "block", textAlign: "center", background: plan.popular ? plan.color : "transparent", border: `1px solid ${plan.color}`, color: plan.popular ? "#fff" : plan.color, padding: "12px", borderRadius: 10, textDecoration: "none", fontSize: 14, fontWeight: 600, marginBottom: 24, }}>
+                {plan.name === "Enterprise" ? "📞 Nous contacter" : "🚀 Essayer gratuitement"}
               </Link>
 
               <div style={{ borderTop: "1px solid #1E2D3D", paddingTop: 20 }}>
@@ -182,7 +130,7 @@ export default function PricingPage() {
             <Link href="/login" style={{ background: "#F97316", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 15, fontWeight: 700 }}>
               Démarrer gratuitement →
             </Link>
-            <a href="mailto:support@terramaps.ma" style={{ background: "transparent", border: "1px solid #1E2D3D", color: "#8BACC8", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 15 }}>
+            <a href="https://wa.me/212744037160?text=Bonjour%20TerraMaps%2C%20je%20suis%20intéressé%20par%20votre%20offre%20topographique" style={{ background: "transparent", border: "1px solid #1E2D3D", color: "#8BACC8", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 15 }}>
               Nous contacter
             </a>
           </div>
