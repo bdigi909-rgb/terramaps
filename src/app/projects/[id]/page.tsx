@@ -4,6 +4,13 @@ function ActivityLog({ projectId }: { projectId: string }) {
   const [logs, setLogs] = useState<any[]>([]);
   useEffect(() => {
     fetch("/api/activity").then(r => r.json()).then(data => {
+      if (Array.isArray(data)) {
+        const filtered = data.filter((log: any) => 
+          log.action !== "LOGIN" || data.indexOf(log) < 5
+        ).slice(0, 20);
+        setLogs(filtered);
+      }
+    });
       if (Array.isArray(data)) setLogs(data.slice(0, 20));
     });
   }, [projectId]);
