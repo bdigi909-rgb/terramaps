@@ -32,6 +32,7 @@ const navItems = [
   { label: "Import Points", icon: FileText, href: "/import" },
   { label: "Assignation", icon: Users, href: "/assign" },
   { label: "Activité", icon: Activity, href: "/activity" },
+  { label: "Statistiques", icon: BarChart3, href: "/stats" },
   { label: "Mon Profil", icon: User, href: "/profile" },
   { label: "Aide", icon: HelpCircle, href: "/help" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
