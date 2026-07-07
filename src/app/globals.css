@@ -515,3 +515,50 @@ body.light-mode [style*="border: 1px solid #1e3048"],
 body.light-mode [style*="borderColor: #1E2D3D"] {
   border-color: #CBD5E1 !important;
 }
+
+/* Mode clair - corrections specifiques */
+body.light-mode {
+  color: #1E293B !important;
+}
+
+body.light-mode * {
+  border-color: #CBD5E1 !important;
+}
+
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode h3,
+body.light-mode p,
+body.light-mode span,
+body.light-mode div,
+body.light-mode td,
+body.light-mode th,
+body.light-mode label {
+  color: #1E293B !important;
+}
+
+body.light-mode a {
+  color: #F97316 !important;
+}
+
+body.light-mode input,
+body.light-mode select,
+body.light-mode textarea {
+  background: #F8FAFC !important;
+  color: #1E293B !important;
+  border-color: #CBD5E1 !important;
+}
+
+body.light-mode button:not([style*="background: #F97316"]):not([style*="background: #22C55E"]):not([style*="background: #EF4444"]):not([style*="background: #3B82F6"]) {
+  color: #1E293B !important;
+}
+
+body.light-mode [style*="background: #0D1117"],
+body.light-mode [style*="background:#0D1117"],
+body.light-mode [style*="background: #161B22"],
+body.light-mode [style*="background: #111c28"],
+body.light-mode [style*="background: #0f1923"],
+body.light-mode [style*="background: rgba(13,17,23"],
+body.light-mode [style*="background: rgb(13"] {
+  background: #FFFFFF !important;
+}
