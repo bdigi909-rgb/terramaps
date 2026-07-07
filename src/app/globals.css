@@ -562,3 +562,40 @@ body.light-mode [style*="background: rgba(13,17,23"],
 body.light-mode [style*="background: rgb(13"] {
   background: #FFFFFF !important;
 }
+
+/* Mode clair - textes sombres invisibles */
+body.light-mode [style*="color: #4b6080"],
+body.light-mode [style*="color: #4B6080"],
+body.light-mode [style*="color: #2a3f5f"],
+body.light-mode [style*="color: #1e3048"],
+body.light-mode [style*="color: #111c28"],
+body.light-mode [style*="color: #0D1117"],
+body.light-mode [style*="color: #0f1923"] {
+  color: #334155 !important;
+}
+
+/* Tabs et boutons sombres */
+body.light-mode .tab-btn {
+  color: #475569 !important;
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+}
+
+body.light-mode .tab-btn.active {
+  color: #F97316 !important;
+  border-bottom-color: #F97316 !important;
+}
+
+/* Sidebar liens */
+body.light-mode aside a,
+body.light-mode aside span,
+body.light-mode aside div {
+  color: #334155 !important;
+}
+
+/* Cards sombres */
+body.light-mode .srm-card {
+  background: #FFFFFF !important;
+  color: #1E293B !important;
+  border-color: #E2E8F0 !important;
+}
