@@ -26,14 +26,14 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         borderBottom: "1px solid var(--border)",
         display: "flex",
         alignItems: "center",
-        padding: "0 24px",
-        gap: 16,
+        padding: "0 12px",
+        gap: 8,
         position: "sticky",
         top: 0,
         zIndex: 40,
       }}
     >
-      <div style={{ flex: "none", minWidth: 200 }}>
+      <div style={{ flex: "none", minWidth: 150 }}>
         <h1 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: "#e2eaf2" }}>
           {title}
         </h1>
@@ -44,7 +44,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         )}
       </div>
 
-      <div style={{ flex: 1, maxWidth: 500 }}><GlobalSearch /></div>
+      <div style={{ flex: 1, maxWidth: 300 }}><GlobalSearch /></div>
 
       {actions}
 
