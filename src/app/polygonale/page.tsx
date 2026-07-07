@@ -125,6 +125,74 @@ export default function PolygonalePage() {
     const a = document.createElement("a"); a.href = url; a.download = "polygonale_compensee.csv"; a.click();
   }
 
+  async function exportPDF() {
+    const { default: jsPDF } = await import("jspdf");
+    const { default: autoTable } = await import("jspdf-autotable");
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const W = 210, m = 10;
+    doc.setDrawColor(0); doc.setLineWidth(0.8);
+    doc.rect(m, m, W-m*2, 277);
+    doc.setFillColor(13, 71, 161);
+    doc.rect(m+4, m+4, W-m*2-8, 20, "F");
+    doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(255,255,255);
+    doc.text("ROYAUME DU MAROC - RAPPORT DE POLYGONALE", W/2, m+12, { align: "center" });
+    doc.setFontSize(9); doc.setFont("helvetica", "normal");
+    doc.text("TerraMaps v2.0 - " + new Date().toLocaleDateString("fr-FR"), W/2, m+19, { align: "center" });
+
+    autoTable(doc, {
+      startY: m + 28, margin: { left: m+4, right: m+4 },
+      head: [["Point", "Angle (g)", "Dist (m)", "dX (m)", "dY (m)", "X (m)", "Y (m)"]],
+      body: results.map((r: any) => [r.point, r.angle, r.distance, r.dx, r.dy, r.x, r.y]),
+      headStyles: { fillColor: [13, 71, 161], textColor: 255, fontStyle: "bold", fontSize: 8 },
+      bodyStyles: { fontSize: 7.5 },
+      alternateRowStyles: { fillColor: [240, 244, 255] },
+    });
+
+    const y = (doc as any).lastAutoTable.finalY + 8;
+    autoTable(doc, {
+      startY: y, margin: { left: m+4, right: m+4 },
+      head: [["Fermeture", "Valeur"]],
+      body: [
+        ["Perimetre", perimetre.toFixed(3) + " m"],
+        ["fX", (fx >= 0 ? "+" : "") + fx.toFixed(3) + " m"],
+        ["fY", (fy >= 0 ? "+" : "") + fy.toFixed(3) + " m"],
+        ["Fermeture", fermeture.toFixed(3) + " m"],
+        ["Tolerance (1/3000)", "+-" + tolerance.toFixed(3) + " m"],
+        ["Precision", "1/" + (precision > 0 ? Math.round(precision).toString() : "inf")],
+        ["Resultat", accepted ? "POLYGONALE ACCEPTEE" : "POLYGONALE REFUSEE"],
+      ],
+      headStyles: { fillColor: accepted ? [46, 125, 50] : [183, 28, 28], textColor: 255, fontStyle: "bold", fontSize: 9 },
+      bodyStyles: { fontSize: 8 },
+      alternateRowStyles: { fillColor: accepted ? [240, 255, 240] : [255, 240, 240] },
+    });
+
+    const y2 = (doc as any).lastAutoTable.finalY + 8;
+    doc.setFontSize(10); doc.setFont("helvetica", "bold"); doc.setTextColor(0,0,0);
+    doc.text("Compensation Bowditch", W/2, y2, { align: "center" });
+    autoTable(doc, {
+      startY: y2 + 4, margin: { left: m+4, right: m+4 },
+      head: [["Point", "X brut", "Y brut", "Corr. X", "Corr. Y", "X comp.", "Y comp."]],
+      body: results.map((r: any, i: number) => {
+        const corrX = perimetre > 0 ? -fx * (parseFloat(r.distance) / perimetre) * (i+1) : 0;
+        const corrY = perimetre > 0 ? -fy * (parseFloat(r.distance) / perimetre) * (i+1) : 0;
+        return [r.point, r.x, r.y, corrX.toFixed(3), corrY.toFixed(3), (parseFloat(r.x)+corrX).toFixed(3), (parseFloat(r.y)+corrY).toFixed(3)];
+      }),
+      headStyles: { fillColor: [74, 20, 140], textColor: 255, fontStyle: "bold", fontSize: 8 },
+      bodyStyles: { fontSize: 7.5 },
+      alternateRowStyles: { fillColor: [245, 240, 255] },
+    });
+
+    const footY = 277;
+    doc.setLineWidth(0.3); doc.line(m+4, footY-20, W-m-4, footY-20);
+    doc.setFontSize(8); doc.setTextColor(0,0,0);
+    doc.text("Technicien :", m+10, footY-14);
+    doc.rect(W-m-45, footY-17, 40, 14);
+    doc.text("Cachet et Signature", W-m-44, footY-14);
+    doc.setFontSize(7); doc.setTextColor(100,100,100);
+    doc.text("TerraMaps v2.0 - terramaps.vercel.app", W/2, footY-4, { align: "center" });
+    doc.save("Polygonale_" + new Date().toISOString().slice(0,10) + ".pdf");
+  }
+
   function exportCSV() {
     const rows = ["Point,Angle(g),Distance(m),dX(m),dY(m),X(m),Y(m)"];
     results.forEach(r => rows.push(`${r.point},${r.angle},${r.distance},${r.dx},${r.dy},${r.x},${r.y}`));
@@ -214,6 +282,7 @@ export default function PolygonalePage() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                 <h3 style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#8BACC8" }}>📊 Coordonnées calculées</h3>
                 <button onClick={exportCSV} style={{ background: "#F97316", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>⬇️ CSV</button>
+                <button onClick={exportPDF} style={{ background: "#0D47A1", border: "none", color: "#fff", padding: "7px 14px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>📄 PDF</button>
               </div>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
                 <thead>
