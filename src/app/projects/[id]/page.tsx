@@ -11,8 +11,6 @@ function ActivityLog({ projectId }: { projectId: string }) {
         setLogs(filtered);
       }
     });
-      if (Array.isArray(data)) setLogs(data.slice(0, 20));
-    });
   }, [projectId]);
   const actionColor: Record<string, string> = {
     LOGIN: "#64748B", IMPORT: "#22C55E", CREATE: "#3B82F6",
