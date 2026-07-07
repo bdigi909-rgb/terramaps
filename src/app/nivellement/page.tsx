@@ -83,6 +83,52 @@ export default function NivellementPage() {
   const depart = parseFloat(altitudeDepart) || 0;
   const altCalculee = depart + totalVA - totalVAV;
 
+  async function exportPDF() {
+    const { default: jsPDF } = await import("jspdf");
+    const { default: autoTable } = await import("jspdf-autotable");
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const W = 210, m = 10;
+    doc.setDrawColor(0); doc.setLineWidth(0.8);
+    doc.rect(m, m, W-m*2, 277);
+    doc.setFillColor(13, 71, 161);
+    doc.rect(m+4, m+4, W-m*2-8, 20, "F");
+    doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(255,255,255);
+    doc.text("ROYAUME DU MAROC - CANEVAS DE NIVELLEMENT", W/2, m+12, { align: "center" });
+    doc.setFontSize(9); doc.setFont("helvetica", "normal");
+    doc.text("TerraMaps v2.0 - " + new Date().toLocaleDateString("fr-FR"), W/2, m+19, { align: "center" });
+    autoTable(doc, {
+      startY: m + 28, margin: { left: m+4, right: m+4 },
+      head: [["Point", "VA (m)", "VI (m)", "VaV (m)", "HI (m)", "Altitude (m)"]],
+      body: results.map((r: any) => [r.point, r.va, r.vi, r.vav, r.hi, r.altitude]),
+      headStyles: { fillColor: [13, 71, 161], textColor: 255, fontStyle: "bold", fontSize: 9 },
+      bodyStyles: { fontSize: 8 },
+      alternateRowStyles: { fillColor: [240, 244, 255] },
+    });
+    const y = (doc as any).lastAutoTable.finalY + 8;
+    autoTable(doc, {
+      startY: y, margin: { left: m+4, right: m+4 },
+      head: [["Recapitulatif", "Valeur"]],
+      body: [
+        ["Altitude depart", parseFloat(altitudeDepart).toFixed(3) + " m"],
+        ["Total VA", totalVA.toFixed(3) + " m"],
+        ["Total VaV", totalVAV.toFixed(3) + " m"],
+        ["Altitude finale", altCalculee.toFixed(3) + " m"],
+        ["Resultat", fermeture !== null ? (Math.abs(fermeture) <= tolerance ? "ACCEPTE" : "REFUSE") : "Non verifie"],
+      ],
+      headStyles: { fillColor: [46, 125, 50], textColor: 255, fontStyle: "bold", fontSize: 9 },
+      bodyStyles: { fontSize: 8 },
+    });
+    const footY = 277;
+    doc.setLineWidth(0.3); doc.line(m+4, footY-20, W-m-4, footY-20);
+    doc.setFontSize(8); doc.setTextColor(0,0,0);
+    doc.text("Technicien :", m+10, footY-14);
+    doc.rect(W-m-45, footY-17, 40, 14);
+    doc.text("Cachet et Signature", W-m-44, footY-14);
+    doc.setFontSize(7); doc.setTextColor(100,100,100);
+    doc.text("TerraMaps v2.0 - terramaps.vercel.app", W/2, footY-4, { align: "center" });
+    doc.save("Nivellement_" + new Date().toISOString().slice(0,10) + ".pdf");
+  }
+
   function exportCSV() {
     const rows = ["Point,VA,VI,VaV,HI,Altitude"];
     results.forEach(r => rows.push(`${r.point},${r.va},${r.vi},${r.vav},${r.hi},${r.altitude}`));
