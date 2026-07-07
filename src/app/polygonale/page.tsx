@@ -114,7 +114,7 @@ export default function PolygonalePage() {
 
   function compensate() {
     const { results: res } = calculate();
-    const rows = ["Point,X brut,Y brut,Correction X,Correction Y,X compensé,Y compensé"];
+    const rows = ["Point,X brut,Y brut,Correction X,Correction Y,X comp.,Y comp."];
     res.forEach((r, i) => {
       const corrX = -fx * (parseFloat(r.distance) / perimetre) * (i+1);
       const corrY = -fy * (parseFloat(r.distance) / perimetre) * (i+1);
