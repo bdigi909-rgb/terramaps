@@ -37,6 +37,8 @@ Contexte : ${context || "Aucun projet sélectionné"}`;
   );
 
   const data = await response.json();
+  console.log('Gemini:', JSON.stringify(data).slice(0,300));
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
   return NextResponse.json({ response: text });
 }
+
