@@ -131,7 +131,7 @@ export default function NivellementPage() {
 
   function exportCSV() {
     const rows = ["Point,VA,VI,VaV,HI,Altitude"];
-    results.forEach(r => rows.push(`${r.point},${r.va},${r.vi},${r.vav},${r.hi},${r.altitude}`));
+    results.forEach((r: any) => rows.push([r.point, r.va === "—" ? "" : r.va, r.vi === "—" ? "" : r.vi, r.vav === "—" ? "" : r.vav, r.hi === "—" ? "" : r.hi, r.altitude].join(",")));
     const blob = new Blob([rows.join("\n")], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = "nivellement.csv"; a.click();
