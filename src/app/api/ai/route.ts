@@ -10,31 +10,33 @@ export async function POST(req: NextRequest) {
 
   const { message, context } = await req.json();
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": process.env.ANTHROPIC_API_KEY || "",
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1024,
-      system: `Tu es un assistant expert en topographie et géomatique pour TerraMaps, une plateforme SaaS marocaine de topographie et cartographie. 
-Tu aides les techniciens topographes et ingénieurs avec :
+  const systemPrompt = `Tu es un assistant expert en topographie et géomatique pour TerraMaps, une plateforme SaaS marocaine.
+Tu aides les techniciens topographes avec :
 - Les calculs de volumes de terrassement (déblai/remblai)
-- L'interprétation des coordonnées X, Y, Z
-- Les systèmes de coordonnées (Lambert Maroc EPSG:26191, WGS84, UTM)
-- Les formats de fichiers topographiques (CSV, GSI Leica, DXF, LandXML)
+- Les coordonnées X, Y, Z et systèmes Lambert Maroc EPSG:26191
+- Les formats CSV, GSI Leica, DXF, LandXML
+- Le nivellement, polygonale, levé topographique
 - Les normes marocaines de topographie
-- L'utilisation de TerraMaps
 Réponds toujours en français de manière concise et professionnelle.
-Contexte du projet actuel : ${context || "Aucun projet sélectionné"}`,
-      messages: [{ role: "user", content: message }],
-    }),
-  });
+Contexte : ${context || "Aucun projet sélectionné"}`;
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return NextResponse.json({ response: "Clé API Gemini non configurée. Ajoutez GEMINI_API_KEY dans Vercel." });
+
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: message }] }],
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+      }),
+    }
+  );
 
   const data = await response.json();
-  const text = data.content?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
   return NextResponse.json({ response: text });
 }
