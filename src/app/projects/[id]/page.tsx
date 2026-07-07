@@ -23,6 +23,7 @@ const TABS = [
   { id: "terrain", label: "MNT", icon: Mountain },
   { id: "volumes", label: "Volumes", icon: BarChart3 },
   { id: "layers", label: "Calques", icon: Layers },
+  { id: "activity", label: "Activite", icon: Activity },
 ];
 
 const TYPE_LABELS: Record<string, string> = {
@@ -547,6 +548,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
           </div>
         )}
       </main>
+        {tab === "activity" && (
+          <div className="srm-card">
+            <h3 style={{ margin: "0 0 20px", fontSize: 15, fontWeight: 600, color: "#8BACC8" }}>Activite du projet</h3>
+            <ActivityLog projectId={id} />
+          </div>
+        )}
     </AppShell>
   );
 }
