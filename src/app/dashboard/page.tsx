@@ -151,7 +151,7 @@ export default function DashboardPage() {
         }
       />
 
-      <main style={{ padding: "24px", flex: 1, overflowY: "auto" }}>
+      <main style={{ padding: "12px 16px", flex: 1, overflowY: "auto" }}>
         {/* Welcome banner */}
         <div
           style={{
@@ -235,7 +235,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Charts row */}
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 340px", gap: 16, marginBottom: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 280px", gap: 16, marginBottom: 24 }}>
           {/* Area chart */}
           <div className="srm-card">
             <h3 style={{ margin: "0 0 16px", fontSize: 13, fontWeight: 600, color: "#8bacc8" }}>
