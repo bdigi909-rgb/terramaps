@@ -445,3 +445,31 @@ body.is-mobile #hamburger { display: flex !important; }
   header p { display: none !important; }
   .tm-main > div:first-child { padding-top: 8px !important; }
 }
+
+/* Dashboard mobile responsive */
+@media (pointer: coarse), (max-width: 1024px) {
+  /* KPIs - 2 colonnes sur mobile */
+  .dashboard-kpis {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Graphiques - colonne unique */
+  .dashboard-charts {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Actions rapides - 2 colonnes */
+  .dashboard-actions {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Tableau projets - scroll horizontal */
+  .dashboard-table {
+    overflow-x: auto !important;
+  }
+  
+  /* Padding reduit */
+  .dashboard-content {
+    padding: 12px !important;
+  }
+}

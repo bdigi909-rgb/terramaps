@@ -62,6 +62,13 @@ interface DashboardData {
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile("ontouchstart" in window || window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState(new Date());
 
@@ -200,7 +207,7 @@ export default function DashboardPage() {
         </div>
 
         {/* KPI Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 16, marginBottom: 24 }}>
           {stats.map((s) => (
             <Link key={s.label} href={s.href} style={{ textDecoration: "none" }}>
               <div className="stat-card" style={{ cursor: "pointer", transition: "border-color 0.15s" }}>
@@ -228,7 +235,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Charts row */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 340px", gap: 16, marginBottom: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 340px", gap: 16, marginBottom: 24 }}>
           {/* Area chart */}
           <div className="srm-card">
             <h3 style={{ margin: "0 0 16px", fontSize: 13, fontWeight: 600, color: "#8bacc8" }}>
