@@ -599,3 +599,32 @@ body.light-mode .srm-card {
   color: #1E293B !important;
   border-color: #E2E8F0 !important;
 }
+
+/* Mode clair - boutons oranges et verts toujours visibles */
+body.light-mode [style*="background: #F97316"],
+body.light-mode [style*="background:#F97316"] {
+  color: #FFFFFF !important;
+}
+
+body.light-mode [style*="background: #22C55E"],
+body.light-mode [style*="background:#22C55E"] {
+  color: #FFFFFF !important;
+}
+
+/* Boutons avec texte noir sur fond sombre */
+body.light-mode .btn-primary {
+  background: #F97316 !important;
+  color: #FFFFFF !important;
+}
+
+body.light-mode .btn-secondary {
+  background: #F1F5F9 !important;
+  color: #1E293B !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* AI Assist badge */
+body.light-mode [style*="background: #0f1923"] {
+  background: #F1F5F9 !important;
+  color: #1E293B !important;
+}
