@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, use } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
@@ -174,7 +174,45 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             <Link href="/projects" style={{ textDecoration: "none" }}>
               <button className="btn-secondary"><ArrowLeft size={14} /> Retour</button>
             </Link>
-            <button className="btn-secondary"><FileDown size={14} /> Exporter</button>
+            <button className="btn-secondary" onClick={async () => {
+              if (!project) return;
+              const JSZip = (await import("jszip")).default;
+              const zip = new JSZip();
+              
+              // Points CSV
+              const pts = await fetch(`/api/projects/${project.id}/survey-points`).then(r => r.json());
+              if (Array.isArray(pts) && pts.length > 0) {
+                const csv = "Nom,Code,X,Y,Z\n" + pts.map((p: any) => `${p.name},${p.code},${p.x},${p.y},${p.z}`).join("\n");
+                zip.file("points.csv", csv);
+              }
+              
+              // LandXML
+              if (Array.isArray(pts) && pts.length > 0) {
+                const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<LandXML version="1.2" xmlns="http://www.landxml.org/schema/LandXML-1.2">\n  <Project desc="${project.name}" />\n  <CgPoints>\n${pts.map((p: any, i: number) => `    <CgPoint id="${i+1}" name="${p.name}" code="${p.code}">\n      <X>${p.x}</X>\n      <Y>${p.y}</Y>\n      <Z>${p.z}</Z>\n    </CgPoint>`).join("\n")}\n  </CgPoints>\n</LandXML>`;
+                zip.file("points.xml", xml);
+              }
+              
+              // Infos projet JSON
+              const info = {
+                nom: project.name,
+                type: project.type,
+                statut: project.status,
+                client: project.client,
+                localisation: project.location,
+                epsg: project.epsgCode,
+                date_export: new Date().toLocaleDateString("fr-FR"),
+                total_points: Array.isArray(pts) ? pts.length : 0,
+              };
+              zip.file("projet_info.json", JSON.stringify(info, null, 2));
+              
+              // Télécharger
+              const blob = await zip.generateAsync({ type: "blob" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `TerraMaps_${project.name.replace(/\s+/g, "_")}_export.zip`;
+              a.click();
+            }}><FileDown size={14} /> Exporter ZIP</button>
             <button className="btn-primary" onClick={handleSave} disabled={saving}>
               <Save size={14} /> {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
