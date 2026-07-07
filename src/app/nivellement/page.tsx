@@ -177,6 +177,7 @@ export default function NivellementPage() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                 <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600, color: "#8BACC8" }}>📊 Tableau des altitudes calculées</h3>
                 <button onClick={exportCSV} style={{ background: "#F97316", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>⬇️ Export CSV</button>
+                <button onClick={exportPDF} style={{ background: "#0D47A1", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>📄 Export PDF</button>
               </div>
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
