@@ -114,7 +114,7 @@ export default function ProjectsPage() {
   }).sort((a, b) => {
     if (sortBy === "date") return sortOrder === "desc" ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime() : new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
     if (sortBy === "name") return sortOrder === "desc" ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
-    if (sortBy === "points") return sortOrder === "desc" ? (b.pointsCount||0) - (a.pointsCount||0) : (a.pointsCount||0) - (b.pointsCount||0);
+    if (sortBy === "points") return sortOrder === "desc" ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     return 0;
   });
 
@@ -179,7 +179,7 @@ export default function ProjectsPage() {
             style={{ background: "#0f1923", border: "1px solid #1e3048", borderRadius: 8, padding: "6px 12px", color: "#e2eaf2", fontSize: 13 }}>
             <option value="date">Trier par date</option>
             <option value="name">Trier par nom</option>
-            <option value="points">Trier par points</option>
+            <option value="points">Trier par creation</option>
           </select>
           <button onClick={() => setSortOrder(o => o === "desc" ? "asc" : "desc")}
             style={{ background: "#0f1923", border: "1px solid #1e3048", borderRadius: 8, padding: "6px 10px", color: "#e2eaf2", cursor: "pointer", fontSize: 14 }}>
