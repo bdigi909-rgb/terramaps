@@ -180,7 +180,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               const zip = new JSZip();
               
               // Points CSV
-              const pts = await fetch(`/api/projects/${project.id}/survey-points`).then(r => r.json());
+              const ptsRaw = await fetch(`/api/projects/${project.id}/survey-points`).then(r => r.json());
+              const pts = Array.isArray(ptsRaw) ? ptsRaw.filter((p: any, i: number, self: any[]) => i === self.findIndex((q: any) => q.name === p.name && q.code === p.code)) : [];
               if (Array.isArray(pts) && pts.length > 0) {
                 const csv = "Nom,Code,X,Y,Z\n" + pts.map((p: any) => `${p.name},${p.code},${p.x},${p.y},${p.z}`).join("\n");
                 zip.file("points.csv", csv);
