@@ -46,6 +46,7 @@ export default function SurveyPage() {
   const [mapExpanded, setMapExpanded] = useState(false);
   const [mapHeight, setMapHeight] = useState(600);
   const resizing = useRef<boolean>(false);
+  useEffect(() => { setMapHeight(window.innerHeight - 250); }, []);
   const startY = useRef(0);
   const startH = useRef(0);
 
