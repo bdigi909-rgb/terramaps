@@ -225,7 +225,7 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
 
     // Charger image OSM
     // Carte de situation avec info GPS
-    try { throw new Error("skip"); } catch {
+
     try { throw new Error("skip"); } catch {
       // Carte de situation professionnelle
       doc.setFillColor(220, 235, 255);
