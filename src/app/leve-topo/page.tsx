@@ -22,6 +22,10 @@ export default function LeveTopoPage() {
     technicien: "",
     echelle: "1000",
     epsg: "EPSG:26191 — Lambert Maroc",
+    voisinNord: "",
+    voisinSud: "",
+    voisinEst: "",
+    voisinOuest: "",
   });
 
   useEffect(() => {
@@ -119,6 +123,24 @@ export default function LeveTopoPage() {
                 <option value="EPSG:32629 — UTM Zone 29N">EPSG:32629 — UTM Zone 29N</option>
                 <option value="EPSG:32630 — UTM Zone 30N">EPSG:32630 — UTM Zone 30N</option>
               </select>
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <label style={{ display: "block", fontSize: 12, color: "#F97316", marginBottom: 8, fontWeight: 700, textTransform: "uppercase" }}>Voisins</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                {[
+                  { key: "voisinNord", label: "Nord" },
+                  { key: "voisinSud", label: "Sud" },
+                  { key: "voisinEst", label: "Est" },
+                  { key: "voisinOuest", label: "Ouest" },
+                ].map(v => (
+                  <div key={v.key}>
+                    <label style={{ display: "block", fontSize: 10, color: "#64748B", marginBottom: 3 }}>{v.label}</label>
+                    <input value={(form as any)[v.key]} onChange={e => setForm(f => ({ ...f, [v.key]: e.target.value }))}
+                      placeholder={`Voisin ${v.label}...`}
+                      style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

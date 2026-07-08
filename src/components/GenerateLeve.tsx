@@ -409,6 +409,14 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
       doc.setFont("helvetica","normal"); doc.setTextColor(0,0,0);
       doc.text(item.l, lX+7, lY+5+i*5+0.5);
     });
+    // Noms des voisins autour du plan
+    if (data.voisinNord || data.voisinSud || data.voisinEst || data.voisinOuest) {
+      doc.setFontSize(6); doc.setFont("helvetica", "italic"); doc.setTextColor(217, 119, 6);
+      if (data.voisinNord) doc.text("N: " + data.voisinNord, v2X + v2W/2, v2Y + 8, { align: "center" });
+      if (data.voisinSud) doc.text("S: " + data.voisinSud, v2X + v2W/2, v2Y + v2H - 3, { align: "center" });
+      if (data.voisinEst) doc.text("E: " + data.voisinEst, v2X + v2W - 3, v2Y + v2H/2, { angle: 90, align: "center" });
+      if (data.voisinOuest) doc.text("O: " + data.voisinOuest, v2X + 3, v2Y + v2H/2, { angle: 90, align: "center" });
+    }
 
     // ── FOOTER ────────────────────────────────────────────────────
     const footY = H - m - 20;
