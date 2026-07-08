@@ -55,7 +55,7 @@ export default function LeveTopoPage() {
     projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
     points: points.map(p => ({ name: p.name || "PT", code: p.code || "TN", x: p.x, y: p.y, z: p.z })),
     signature: signature,
-    bureauNom: (form as any).bureauNom,
+    bureauNom: ((form as any).bureauNom || "").replace(/"/g, ""),
     bureauOrdre: (form as any).bureauOrdre,
     bureauVille: (form as any).bureauVille,
   };
