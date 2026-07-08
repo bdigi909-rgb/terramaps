@@ -226,7 +226,20 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     // Charger image OSM
     // Carte de situation avec info GPS
 
-    try { throw new Error("skip"); } catch {
+    try {
+      const apiKey = "0b9fa41ea5be40669f80a2f288c488ec";
+      const imgUrl = "https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=280&center=lonlat:" + lngCenter + "," + latCenterDeg + "&zoom=15&marker=lonlat:" + lngCenter + "," + latCenterDeg + ";color:red;size:medium&apiKey=" + apiKey;
+      const response = await fetch(imgUrl);
+      if (!response.ok) throw new Error("fetch failed");
+      const blob = await response.blob();
+      const imgData = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      doc.addImage(imgData, "PNG", v1X+2, v1Y+9, v1W-4, v1H-12);
+    } catch (err) {
       // Carte de situation professionnelle
       doc.setFillColor(220, 235, 255);
       doc.rect(v1X+2, v1Y+9, v1W-4, v1H-12, "F");
