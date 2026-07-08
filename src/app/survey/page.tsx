@@ -243,7 +243,7 @@ export default function SurveyPage() {
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         {/* Left panel */}
-        <div style={{ width: 160, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
+        <div style={{ width: 120, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
           <div className="section-title">Projet</div>
           <select className="srm-select" style={{ marginTop: 6 }} value={selectedProject ?? ""} onChange={(e) => setSelectedProject(parseInt(e.target.value))}>
             <option value="">Choisir...</option>
