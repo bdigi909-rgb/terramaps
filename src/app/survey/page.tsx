@@ -238,7 +238,7 @@ export default function SurveyPage() {
               </button>
             )}
           </div>
-        })
+        </div>
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         {/* Left panel */}
         <div style={{ width: 120, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
