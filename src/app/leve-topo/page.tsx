@@ -51,6 +51,7 @@ export default function LeveTopoPage() {
     ...form,
     projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
     points: points.map(p => ({ name: p.name || "PT", code: p.code || "TN", x: p.x, y: p.y, z: p.z })),
+    signature: signature,
   };
 
   return (
