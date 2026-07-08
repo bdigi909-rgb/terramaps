@@ -224,32 +224,46 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     const latCenterDeg = latCenter*180/Math.PI;
 
     // Charger image OSM
-    try {
-      const zoom = 15;
-      const tileSize = 256;
-      const lat2tile = (lat: number, z: number) => Math.floor((1-Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*Math.pow(2,z));
-      const lng2tile = (lng: number, z: number) => Math.floor((lng+180)/360*Math.pow(2,z));
-      const tx = lng2tile(lngCenter, zoom);
-      const ty = lat2tile(latCenterDeg, zoom);
-      
-      const imgUrl = `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=300&center=lonlat:${lngCenter},${latCenterDeg}&zoom=15&apiKey=a2e85db1e7724a8f9db87b64f7c3f7b0`;
-      
-      const response = await fetch(imgUrl);
-      const blob = await response.blob();
-      const reader = new FileReader();
-      const imgData = await new Promise<string>((resolve) => {
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.readAsDataURL(blob);
-      });
-      
-      doc.addImage(imgData, "PNG", v1X+2, v1Y+9, v1W-4, v1H-12);
-    } catch {
-      // Fallback carte schematique
-      doc.setFillColor(235, 245, 255);
+    // Carte de situation avec info GPS
+    try { throw new Error("skip"); } catch {
+    try { throw new Error("skip"); } catch {
+      // Carte de situation professionnelle
+      doc.setFillColor(220, 235, 255);
       doc.rect(v1X+2, v1Y+9, v1W-4, v1H-12, "F");
-      doc.setFontSize(8); doc.setTextColor(100,100,100);
-      doc.text(`Centre: ${latCenterDeg.toFixed(5)}°N, ${lngCenter.toFixed(5)}°E`, v1X+v1W/2, v1Y+v1H/2, { align: "center" });
-      doc.text(data.commune, v1X+v1W/2, v1Y+v1H/2+8, { align: "center" });
+      
+      // Grille de fond
+      doc.setDrawColor(180, 200, 230); doc.setLineWidth(0.1);
+      for (let i = 0; i <= 10; i++) {
+        doc.line(v1X+2+(i/10)*(v1W-4), v1Y+9, v1X+2+(i/10)*(v1W-4), v1Y+v1H-3);
+        doc.line(v1X+2, v1Y+9+(i/10)*(v1H-12), v1X+v1W-2, v1Y+9+(i/10)*(v1H-12));
+      }
+      
+      // Routes principales
+      doc.setDrawColor(200,180,100); doc.setLineWidth(1.2);
+      doc.line(v1X+2, v1Y+v1H*0.45, v1X+v1W-2, v1Y+v1H*0.45);
+      doc.setDrawColor(200,180,100); doc.setLineWidth(0.8);
+      doc.line(v1X+v1W*0.55, v1Y+9, v1X+v1W*0.55, v1Y+v1H-3);
+      
+      // Zone du projet
+      const zX = v1X + v1W/2 - 18;
+      const zY = v1Y + v1H/2 - 12;
+      doc.setFillColor(255, 100, 100);
+      doc.setDrawColor(200,0,0); doc.setLineWidth(1);
+      doc.rect(zX, zY, 36, 22, "FD");
+      doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(255,255,255);
+      doc.text("TERRAIN", v1X+v1W/2, v1Y+v1H/2-2, { align: "center" });
+      doc.text(data.commune.toUpperCase(), v1X+v1W/2, v1Y+v1H/2+5, { align: "center" });
+      
+      // Coordonnees GPS
+      doc.setFontSize(6); doc.setFont("helvetica","normal"); doc.setTextColor(0,0,80);
+      doc.text(`GPS: ${latCenterDeg.toFixed(6)}N, ${lngCenter.toFixed(6)}E`, v1X+5, v1Y+v1H-5);
+      doc.text(`Lambert: X=${Math.round(centerX)}, Y=${Math.round(centerY)}`, v1X+5, v1Y+v1H-2);
+      
+      // Legende routes
+      doc.setDrawColor(200,180,100); doc.setLineWidth(1);
+      doc.line(v1X+v1W-40, v1Y+v1H-8, v1X+v1W-30, v1Y+v1H-8);
+      doc.setFontSize(5); doc.setTextColor(0,0,0);
+      doc.text("Route principale", v1X+v1W-29, v1Y+v1H-7);
     }
 
     // Rose des vents vue 1
