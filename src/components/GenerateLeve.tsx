@@ -24,6 +24,10 @@ interface LeveData {
   epsg: string;
   points: Point[];
   projectName: string;
+  voisinNord?: string;
+  voisinSud?: string;
+  voisinEst?: string;
+  voisinOuest?: string;
 }
 
 export default function GenerateLeve({ data }: { data: LeveData }) {
