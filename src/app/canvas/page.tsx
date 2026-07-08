@@ -28,6 +28,63 @@ export default function CanvasPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tool, setTool] = useState<Tool>("select");
   const [entities, setEntities] = useState<Entity[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [showImport, setShowImport] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/projects").then(r => r.json()).then(data => {
+      if (Array.isArray(data)) setProjects(data);
+    });
+  }, []);
+
+  async function importFromProject(projectId: number) {
+    const res = await fetch(`/api/projects/${projectId}/survey-points`);
+    const pts = await res.json();
+    if (!Array.isArray(pts) || pts.length === 0) return;
+    
+    const xs = pts.map((p: any) => p.x);
+    const ys = pts.map((p: any) => p.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const scaleX = 600 / (maxX - minX || 1);
+    const scaleY = 400 / (maxY - minY || 1);
+    const scale = Math.min(scaleX, scaleY) * 0.8;
+    
+    const toCanvas = (p: any) => ({
+      x: (p.x - minX) * scale + 100,
+      y: 500 - (p.y - minY) * scale - 50,
+    });
+
+    const limPts = pts.filter((p: any) => p.code === "LIM");
+    const newEntities: Entity[] = [];
+
+    // Points
+    pts.forEach((p: any) => {
+      newEntities.push({
+        id: Math.random().toString(36).slice(2),
+        type: "point",
+        points: [toCanvas(p)],
+        color: p.code === "LIM" ? "#EF4444" : "#3B82F6",
+        lineWidth: 2,
+        text: p.name,
+      });
+    });
+
+    // Polygone LIM
+    if (limPts.length >= 2) {
+      newEntities.push({
+        id: Math.random().toString(36).slice(2),
+        type: "polyline",
+        points: [...limPts.map(toCanvas), toCanvas(limPts[0])],
+        color: "#EF4444",
+        lineWidth: 2,
+        closed: true,
+      });
+    }
+
+    setEntities(prev => [...prev, ...newEntities]);
+    setShowImport(false);
+  }
   const [drawing, setDrawing] = useState(false);
   const [currentPoints, setCurrentPoints] = useState<DrawPoint[]>([]);
   const [mousePos, setMousePos] = useState<DrawPoint>({ x: 0, y: 0 });
@@ -399,9 +456,23 @@ export default function CanvasPage() {
         subtitle="Éditeur CAO 2D — compatible DWG/DXF"
         actions={
           <div style={{ display: "flex", gap: 6 }}>
-            <button className="btn-secondary" style={{ fontSize: 11 }}>
-              <FolderOpen size={12} /> Ouvrir
+            <button className="btn-secondary" style={{ fontSize: 11 }} onClick={() => setShowImport(true)}>
+              <FolderOpen size={12} /> Importer projet
             </button>
+            {showImport && (
+              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.7)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24, minWidth: 300 }}>
+                  <h3 style={{ margin: "0 0 16px", color: "#E2EAF2" }}>Importer un projet</h3>
+                  {projects.map(p => (
+                    <button key={p.id} onClick={() => importFromProject(p.id)}
+                      style={{ display: "block", width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", color: "#E2EAF2", padding: "10px 16px", borderRadius: 8, cursor: "pointer", marginBottom: 8, textAlign: "left" }}>
+                      📁 {p.name}
+                    </button>
+                  ))}
+                  <button onClick={() => setShowImport(false)} style={{ background: "transparent", border: "none", color: "#64748B", cursor: "pointer", marginTop: 8 }}>Annuler</button>
+                </div>
+              </div>
+            )}
             <button className="btn-secondary" style={{ fontSize: 11 }} onClick={() => {
               let dxf = "0\nSECTION\n2\nHEADER\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n";
               entities.forEach(e => {
