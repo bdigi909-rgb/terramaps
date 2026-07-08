@@ -55,7 +55,13 @@ const tutorials = [
   },
   {
     id: 6,
-    title: "Gérer les utilisateurs",
+    title: "Gerer les utilisateurs",
+    description: "Gerez les roles et permissions de votre equipe",
+    icon: "👥",
+    color: "#EF4444",
+    steps: ["Allez dans Admin", "Cliquez sur Ajouter utilisateur", "Choisissez le role", "Envoyez l invitation"],
+    href: "/admin",
+  },
   {
     id: 7,
     title: "Canevas de nivellement",
