@@ -2,6 +2,33 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
+  function lambertToWGS84(x: number, y: number): [number, number] {
+    const a = 6378249.2, b = 6356515.0;
+    const e2 = 1 - (b*b)/(a*a);
+    const e = Math.sqrt(e2);
+    const lat1 = (31.0 + 44/60) * Math.PI / 180;
+    const lat2 = (34.0 + 40/60) * Math.PI / 180;
+    const lat0 = (33.0 + 18/60) * Math.PI / 180;
+    const lng0 = -5.4 * Math.PI / 180;
+    const x0 = 500000, y0 = 300000;
+    const mF = (l: number) => Math.cos(l) / Math.sqrt(1 - e2 * Math.sin(l)**2);
+    const tF = (l: number) => Math.tan(Math.PI/4 - l/2) / Math.pow((1 - e*Math.sin(l))/(1 + e*Math.sin(l)), e/2);
+    const m1 = mF(lat1), m2 = mF(lat2);
+    const t1 = tF(lat1), t2 = tF(lat2), t0 = tF(lat0);
+    const n = (Math.log(m1) - Math.log(m2)) / (Math.log(t1) - Math.log(t2));
+    const F = m1 / (n * Math.pow(t1, n));
+    const r0 = a * F * Math.pow(t0, n);
+    const dx = x - x0, dy = y - y0;
+    const r = Math.sqrt(dx*dx + (r0-dy)*(r0-dy));
+    const theta = Math.atan2(dx, r0-dy);
+    const tP = Math.pow(r / (a * F), 1/n);
+    const lngR = theta/n + lng0;
+    let latR = Math.PI/2 - 2*Math.atan(tP);
+    for (let i = 0; i < 10; i++) {
+      latR = Math.PI/2 - 2*Math.atan(tP * Math.pow((1-e*Math.sin(latR))/(1+e*Math.sin(latR)), e/2));
+    }
+    return [latR * 180 / Math.PI, lngR * 180 / Math.PI];
+  }
 function SearchMap({ points, centerX, centerY, radius }: { points: any[], centerX: number, centerY: number, radius: number }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInst = useRef<any>(null);
@@ -25,8 +52,8 @@ function SearchMap({ points, centerX, centerY, radius }: { points: any[], center
       const bounds: [number, number][] = [];
 
       points.forEach(pt => {
-        const lat = 30 + (pt.y - 300000) / 111320;
-        const lng = -5 + (pt.x - 500000) / (111320 * Math.cos(lat * Math.PI / 180));
+        const [lat, lng] = lambertToWGS84(pt.x, pt.y);
+
         
         const color = codeColors[pt.code] || "#64748B";
         const icon = L.divIcon({
@@ -43,8 +70,8 @@ function SearchMap({ points, centerX, centerY, radius }: { points: any[], center
       // Relier les points LIM (limites parcelle)
       const coordsMap: Record<string, [number,number][]> = {};
       points.forEach(pt => {
-        const lat = 30 + (pt.y - 300000) / 111320;
-        const lng = -5 + (pt.x - 500000) / (111320 * Math.cos(lat * Math.PI / 180));
+        const [lat, lng] = lambertToWGS84(pt.x, pt.y);
+
         if (!coordsMap[pt.code]) coordsMap[pt.code] = [];
         coordsMap[pt.code].push([lat, lng]);
       });
