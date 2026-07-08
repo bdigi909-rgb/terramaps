@@ -402,7 +402,28 @@ export default function CanvasPage() {
             <button className="btn-secondary" style={{ fontSize: 11 }}>
               <FolderOpen size={12} /> Ouvrir
             </button>
-            <button className="btn-secondary" style={{ fontSize: 11 }}>
+            <button className="btn-secondary" style={{ fontSize: 11 }} onClick={() => {
+              let dxf = "0\nSECTION\n2\nHEADER\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n";
+              entities.forEach(e => {
+                if (e.type === "line" && e.points.length >= 2) {
+                  dxf += "0\nLINE\n8\n0\n10\n" + e.points[0].x + "\n20\n" + (-e.points[0].y) + "\n30\n0\n11\n" + e.points[1].x + "\n21\n" + (-e.points[1].y) + "\n31\n0\n";
+                } else if (e.type === "circle" && e.radius) {
+                  dxf += "0\nCIRCLE\n8\n0\n10\n" + e.points[0].x + "\n20\n" + (-e.points[0].y) + "\n30\n0\n40\n" + e.radius + "\n";
+                } else if (e.type === "rect" && e.points.length >= 2) {
+                  const x1 = e.points[0].x, y1 = -e.points[0].y, x2 = e.points[1].x, y2 = -e.points[1].y;
+                  dxf += "0\nLWPOLYLINE\n8\n0\n90\n4\n70\n1\n10\n" + x1 + "\n20\n" + y1 + "\n10\n" + x2 + "\n20\n" + y1 + "\n10\n" + x2 + "\n20\n" + y2 + "\n10\n" + x1 + "\n20\n" + y2 + "\n";
+                } else if (e.type === "polyline" && e.points.length >= 2) {
+                  dxf += "0\nLWPOLYLINE\n8\n0\n90\n" + e.points.length + "\n70\n" + (e.closed ? "1" : "0") + "\n";
+                  e.points.forEach(p => { dxf += "10\n" + p.x + "\n20\n" + (-p.y) + "\n"; });
+                } else if (e.type === "text" && e.text) {
+                  dxf += "0\nTEXT\n8\n0\n10\n" + e.points[0].x + "\n20\n" + (-e.points[0].y) + "\n30\n0\n40\n12\n1\n" + e.text + "\n";
+                }
+              });
+              dxf += "0\nENDSEC\n0\nEOF\n";
+              const blob = new Blob([dxf], { type: "application/dxf" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a"); a.href = url; a.download = "TerraMaps_Canvas.dxf"; a.click();
+            }}>
               <Download size={12} /> Exporter DXF
             </button>
             <button className="btn-secondary" style={{ fontSize: 11 }} onClick={() => {
