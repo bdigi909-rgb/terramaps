@@ -190,52 +190,80 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     const rangeX = maxX - minX || 100;
     const rangeY = maxY - minY || 100;
 
-    // ── VUE 1 — CARTE DE SITUATION (haut) ──────────────────────
+    // ── VUE 1 — CARTE DE SITUATION REELLE ──────────────────────
     const v1X = m+4, v1Y = 44, v1W = W-m*2-8, v1H = 100;
     doc.setDrawColor(0); doc.setLineWidth(0.5);
     doc.rect(v1X, v1Y, v1W, v1H);
     doc.setFontSize(8); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,0);
     doc.text("VUE D'ENSEMBLE — CARTE DE SITUATION", v1X + v1W/2, v1Y + 6, { align: "center" });
 
-    // Fond carte situation
-    doc.setFillColor(235, 245, 255);
-    doc.rect(v1X+2, v1Y+9, v1W-4, v1H-12, "F");
+    // Calcul centre terrain en WGS84
+    const allX = data.points.map((p: any) => p.x);
+    const allY = data.points.map((p: any) => p.y);
+    const centerX = allX.reduce((a: number, b: number) => a+b, 0) / allX.length;
+    const centerY = allY.reduce((a: number, b: number) => a+b, 0) / allY.length;
 
-    // Grille carte situation
-    doc.setDrawColor(200, 215, 235); doc.setLineWidth(0.1);
-    for (let i = 0; i <= 8; i++) {
-      doc.line(v1X+2+(i/8)*(v1W-4), v1Y+9, v1X+2+(i/8)*(v1W-4), v1Y+v1H-3);
-      doc.line(v1X+2, v1Y+9+(i/8)*(v1H-12), v1X+v1W-2, v1Y+9+(i/8)*(v1H-12));
+    // Conversion Lambert -> WGS84
+    const a2 = 6378249.2, b2 = 6356515.0;
+    const e2 = 1-(b2*b2)/(a2*a2), e = Math.sqrt(e2);
+    const lat1r = (31+44/60)*Math.PI/180, lat2r = (34+40/60)*Math.PI/180;
+    const lat0r = (33+18/60)*Math.PI/180, lng0r = -5.4*Math.PI/180;
+    const x0 = 500000, y0 = 300000;
+    const mFn = (l: number) => Math.cos(l)/Math.sqrt(1-e2*Math.sin(l)**2);
+    const tFn = (l: number) => Math.tan(Math.PI/4-l/2)/Math.pow((1-e*Math.sin(l))/(1+e*Math.sin(l)),e/2);
+    const m1=mFn(lat1r),m2=mFn(lat2r),t1=tFn(lat1r),t2=tFn(lat2r),t0=tFn(lat0r);
+    const n=(Math.log(m1)-Math.log(m2))/(Math.log(t1)-Math.log(t2));
+    const F=m1/(n*Math.pow(t1,n)), r0=a2*F*Math.pow(t0,n);
+    const dx2=centerX-x0, dy2=centerY-y0;
+    const r2=Math.sqrt(dx2*dx2+(r0-dy2)*(r0-dy2));
+    const theta2=Math.atan2(dx2,r0-dy2);
+    const tP2=Math.pow(r2/(a2*F),1/n);
+    const lngCenter=(theta2/n+lng0r)*180/Math.PI;
+    let latCenter=Math.PI/2-2*Math.atan(tP2);
+    for(let i=0;i<10;i++){latCenter=Math.PI/2-2*Math.atan(tP2*Math.pow((1-e*Math.sin(latCenter))/(1+e*Math.sin(latCenter)),e/2));}
+    const latCenterDeg = latCenter*180/Math.PI;
+
+    // Charger image OSM
+    try {
+      const zoom = 15;
+      const tileSize = 256;
+      const lat2tile = (lat: number, z: number) => Math.floor((1-Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*Math.pow(2,z));
+      const lng2tile = (lng: number, z: number) => Math.floor((lng+180)/360*Math.pow(2,z));
+      const tx = lng2tile(lngCenter, zoom);
+      const ty = lat2tile(latCenterDeg, zoom);
+      
+      const imgUrl = `https://staticmap.openstreetmap.de/staticmap.php?center=${latCenterDeg},${lngCenter}&zoom=15&size=600x300&markers=${latCenterDeg},${lngCenter},red`;
+      
+      const response = await fetch(imgUrl);
+      const blob = await response.blob();
+      const reader = new FileReader();
+      const imgData = await new Promise<string>((resolve) => {
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+      
+      doc.addImage(imgData, "PNG", v1X+2, v1Y+9, v1W-4, v1H-12);
+    } catch {
+      // Fallback carte schematique
+      doc.setFillColor(235, 245, 255);
+      doc.rect(v1X+2, v1Y+9, v1W-4, v1H-12, "F");
+      doc.setFontSize(8); doc.setTextColor(100,100,100);
+      doc.text(`Centre: ${latCenterDeg.toFixed(5)}°N, ${lngCenter.toFixed(5)}°E`, v1X+v1W/2, v1Y+v1H/2, { align: "center" });
+      doc.text(data.commune, v1X+v1W/2, v1Y+v1H/2+8, { align: "center" });
     }
-
-    // Zone projet (rectangle rouge centré)
-    const zX = v1X + v1W/2 - 15;
-    const zY = v1Y + v1H/2 - 10;
-    doc.setDrawColor(200,0,0); doc.setLineWidth(0.8);
-    doc.setFillColor(255, 200, 200);
-    doc.rect(zX, zY, 30, 20, "FD");
-    doc.setFontSize(6); doc.setFont("helvetica","bold"); doc.setTextColor(200,0,0);
-    doc.text("ZONE DU PROJET", v1X+v1W/2, v1Y+v1H/2+2, { align: "center" });
-    doc.setFontSize(5); doc.setTextColor(0,0,0);
-    doc.text(data.commune, v1X+v1W/2, v1Y+v1H/2+7, { align: "center" });
-
-    // Routes schématiques
-    doc.setDrawColor(150,150,150); doc.setLineWidth(0.4);
-    doc.line(v1X+2, v1Y+v1H/2, v1X+v1W-2, v1Y+v1H/2);
-    doc.line(v1X+v1W/2, v1Y+9, v1X+v1W/2, v1Y+v1H-3);
 
     // Rose des vents vue 1
     const r1X = v1X+v1W-15, r1Y = v1Y+15;
-    doc.setDrawColor(0); doc.setFillColor(0,0,0); doc.setLineWidth(0.4);
-    doc.line(r1X, r1Y+6, r1X, r1Y-6);
-    doc.line(r1X-4, r1Y, r1X+4, r1Y);
-    doc.triangle(r1X-1.5, r1Y-2, r1X+1.5, r1Y-2, r1X, r1Y-7, "F");
+    doc.setDrawColor(0); doc.setFillColor(255,255,255); doc.setLineWidth(0.4);
+    doc.circle(r1X, r1Y, 6, "F");
+    doc.setFillColor(0,0,0);
+    doc.line(r1X, r1Y+5, r1X, r1Y-5);
+    doc.triangle(r1X-1.5, r1Y-2, r1X+1.5, r1Y-2, r1X, r1Y-6, "F");
     doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,0);
-    doc.text("N", r1X, r1Y-9, { align: "center" });
+    doc.text("N", r1X, r1Y-8, { align: "center" });
 
     doc.setFontSize(5); doc.setFont("helvetica","normal"); doc.setTextColor(100,100,100);
-    doc.text(`Échelle approximative`, v1X+5, v1Y+v1H-3);
-
+    doc.text(`Centre: ${latCenterDeg.toFixed(5)}N, ${lngCenter.toFixed(5)}E`, v1X+5, v1Y+v1H-3);
     // ── VUE 2 — PLAN DÉTAILLÉ (bas) ────────────────────────────
     const v2X = m+4, v2Y = v1Y+v1H+8, v2W = W-m*2-8, v2H = H-m-4-v2Y-25;
     doc.setDrawColor(0); doc.setLineWidth(0.5);
