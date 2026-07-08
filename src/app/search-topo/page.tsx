@@ -218,7 +218,7 @@ export default function SearchTopoPage() {
               <div style={{ fontSize: 11, color: "#64748B", marginBottom: 8, fontWeight: 600, textTransform: "uppercase" }}>Coordonnées exemples (Maroc)</div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {[
-                  { label: "Béni Mellal", x: "450000", y: "340000" },
+                  { label: "Béni Mellal", x: "409700", y: "192650" },
                   { label: "Casablanca", x: "334000", y: "372000" },
                   { label: "Rabat", x: "317000", y: "399000" },
                   { label: "Marrakech", x: "290000", y: "298000" },
