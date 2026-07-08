@@ -239,11 +239,11 @@ export default function SurveyPage() {
             )}
           </div>
         }
-      <div style={{ display: "flex", flex: 1, overflow: "visible", minHeight: 0 }}>
+      />
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         {/* Left panel */}
-        <div style={{ width: 120, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
+        <div style={{ width: 160, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
           <div className="section-title">Projet</div>
           <select className="srm-select" style={{ marginTop: 6 }} value={selectedProject ?? ""} onChange={(e) => setSelectedProject(parseInt(e.target.value))}>
             <option value="">Choisir...</option>
@@ -289,7 +289,7 @@ export default function SurveyPage() {
         </div>
 
         {/* Main */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
           {/* Toolbar */}
           <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "8px 16px", display: "flex", gap: 10, alignItems: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#0f1923", border: "1px solid #1e3048", borderRadius: 7, padding: "6px 10px", flex: 1, maxWidth: 280 }}>
