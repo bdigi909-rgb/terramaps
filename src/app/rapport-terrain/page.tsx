@@ -1,4 +1,5 @@
 ﻿"use client";
+import SignaturePad from "@/components/SignaturePad";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
@@ -7,6 +8,9 @@ export default function RapportTerrainPage() {
   const [selectedProject, setSelectedProject] = useState("");
   const [points, setPoints] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [signature, setSignature] = useState("");
+  const [bureauNom, setBureauNom] = useState("");
+  const [bureauOrdre, setBureauOrdre] = useState("");
   const [form, setForm] = useState({
     province: "Séttat",
     commune: "Cherrat",
@@ -163,6 +167,18 @@ export default function RapportTerrainPage() {
     doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.setTextColor(0,0,0);
     doc.text(`Fait à ${form.commune}, le ${form.date}`, m+10, footY+6);
     doc.text("Cachet et Signature", W-m-40, footY+6);
+    // Signature numerique
+    if (signature) { doc.addImage(signature, "PNG", W-m-45, footY+3, 40, 15); }
+    
+    // Cachet bureau
+    if (bureauNom) {
+      doc.setDrawColor(0,0,150); doc.setLineWidth(0.8);
+      doc.rect(m+4, footY-2, 60, 20);
+      doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,150);
+      doc.text(bureauNom, m+34, footY+4, { align: "center" });
+      doc.setFont("helvetica","normal"); doc.setFontSize(6);
+      if (bureauOrdre) doc.text("N Ordre: " + bureauOrdre, m+34, footY+9, { align: "center" });
+    }
     doc.rect(W-m-45, footY+3, 40, 15);
     doc.setFontSize(7); doc.setTextColor(100,100,100);
     doc.text("Document généré par TerraMaps v2.0 — terramaps.vercel.app", W/2, H-m-4, { align: "center" });
@@ -265,6 +281,18 @@ export default function RapportTerrainPage() {
 
             {/* Bouton générer */}
             <button onClick={generatePDF} disabled={loading || !selectedProject || points.length === 0}
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: "#F97316", marginBottom: 8, fontWeight: 700, textTransform: "uppercase" }}>Cachet du bureau</div>
+                <input value={bureauNom} onChange={e => setBureauNom(e.target.value)}
+                  placeholder="Nom du bureau..."
+                  style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box", marginBottom: 6 }} />
+                <input value={bureauOrdre} onChange={e => setBureauOrdre(e.target.value)}
+                  placeholder="N ordre topographe..."
+                  style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+              </div>
+              <div style={{ marginBottom: 16 }}>
+                <SignaturePad onSignature={setSignature} />
+              </div>
               style={{ width: "100%", background: !selectedProject || points.length === 0 ? "#1E2D3D" : "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: !selectedProject || points.length === 0 ? "not-allowed" : "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Génération..." : "📋 Générer le Rapport Complet"}
             </button>
