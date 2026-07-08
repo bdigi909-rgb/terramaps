@@ -24,6 +24,7 @@ interface LeveData {
   epsg: string;
   points: Point[];
   projectName: string;
+  signature?: string;
   voisinNord?: string;
   voisinSud?: string;
   voisinEst?: string;

@@ -1,4 +1,5 @@
 ﻿"use client";
+import SignaturePad from "@/components/SignaturePad";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,6 +10,7 @@ export default function LeveTopoPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [points, setPoints] = useState<any[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
+  const [signature, setSignature] = useState("");
   const [form, setForm] = useState({
     province: "Séttat",
     cercle: "Cherrat",
@@ -142,9 +144,11 @@ export default function LeveTopoPage() {
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* Right — Preview & Generate */}
+          <div style={{ marginTop: 16 }}>
+                <SignaturePad onSignature={setSignature} />
+              </div>
+            </div>
+            {/* Right — Preview & Generate */}
           <div>
             {/* Points summary */}
             <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: 24, marginBottom: 20 }}>
