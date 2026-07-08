@@ -232,7 +232,7 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
       const tx = lng2tile(lngCenter, zoom);
       const ty = lat2tile(latCenterDeg, zoom);
       
-      const imgUrl = `https://staticmap.openstreetmap.de/staticmap.php?center=${latCenterDeg},${lngCenter}&zoom=15&size=600x300&markers=${latCenterDeg},${lngCenter},red`;
+      const imgUrl = `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=300&center=lonlat:${lngCenter},${latCenterDeg}&zoom=15&apiKey=a2e85db1e7724a8f9db87b64f7c3f7b0`;
       
       const response = await fetch(imgUrl);
       const blob = await response.blob();
