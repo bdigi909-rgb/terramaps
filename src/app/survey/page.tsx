@@ -289,7 +289,7 @@ export default function SurveyPage() {
         </div>
 
         {/* Main */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }}>
           {/* Toolbar */}
           <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "8px 16px", display: "flex", gap: 10, alignItems: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#0f1923", border: "1px solid #1e3048", borderRadius: 7, padding: "6px 10px", flex: 1, maxWidth: 280 }}>
