@@ -435,6 +435,7 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     doc.setFont("helvetica", "normal");
     doc.text(`Fait à ${data.commune}, le ${data.date}`, m + 10, footY + 6);
     doc.text("Cachet et Signature", W - m - 40, footY + 6);
+    if (data.signature) { doc.addImage(data.signature, "PNG", W-m-45, footY+3, 40, 15); }
     doc.rect(W - m - 45, footY + 3, 40, 15);
 
     doc.setFontSize(7);
