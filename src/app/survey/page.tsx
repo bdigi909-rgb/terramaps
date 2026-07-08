@@ -44,7 +44,7 @@ export default function SurveyPage() {
   const [search, setSearch] = useState("");
   const [filterCode, setFilterCode] = useState("all");
   const [mapExpanded, setMapExpanded] = useState(false);
-  const [mapHeight, setMapHeight] = useState(600);
+  const [mapHeight, setMapHeight] = useState(typeof window !== 'undefined' ? window.innerHeight - 250 : 600);
   const resizing = useRef<boolean>(false);
   const startY = useRef(0);
   const startH = useRef(0);
