@@ -448,6 +448,15 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
       if (data.bureauOrdre) doc.text("N Ordre: " + data.bureauOrdre, m+34, footY+9, { align: "center" });
       if (data.bureauVille) doc.text(data.bureauVille, m+34, footY+14, { align: "center" });
     }
+    if (data.bureauNom) {
+      doc.setDrawColor(0,0,150); doc.setLineWidth(0.8);
+      doc.rect(m+4, footY-2, 60, 20);
+      doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,150);
+      doc.text(data.bureauNom, m+34, footY+4, { align: "center" });
+      doc.setFont("helvetica","normal"); doc.setFontSize(6);
+      if (data.bureauOrdre) doc.text("N Ordre: " + data.bureauOrdre, m+34, footY+9, { align: "center" });
+      if (data.bureauVille) doc.text(data.bureauVille, m+34, footY+14, { align: "center" });
+    }
     doc.rect(W - m - 45, footY + 3, 40, 15);
 
     doc.setFontSize(7);
