@@ -346,7 +346,7 @@ export default function HelpPage() {
                 
                 {/* Animation zone */}
                 <div style={{ padding: 16, background: "#0D1117" }}>
-                  <Anim />
+                  {Anim && <Anim />}
                 </div>
 
                 {/* Content */}
