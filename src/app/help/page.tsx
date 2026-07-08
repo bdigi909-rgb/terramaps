@@ -98,7 +98,7 @@ const tutorials = [
     steps: ["Allez dans Calculatrice", "Choisissez Distance et Gisement", "Entrez les coordonnees X Y", "Obtenez distance et gisement", "Utilisez Superficie Gauss pour les parcelles"],
     href: "/calculatrice",
   },
-    description: "Créez et gérez les comptes de votre équipe",
+  { id: 11, title: "Gerer les utilisateurs",
     icon: "👥",
     color: "#F97316",
     steps: ["Allez dans 'Admin'", "Cliquez sur '+ Nouvel utilisateur'", "Remplissez les informations", "Choisissez le rôle (Agent/Manager)"],
