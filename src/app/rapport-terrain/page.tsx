@@ -294,8 +294,6 @@ export default function RapportTerrainPage() {
               style={{ width: "100%", background: !selectedProject || points.length === 0 ? "#1E2D3D" : "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: !selectedProject || points.length === 0 ? "not-allowed" : "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Generation..." : "Generer le Rapport Complet"}
             </button>
-            <button onClick={generatePDF} disabled={loading || !selectedProject || points.length === 0}
-            </button>
           </div>
         </div>
       </div>
