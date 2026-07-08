@@ -239,7 +239,7 @@ export default function SurveyPage() {
             )}
           </div>
         }
-      />
+      <div style={{ display: "flex", flex: 1, overflow: "visible", minHeight: 0 }}>
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         {/* Left panel */}
