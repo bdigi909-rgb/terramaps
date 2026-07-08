@@ -28,6 +28,9 @@ export default function LeveTopoPage() {
     voisinSud: "",
     voisinEst: "",
     voisinOuest: "",
+    bureauNom: "",
+    bureauOrdre: "",
+    bureauVille: "",
   });
 
   useEffect(() => {
@@ -52,6 +55,9 @@ export default function LeveTopoPage() {
     projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
     points: points.map(p => ({ name: p.name || "PT", code: p.code || "TN", x: p.x, y: p.y, z: p.z })),
     signature: signature,
+    bureauNom: (form as any).bureauNom,
+    bureauOrdre: (form as any).bureauOrdre,
+    bureauVille: (form as any).bureauVille,
   };
 
   return (
@@ -145,6 +151,20 @@ export default function LeveTopoPage() {
                 ))}
               </div>
             </div>
+              <div style={{ marginBottom: 12 }}>
+                <label style={{ display: "block", fontSize: 12, color: "#3B82F6", marginBottom: 8, fontWeight: 700, textTransform: "uppercase" }}>Cachet du bureau</label>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <input value={(form as any).bureauNom} onChange={e => setForm(f => ({ ...f, bureauNom: e.target.value }))}
+                    placeholder="Nom du bureau d etudes..."
+                    style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+                  <input value={(form as any).bureauOrdre} onChange={e => setForm(f => ({ ...f, bureauOrdre: e.target.value }))}
+                    placeholder="N ordre topographe..."
+                    style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+                  <input value={(form as any).bureauVille} onChange={e => setForm(f => ({ ...f, bureauVille: e.target.value }))}
+                    placeholder="Ville..."
+                    style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+                </div>
+              </div>
           <div style={{ marginTop: 16 }}>
                 <SignaturePad onSignature={setSignature} />
               </div>

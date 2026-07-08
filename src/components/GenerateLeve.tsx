@@ -25,6 +25,9 @@ interface LeveData {
   points: Point[];
   projectName: string;
   signature?: string;
+  bureauNom?: string;
+  bureauOrdre?: string;
+  bureauVille?: string;
   voisinNord?: string;
   voisinSud?: string;
   voisinEst?: string;
