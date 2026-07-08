@@ -222,7 +222,7 @@ export default function SurveyPage() {
             <ExportExcel points={filtered} projectName={projects.find(p => p.id === selectedProject)?.name} />
             <button onClick={() => {
               const projectName = projects.find(p => p.id === selectedProject)?.name || "projet";
-              const points = filtered.map((p, i) => `        <CgPoint id="${i+1}" name="${p.name || "PT"+(i+1)}" code="${p.code || "TN"}">\n          <X>${p.x.toFixed(3)}</X>\n          <Y>${p.y.toFixed(3)}</Y>\n          <Z>${p.z.toFixed(3)}</Z>\n        </CgPoint>`).join("\n");
+              const date = new Date().toISOString().slice(0,10);
               const points = filtered.map((p, i) => `        <CgPoint id="${i+1}" name="${p.name || `PT${i+1}`}" code="${p.code || "TN"}">\n          <X>${p.x.toFixed(3)}</X>\n          <Y>${p.y.toFixed(3)}</Y>\n          <Z>${p.z.toFixed(3)}</Z>\n        </CgPoint>`).join("\n");
               const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<LandXML version="1.2" date="${date}" time="${new Date().toTimeString().slice(0,8)}" xmlns="http://www.landxml.org/schema/LandXML-1.2">\n  <Project desc="${projectName}" />\n  <Units>\n    <Metric linearUnit="meter" areaUnit="squareMeter" volumeUnit="cubicMeter" />\n  </Units>\n  <CgPoints>\n${points}\n  </CgPoints>\n</LandXML>`;
               const blob = new Blob([xml], { type: "application/xml" });
@@ -238,7 +238,9 @@ export default function SurveyPage() {
               </button>
             )}
           </div>
-        </div>
+        }
+      <div style={{ display: "flex", flex: 1, overflow: "visible", minHeight: 0 }}>
+
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         {/* Left panel */}
         <div style={{ width: 120, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
