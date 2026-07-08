@@ -232,6 +232,29 @@ export default function SurveyPage() {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               LandXML
             </button>
+            <button onClick={() => {
+              const projectName = projects.find(p => p.id === selectedProject)?.name || "projet";
+              const date = new Date().toISOString().slice(0,10);
+              let dxf = "0\nSECTION\n2\nHEADER\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n";
+              // Points
+              filtered.forEach((p, i) => {
+                dxf += "0\nPOINT\n8\n" + (p.code || "0") + "\n10\n" + p.x + "\n20\n" + p.y + "\n30\n" + p.z + "\n";
+              });
+              // Polygone LIM
+              const lim = filtered.filter(p => p.code === "LIM");
+              if (lim.length >= 2) {
+                dxf += "0\nPOLYLINE\n8\nLIM\n66\n1\n70\n1\n";
+                lim.forEach(p => { dxf += "0\nVERTEX\n8\nLIM\n10\n" + p.x + "\n20\n" + p.y + "\n30\n" + p.z + "\n"; });
+                dxf += "0\nSEQEND\n";
+              }
+              dxf += "0\nENDSEC\n0\nEOF\n";
+              const blob = new Blob([dxf], { type: "application/dxf" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a"); a.href = url; a.download = "TerraMaps_" + projectName + "_" + date + ".dxf"; a.click();
+            }} className="btn-secondary" style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 4 }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+              DXF
+            </button>
             {selectedProject && (
               <button className="btn-primary" style={{ fontSize: 11 }} onClick={generateSample}>
                 <RefreshCw size={12} /> Générer échantillon
