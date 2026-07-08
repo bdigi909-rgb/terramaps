@@ -278,23 +278,23 @@ export default function RapportTerrainPage() {
                 <div key={item} style={{ fontSize: 12, color: "#8BACC8", padding: "3px 0" }}>{item}</div>
               ))}
             </div>
+            <div style={{ marginBottom: 12 }}>
+              <input value={bureauNom} onChange={e => setBureauNom(e.target.value)}
+                placeholder="Nom du bureau..."
+                style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box", marginBottom: 6 }} />
+              <input value={bureauOrdre} onChange={e => setBureauOrdre(e.target.value)}
+                placeholder="N ordre topographe..."
+                style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <SignaturePad onSignature={setSignature} />
+            </div>
 
-            {/* Bouton générer */}
             <button onClick={generatePDF} disabled={loading || !selectedProject || points.length === 0}
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 11, color: "#F97316", marginBottom: 8, fontWeight: 700, textTransform: "uppercase" }}>Cachet du bureau</div>
-                <input value={bureauNom} onChange={e => setBureauNom(e.target.value)}
-                  placeholder="Nom du bureau..."
-                  style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box", marginBottom: 6 }} />
-                <input value={bureauOrdre} onChange={e => setBureauOrdre(e.target.value)}
-                  placeholder="N ordre topographe..."
-                  style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "7px 10px", color: "#fff", fontSize: 12, boxSizing: "border-box" }} />
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <SignaturePad onSignature={setSignature} />
-              </div>
               style={{ width: "100%", background: !selectedProject || points.length === 0 ? "#1E2D3D" : "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: !selectedProject || points.length === 0 ? "not-allowed" : "pointer", fontSize: 15, fontWeight: 700 }}>
-              {loading ? "Génération..." : "📋 Générer le Rapport Complet"}
+              {loading ? "Generation..." : "Generer le Rapport Complet"}
+            </button>
+            <button onClick={generatePDF} disabled={loading || !selectedProject || points.length === 0}
             </button>
           </div>
         </div>
