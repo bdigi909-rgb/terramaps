@@ -337,7 +337,7 @@ export default function HelpPage() {
         {/* Tutorials grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
           {tutorials.map(tuto => {
-            const Anim = animations[tuto.animation];
+            const Anim = tuto.animation ? animations[tuto.animation as keyof typeof animations] : null;
             const isActive = active === tuto.id;
             return (
               <div key={tuto.id}
