@@ -152,6 +152,7 @@ export default function MapView({ points, epsg }: MapViewProps) {
 
       if (bounds.length > 0) {
         mapInstanceRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+      setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 300);
       }
     });
   }, [points]);
