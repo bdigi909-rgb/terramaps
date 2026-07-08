@@ -21,7 +21,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
     </button>
     <header
       style={{
-        height: "var(--header-height)",
+        height: 48,
         background: "var(--sidebar-bg)",
         borderBottom: "1px solid var(--border)",
         display: "flex",
