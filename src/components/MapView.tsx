@@ -72,16 +72,35 @@ export default function MapView({ points, epsg }: MapViewProps) {
       const bounds: [number, number][] = [];
 
       points.forEach((pt) => {
-        // Convert Lambert Maroc (EPSG:26191) to WGS84
+        // Convert Lambert Maroc (EPSG:26191) to WGS84 - formule precise
         let lat = pt.y, lng = pt.x;
         if (Math.abs(pt.x) > 180 || Math.abs(pt.y) > 90) {
-          const x0 = 500000, y0 = 300000;
+          const a = 6378249.2, b = 6356515.0;
+          const e2 = 1 - (b*b)/(a*a);
+          const e = Math.sqrt(e2);
+          const lat1 = (31.0 + 44/60) * Math.PI / 180;
+          const lat2 = (34.0 + 40/60) * Math.PI / 180;
+          const lat0 = (33.0 + 18/60) * Math.PI / 180;
           const lng0 = -5.4 * Math.PI / 180;
-          const lat0 = 33.3 * Math.PI / 180;
+          const x0 = 500000, y0 = 300000;
+          const mF = (l: number) => Math.cos(l) / Math.sqrt(1 - e2 * Math.sin(l)**2);
+          const tF = (l: number) => Math.tan(Math.PI/4 - l/2) / Math.pow((1 - e*Math.sin(l))/(1 + e*Math.sin(l)), e/2);
+          const m1 = mF(lat1), m2 = mF(lat2);
+          const t1 = tF(lat1), t2 = tF(lat2), t0 = tF(lat0);
+          const n = (Math.log(m1) - Math.log(m2)) / (Math.log(t1) - Math.log(t2));
+          const F = m1 / (n * Math.pow(t1, n));
+          const r0 = a * F * Math.pow(t0, n);
           const dx = pt.x - x0;
           const dy = pt.y - y0;
-          lat = (lat0 + dy / 111320) * 180 / Math.PI;
-          lng = (lng0 + dx / (111320 * Math.cos(lat0))) * 180 / Math.PI;
+          const r = Math.sqrt(dx*dx + (r0-dy)*(r0-dy));
+          const theta = Math.atan2(dx, r0-dy);
+          const tP = Math.pow(r / (a * F), 1/n);
+          lng = (theta/n + lng0) * 180 / Math.PI;
+          let latR = Math.PI/2 - 2*Math.atan(tP);
+          for (let i = 0; i < 10; i++) {
+            latR = Math.PI/2 - 2*Math.atan(tP * Math.pow((1-e*Math.sin(latR))/(1+e*Math.sin(latR)), e/2));
+          }
+          lat = latR * 180 / Math.PI;
         }
         if (isNaN(lat) || isNaN(lng)) return;
 
