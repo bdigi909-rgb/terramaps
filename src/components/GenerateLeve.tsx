@@ -325,7 +325,10 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     doc.text(`Y=${minY.toFixed(0)}`, v2X+1, v2Y+v2H-pad);
 
     // LIM — limites parcelle trait épais rouge
-    const limPts = data.points.filter((p: any) => p.code === "LIM");
+    const limPtsRaw = data.points.filter((p: any) => p.code === "LIM");
+    const limCx = limPtsRaw.reduce((s: number, p: any) => s + p.x, 0) / (limPtsRaw.length || 1);
+    const limCy = limPtsRaw.reduce((s: number, p: any) => s + p.y, 0) / (limPtsRaw.length || 1);
+    const limPts = [...limPtsRaw].sort((a: any, b: any) => Math.atan2(a.y - limCy, a.x - limCx) - Math.atan2(b.y - limCy, b.x - limCx));
     if (limPts.length >= 2) {
       doc.setDrawColor(200,0,0); doc.setLineWidth(1.0);
       for (let i = 0; i < limPts.length; i++) {
