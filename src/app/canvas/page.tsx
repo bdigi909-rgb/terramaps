@@ -49,12 +49,14 @@ export default function CanvasPage() {
     const scaleX = 500 / (maxX - minX || 1);
     const scaleY = 300 / (maxY - minY || 1);
     const scale = Math.min(scaleX, scaleY) * 0.7;
-    const offsetX = (700 - (maxX - minX) * scale) / 2 + 100;
+    const canvasW = 900, canvasH = 600;
+    const offsetX = (canvasW - (maxX - minX) * scale) / 2;
+    const offsetY2 = (canvasH - (maxY - minY) * scale) / 2;
     const offsetY = (500 - (maxY - minY) * scale) / 2;
     
     const toCanvas = (p: any) => ({
       x: (p.x - minX) * scale + offsetX,
-      y: 500 - (p.y - minY) * scale - offsetY,
+      y: canvasH - (p.y - minY) * scale - offsetY2,
     });
 
     const limPts = pts.filter((p: any) => p.code === "LIM");
