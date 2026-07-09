@@ -21,7 +21,8 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (!res.ok) { setError(data.error); setLoading(false); return; }
-    router.push("/dashboard");
+    const onboardingDone = localStorage.getItem("tm_onboarding_done");
+        if (!onboardingDone) { router.push("/onboarding"); } else { router.push("/dashboard"); };
   }
 
   return (
