@@ -142,6 +142,12 @@ export default function FinancePage() {
                         </span>
                       </td>
                       <td style={{ padding: "8px 10px", color: "#64748B" }}>{f.date}</td>
+                      <td style={{ padding: "8px 10px" }}>
+                        <button onClick={() => updateStatutFacture(f.id, f.statut === "payee" ? "non_payee" : "payee")}
+                          style={{ background: f.statut === "payee" ? "#22C55E22" : "#EF444422", color: f.statut === "payee" ? "#22C55E" : "#EF4444", border: "none", padding: "4px 10px", borderRadius: 6, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>
+                          {f.statut === "payee" ? "Payee" : "Marquer payee"}
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
