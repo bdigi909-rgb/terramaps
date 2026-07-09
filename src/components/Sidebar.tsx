@@ -40,6 +40,7 @@ const navItems = [
   { label: "Levé Topo", icon: FileText, href: "/leve-topo" },
   { label: "Rapport Terrain", icon: FileText, href: "/rapport-terrain" },
   { label: "Devis", icon: FileText, href: "/devis" },
+  { label: "Factures", icon: FileText, href: "/facture" },
   { label: "Outils Carte", icon: Map, href: "/map-tools" },
   { label: "Nivellement", icon: BarChart3, href: "/nivellement" },
   { label: "Polygonale", icon: Route, href: "/polygonale" },
