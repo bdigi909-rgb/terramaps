@@ -68,7 +68,7 @@ export default function GlobalSearch() {
 
       {open && results && (
         <div style={{
-          position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0,
+          position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0, zIndex: 9999,
           background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12,
           boxShadow: "0 8px 32px rgba(0,0,0,0.4)", zIndex: 500, overflow: "hidden"
         }}>
