@@ -44,7 +44,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         )}
       </div>
 
-      <div style={{ flex: 1, maxWidth: 300 }}><GlobalSearch /></div>
+      <div style={{ flex: 1, maxWidth: 500, minWidth: 200 }}><GlobalSearch /></div>
 
       {actions}
 
