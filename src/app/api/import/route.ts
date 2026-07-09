@@ -12,7 +12,8 @@ async function getUser(req: NextRequest) {
 
 function parseCSV(content: string) {
   const lines = content.split(/\r?\n/).filter(l => l.trim() && !l.startsWith("#"));
-  const points = [];
+  const points: any[] = [];
+  for (const line of lines) {
     const cols = line.split(/[,;\t ]+/).filter(Boolean);
     if (cols.length >= 3) {
       const nums = cols.map(Number).filter(n => !isNaN(n));
