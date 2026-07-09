@@ -8,6 +8,11 @@ export default function RapportTerrainPage() {
   const [selectedProject, setSelectedProject] = useState("");
   const [points, setPoints] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [societe, setSociete] = useState<any>({});
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_settings");
+    if (saved) setSociete(JSON.parse(saved));
+  }, []);
   const [signature, setSignature] = useState("");
   const [bureauNom, setBureauNom] = useState("");
   const [bureauOrdre, setBureauOrdre] = useState("");
@@ -181,7 +186,15 @@ export default function RapportTerrainPage() {
     }
     doc.rect(W-m-45, footY+3, 40, 15);
     doc.setFontSize(7); doc.setTextColor(100,100,100);
-    doc.text("Document généré par TerraMaps v2.0 — terramaps.vercel.app", W/2, H-m-4, { align: "center" });
+    if (societe.societeNom) {
+      doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,100);
+      doc.text(societe.societeNom, m+4, footY-8);
+      doc.setFont("helvetica","normal"); doc.setFontSize(6); doc.setTextColor(100,100,100);
+      doc.text((societe.societeAdresse||"") + " — " + (societe.societeVille||"") + " — " + (societe.societeTel||""), m+4, footY-4);
+      if (societe.societeRC) doc.text("RC: "+societe.societeRC+" | IF: "+(societe.societeIF||"")+" | ICE: "+(societe.societeICE||""), m+4, footY);
+    }
+    doc.setFontSize(7); doc.setTextColor(100,100,100);
+    doc.text("Document genere par TerraMaps v2.0 — terramaps.vercel.app", W/2, H-m-4, { align: "center" });
 
     const projectName = project?.name?.replace(/\s+/g, "_") || "projet";
     doc.save(`Rapport_Terrain_${projectName}_${form.date.replace(/\//g, "-")}.pdf`);
