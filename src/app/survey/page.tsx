@@ -454,7 +454,7 @@ export default function SurveyPage() {
                           data={[...filtered].sort((a, b) => a.x - b.x)} 
                           fill="#F97316" 
                           opacity={0.9}
-                          line={{ stroke: "#F97316", strokeWidth: 1.5, strokeDasharray: "4 2" }}
+                          line={{ stroke: "#F97316", strokeWidth: 1.5, strokeDasharray: "4 4" }}
                           lineType="joint"
                         />
                       </ScatterChart>
