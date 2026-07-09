@@ -213,3 +213,40 @@ export const notifications = pgTable('notifications', {
   read: boolean('read').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const devis = pgTable("devis", {
+  id: serial("id").primaryKey(),
+  numero: text("numero").notNull(),
+  date: text("date").notNull(),
+  client: text("client"),
+  clientAdresse: text("client_adresse"),
+  clientTel: text("client_tel"),
+  clientEmail: text("client_email"),
+  projet: text("projet"),
+  sousTotal: real("sous_total").default(0),
+  tva: real("tva").default(20),
+  total: real("total").default(0),
+  statut: text("statut").default("en_attente"),
+  lignes: text("lignes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const factures = pgTable("factures", {
+  id: serial("id").primaryKey(),
+  numero: text("numero").notNull(),
+  date: text("date").notNull(),
+  devisRef: text("devis_ref"),
+  client: text("client"),
+  clientAdresse: text("client_adresse"),
+  clientTel: text("client_tel"),
+  clientEmail: text("client_email"),
+  projet: text("projet"),
+  sousTotal: real("sous_total").default(0),
+  tva: real("tva").default(20),
+  timbre: real("timbre").default(20),
+  total: real("total").default(0),
+  statut: text("statut").default("non_payee"),
+  modePaiement: text("mode_paiement"),
+  lignes: text("lignes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});

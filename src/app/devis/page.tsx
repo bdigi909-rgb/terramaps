@@ -138,6 +138,12 @@ export default function DevisPage() {
     doc.setFontSize(7); doc.setTextColor(100, 100, 100);
     doc.text("Document genere par TerraMaps v2.0 — terramaps.vercel.app", W/2, 290, { align: "center" });
 
+    // Sauvegarder dans BDD
+    await fetch("/api/devis", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, sousTotal, tva, total, lignes }),
+    });
     doc.save(`Devis_${form.numero}_${form.client.replace(/\s+/g, "_")}.pdf`);
     setLoading(false);
   }

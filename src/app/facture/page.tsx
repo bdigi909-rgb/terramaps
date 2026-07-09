@@ -142,6 +142,12 @@ export default function FacturePage() {
     doc.text("Document genere par TerraMaps v2.0", W/2, footY+35, { align: "center" });
 
     if (signature) { doc.addImage(signature, "PNG", W/2, footY+10, 70, 15); }
+    // Sauvegarder dans BDD
+    await fetch("/api/factures", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, sousTotal, tva: tva, timbre, total, lignes }),
+    });
     doc.save("Facture_" + form.numero + "_" + (form.client || "client").replace(/\s+/g,"_") + ".pdf");
     setLoading(false);
   }
