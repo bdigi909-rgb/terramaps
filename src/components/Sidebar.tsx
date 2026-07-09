@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   LayoutDashboard,
   FolderOpen,
-  Map,
+  Map, Settings,
   Route,
   Calculator,
   BarChart3,
@@ -34,6 +34,7 @@ const navItems = [
   { label: "Activité", icon: Activity, href: "/activity" },
   { label: "Statistiques", icon: BarChart3, href: "/stats" },
   { label: "Mon Profil", icon: User, href: "/profile" },
+  { label: "Parametres", icon: Settings, href: "/settings" },
   { label: "Aide", icon: HelpCircle, href: "/help" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
   { label: "Levé Topo", icon: FileText, href: "/leve-topo" },
