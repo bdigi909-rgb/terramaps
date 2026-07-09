@@ -56,7 +56,7 @@ export default function GlobalSearch() {
             width: "100%", background: "#0D1117", border: "1px solid #1E2D3D",
             borderRadius: 10, padding: "9px 14px 9px 38px", color: "#E2EAF2",
             fontSize: 13, outline: "none", boxSizing: "border-box",
-            transition: "border-color 0.2s"
+            transition: "border-color 0.2s", colorScheme: "dark"
           }}
         />
         {loading && (
