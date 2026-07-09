@@ -34,6 +34,12 @@ interface LeveData {
   voisinOuest?: string;
 }
 
+function getSociete() {
+  if (typeof window === "undefined") return {};
+  const saved = localStorage.getItem("tm_settings");
+  return saved ? JSON.parse(saved) : {};
+}
+
 export default function GenerateLeve({ data }: { data: LeveData }) {
   const [loading, setLoading] = useState(false);
 
@@ -436,7 +442,15 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
 
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
-    doc.text(`Fait à ${data.commune}, le ${data.date}`, m + 10, footY + 6);
+    const societe = getSociete();
+    if (societe.societeNom) {
+      doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(0,0,100);
+      doc.text(societe.societeNom, m+4, footY-8);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(6); doc.setTextColor(100,100,100);
+      doc.text((societe.societeAdresse || "") + " — " + (societe.societeVille || "") + " — " + (societe.societeTel || ""), m+4, footY-4);
+      if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), m+4, footY);
+    }
+    doc.text(`Fait a ${data.commune}, le ${data.date}`, m + 10, footY + 6);
     doc.text("Cachet et Signature", W - m - 40, footY + 6);
     if (data.signature) { doc.addImage(data.signature, "PNG", W-m-45, footY+3, 40, 15); }
     if (data.bureauNom) {
