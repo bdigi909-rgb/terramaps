@@ -57,10 +57,6 @@ export default function CanvasPage() {
       x: (p.x - minX) * scale + offsetX,
       y: canvasH - ((p.y - minY) * scale + offsetY),
     });
-    const toCanvas = (p: any) => ({
-      x: (p.x - minX) * scale + offsetX,
-      y: canvasH - (p.y - minY) * scale - offsetY2,
-    });
 
     const limPts = pts.filter((p: any) => p.code === "LIM");
     const newEntities: Entity[] = [];
