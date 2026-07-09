@@ -1,7 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { devis } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function GET() {
   const all = await db.select().from(devis).orderBy(desc(devis.createdAt));
@@ -25,4 +25,13 @@ export async function POST(req: NextRequest) {
     lignes: JSON.stringify(body.lignes),
   }).returning();
   return NextResponse.json(created);
+}
+
+export async function PATCH(req: NextRequest) {
+  const { id, statut } = await req.json();
+  const [updated] = await db.update(devis)
+    .set({ statut })
+    .where(eq(devis.id, id))
+    .returning();
+  return NextResponse.json(updated);
 }

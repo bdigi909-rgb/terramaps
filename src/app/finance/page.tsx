@@ -7,6 +7,16 @@ export default function FinancePage() {
   const [factures, setFactures] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("dashboard");
 
+  async function updateStatutFacture(id: number, statut: string) {
+    await fetch("/api/factures", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, statut }) });
+    fetch("/api/factures").then(r => r.json()).then(d => { if (Array.isArray(d)) setFactures(d); });
+  }
+
+  async function updateStatutDevis(id: number, statut: string) {
+    await fetch("/api/devis", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, statut }) });
+    fetch("/api/devis").then(r => r.json()).then(d => { if (Array.isArray(d)) setDevis(d); });
+  }
+
   useEffect(() => {
     fetch("/api/devis").then(r => r.json()).then(d => { if (Array.isArray(d)) setDevis(d); });
     fetch("/api/factures").then(r => r.json()).then(d => { if (Array.isArray(d)) setFactures(d); });
