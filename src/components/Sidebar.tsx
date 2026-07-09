@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   LayoutDashboard,
   FolderOpen,
-  Map, Settings,
+  Map,
   Route,
   Calculator,
   BarChart3,
