@@ -32,7 +32,7 @@ export default function GlobalSearch() {
     }, 300);
   }, [query]);
 
-  const total = results ? results.projects?.length + results.points?.length + results.users?.length : 0;
+  const total = results ? results.projects?.length + results.points?.length + results.users?.length + (results.devis?.length||0) + (results.factures?.length||0) : 0;
 
   function navigate(href: string) {
     router.push(href);
@@ -135,6 +135,40 @@ export default function GlobalSearch() {
                       <div>
                         <div style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>{u.name}</div>
                         <div style={{ fontSize: 11, color: "#64748B" }}>{u.email} · {u.role}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {results.devis?.length > 0 && (
+                <div>
+                  <div style={{ padding: "6px 14px", fontSize: 10, color: "#64748B", fontWeight: 700, textTransform: "uppercase", background: "#0D1117" }}>Devis</div>
+                  {results.devis.map((d: any) => (
+                    <div key={d.id} onClick={() => navigate("/finance")}
+                      style={{ padding: "10px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}
+                      onMouseEnter={e => (e.currentTarget.style.background = "#1E2D3D")}
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                      <span style={{ fontSize: 16 }}>📋</span>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>{d.numero}</div>
+                        <div style={{ fontSize: 11, color: "#64748B" }}>{d.client} · {(d.total||0).toFixed(2)} MAD</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {results.factures?.length > 0 && (
+                <div>
+                  <div style={{ padding: "6px 14px", fontSize: 10, color: "#64748B", fontWeight: 700, textTransform: "uppercase", background: "#0D1117" }}>Factures</div>
+                  {results.factures.map((f: any) => (
+                    <div key={f.id} onClick={() => navigate("/finance")}
+                      style={{ padding: "10px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}
+                      onMouseEnter={e => (e.currentTarget.style.background = "#1E2D3D")}
+                      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                      <span style={{ fontSize: 16 }}>🧾</span>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>{f.numero}</div>
+                        <div style={{ fontSize: 11, color: "#64748B" }}>{f.client} · {(f.total||0).toFixed(2)} MAD</div>
                       </div>
                     </div>
                   ))}

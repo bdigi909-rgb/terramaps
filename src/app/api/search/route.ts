@@ -1,6 +1,6 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { projects, surveyPoints, users } from "@/db/schema";
+import { projects, surveyPoints, users, devis, factures } from "@/db/schema";
 import { ilike, or } from "drizzle-orm";
 import { jwtVerify } from "jose";
 
@@ -12,9 +12,9 @@ export async function GET(req: NextRequest) {
   try { await jwtVerify(token, SECRET); } catch { return NextResponse.json({ error: "Token invalide" }, { status: 401 }); }
 
   const q = req.nextUrl.searchParams.get("q") || "";
-  if (q.length < 2) return NextResponse.json({ projects: [], points: [], users: [] });
+  if (q.length < 2) return NextResponse.json({ projects: [], points: [], users: [], devis: [], factures: [] });
 
-  const [foundProjects, foundPoints, foundUsers] = await Promise.all([
+  const [foundProjects, foundPoints, foundUsers, foundDevis, foundFactures] = await Promise.all([
     db.select().from(projects).where(or(
       ilike(projects.name, `%${q}%`),
       ilike(projects.client, `%${q}%`),
@@ -28,7 +28,8 @@ export async function GET(req: NextRequest) {
       ilike(users.name, `%${q}%`),
       ilike(users.email, `%${q}%`),
     )).limit(5),
+    db.select().from(devis).where(or(ilike(devis.client, `%${q}%`), ilike(devis.numero, `%${q}%`))).limit(5),
+    db.select().from(factures).where(or(ilike(factures.client, `%${q}%`), ilike(factures.numero, `%${q}%`))).limit(5),
   ]);
-
-  return NextResponse.json({ projects: foundProjects, points: foundPoints, users: foundUsers });
+  return NextResponse.json({ projects: foundProjects, points: foundPoints, users: foundUsers, devis: foundDevis, factures: foundFactures });
 }
