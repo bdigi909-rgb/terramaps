@@ -17,7 +17,10 @@ function parseCSV(content: string) {
     const cols = line.split(/[,;\t ]+/).filter(Boolean);
     if (cols.length >= 3) {
       const nums = cols.map(Number).filter(n => !isNaN(n));
-      if (nums.length >= 3) {
+        const hasName = cols[0] && isNaN(Number(cols[0]));
+        const code = hasName && cols[1] && isNaN(Number(cols[1])) ? cols[1] : "TN";
+        const autoName = `${code}${String(points.length + 1).padStart(3, "0")}`;
+        points.push({ name: hasName ? cols[0] : autoName, x: nums[0], y: nums[1], z: nums[2] });
         points.push({ name: cols[0] && isNaN(Number(cols[0])) ? cols[0] : `P${points.length + 1}`, x: nums[0], y: nums[1], z: nums[2] });
       }
     }
