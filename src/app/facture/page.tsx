@@ -1,9 +1,11 @@
 ﻿"use client";
+import SignaturePad from "@/components/SignaturePad";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function FacturePage() {
   const [loading, setLoading] = useState(false);
+  const [signature, setSignature] = useState("");
   const [societe, setSociete] = useState<any>({});
   const [form, setForm] = useState({
     numero: "FAC-2026-001",
@@ -139,6 +141,7 @@ export default function FacturePage() {
     if (societe.societeRC) doc.text("RC: "+societe.societeRC+" | IF: "+(societe.societeIF||"")+" | ICE: "+(societe.societeICE||""), m, footY+35);
     doc.text("Document genere par TerraMaps v2.0", W/2, footY+35, { align: "center" });
 
+    if (signature) { doc.addImage(signature, "PNG", W/2, footY+10, 70, 15); }
     doc.save("Facture_" + form.numero + "_" + (form.client || "client").replace(/\s+/g,"_") + ".pdf");
     setLoading(false);
   }
@@ -252,6 +255,9 @@ export default function FacturePage() {
               ))}
             </div>
 
+            <div style={{ marginBottom: 16 }}>
+              <SignaturePad onSignature={setSignature} />
+            </div>
             <button onClick={generatePDF} disabled={loading}
               style={{ width: "100%", background: "#22C55E", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
