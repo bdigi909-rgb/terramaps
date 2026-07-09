@@ -33,7 +33,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         zIndex: 40,
       }}
     >
-      <div style={{ flex: "none", minWidth: 120 }}>
+      <div style={{ flex: "none" }}>
         <h1 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: "#e2eaf2" }}>
           {title}
         </h1>
