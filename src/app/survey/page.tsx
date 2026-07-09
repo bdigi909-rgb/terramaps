@@ -326,11 +326,6 @@ export default function SurveyPage() {
               <option value="chart">📊 Graphique</option>
               <option value="profile">📈 Profil</option>
             </select>
-            {view === "map" && (
-            <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
-              <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
-            </div>
-          )}
           {view === "map" && (
             <div style={{ position: "absolute", top: 8, right: 8, zIndex: 500 }}>
               <button onClick={() => setMapExpanded(e => !e)}
