@@ -1,6 +1,8 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { surveyPoints, notifications } from "@/db/schema";
+import { surveyPoints, notifications, users, projects } from "@/db/schema";
+import { sendImportNotificationEmail } from "@/lib/email";
+import { eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
