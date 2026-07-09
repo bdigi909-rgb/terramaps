@@ -628,3 +628,13 @@ body.light-mode [style*="background: #0f1923"] {
   background: #F1F5F9 !important;
   color: #1E293B !important;
 }
+
+/* Search input fix */
+.tm-search-input {
+  background: #0D1117 !important;
+  color: #E2EAF2 !important;
+  border: 1px solid #1E2D3D !important;
+}
+.tm-search-input::placeholder {
+  color: #4B6080 !important;
+}

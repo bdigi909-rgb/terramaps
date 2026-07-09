@@ -51,7 +51,7 @@ export default function GlobalSearch() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           onFocus={() => results && setOpen(true)}
-          placeholder="Rechercher projets, points, clients..."
+          placeholder="Rechercher projets, points, clients..." className="tm-search-input"
           style={{
             width: "100%", background: "#0D1117", border: "1px solid #1E2D3D",
             borderRadius: 10, padding: "9px 14px 9px 38px", color: "#E2EAF2",
