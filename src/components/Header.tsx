@@ -47,7 +47,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       <div style={{ flex: 1, maxWidth: 350, minWidth: 150 }}><GlobalSearch /></div>
 
-      {actions}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>{actions}</div>
 
       
       <LangSwitcher />
