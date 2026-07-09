@@ -5,6 +5,12 @@ import Link from "next/link";
 export default function DevisPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [societe, setSociete] = useState<any>({});
+
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_settings");
+    if (saved) setSociete(JSON.parse(saved));
+  }, []);
   const [form, setForm] = useState({
     numero: "DEV-2026-001",
     date: new Date().toLocaleDateString("fr-FR"),
@@ -45,14 +51,16 @@ export default function DevisPage() {
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     const W = 210, m = 15;
 
-    // En-tête
+    // En-tete avec infos societe
     doc.setFillColor(13, 71, 161);
     doc.rect(0, 0, W, 45, "F");
-    doc.setFontSize(24); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-    doc.text("TerraMaps", m, 20);
-    doc.setFontSize(10); doc.setFont("helvetica", "normal");
-    doc.text("Topographie & Cartographie", m, 28);
-    doc.text("terramaps.vercel.app", m, 35);
+    doc.setFontSize(18); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
+    doc.text(societe.societeNom || "TerraMaps", m, 18);
+    doc.setFontSize(9); doc.setFont("helvetica", "normal");
+    doc.text(societe.societeAdresse || "", m, 25);
+    doc.text((societe.societeVille || "") + " — " + (societe.societeTel || ""), m, 31);
+    doc.text(societe.societeEmail || "", m, 37);
+    if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), m, 43);
     doc.setFontSize(20); doc.setFont("helvetica", "bold");
     doc.text("DEVIS", W - m - 30, 22);
     doc.setFontSize(10); doc.setFont("helvetica", "normal");
