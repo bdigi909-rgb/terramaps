@@ -13,19 +13,19 @@ async function getUser(req: NextRequest) {
 function parseCSV(content: string) {
   const lines = content.split(/\r?\n/).filter(l => l.trim() && !l.startsWith("#"));
   const points = [];
-  for (const line of lines) {
     const cols = line.split(/[,;\t ]+/).filter(Boolean);
     if (cols.length >= 3) {
+      const nums = cols.map(Number).filter(n => !isNaN(n));
       if (nums.length >= 3) {
         const hasName = cols[0] && isNaN(Number(cols[0]));
         const code = hasName && cols[1] && isNaN(Number(cols[1])) ? cols[1] : "TN";
         const autoName = `${code}${String(points.length + 1).padStart(3, "0")}`;
         points.push({ name: hasName ? cols[0] : autoName, x: nums[0], y: nums[1], z: nums[2] });
       }
-      }
     }
   }
   return points;
+}
 }
 
 function parseGSI(content: string) {
