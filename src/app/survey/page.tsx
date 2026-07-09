@@ -326,7 +326,12 @@ export default function SurveyPage() {
               <option value="chart">📊 Graphique</option>
               <option value="profile">📈 Profil</option>
             </select>
-          )}
+            {view === "map" && <button onClick={() => setMapExpanded(e => !e)}
+              style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "5px 10px", borderRadius: 7, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>
+              {mapExpanded ? "⊡" : "⊞"}
+            </button>}
+          </div>
+
           {view === "map" && (
               <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 120px)" : "500px", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? 260 : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
