@@ -322,7 +322,7 @@ export default function SurveyPage() {
             <div style={{ display: "flex", border: "1px solid #1e3048", borderRadius: 7, overflow: "hidden" }}>
               {(["map", "table", "chart", "profile"] as const).map((v) => (
                 <button key={v} onClick={() => setView(v)}
-                  style={{ padding: "6px 12px", background: view === v ? "#1e3048" : "transparent", border: "none", color: view === v ? "#e2eaf2" : "#4b6080", cursor: "pointer", fontSize: 11 }}>
+                  style={{ padding: "5px 8px", background: view === v ? "#1e3048" : "transparent", border: "none", color: view === v ? "#e2eaf2" : "#4b6080", cursor: "pointer", fontSize: 10 }}>
                   {v === "map" ? "🗺 Carte" : v === "table" ? "≡ Tableau" : v === "chart" ? "📊 Graphique" : "📈 Profil"}
                 </button>
               ))}
