@@ -85,8 +85,8 @@ export default function DevisPage() {
         l.description,
         l.quantite,
         l.unite,
-        parseFloat(l.prixUnit).toLocaleString("fr-FR"),
-        (parseFloat(l.quantite) * parseFloat(l.prixUnit)).toLocaleString("fr-FR"),
+        parseFloat(l.prixUnit).toFixed(2),
+        (parseFloat(l.quantite) * parseFloat(l.prixUnit)).toFixed(2),
       ]),
       headStyles: { fillColor: [13, 71, 161], textColor: 255, fontStyle: "bold", fontSize: 9 },
       bodyStyles: { fontSize: 9 },
@@ -105,14 +105,14 @@ export default function DevisPage() {
     // Totaux
     doc.setFont("helvetica", "normal"); doc.setFontSize(10);
     doc.text("Sous-total HT:", W - m - 60, finalY);
-    doc.text(`${sousTotal.toLocaleString("fr-FR")} MAD`, W - m, finalY, { align: "right" });
+    doc.text(`${sousTotal.toFixed(2)} MAD`, W - m, finalY, { align: "right" });
     doc.text(`TVA (${form.tva}%):`, W - m - 60, finalY + 8);
-    doc.text(`${tva.toLocaleString("fr-FR")} MAD`, W - m, finalY + 8, { align: "right" });
+    doc.text(`${tva.toFixed(2)} MAD`, W - m, finalY + 8, { align: "right" });
     doc.setLineWidth(0.5); doc.line(W - m - 65, finalY + 12, W - m, finalY + 12);
     doc.setFont("helvetica", "bold"); doc.setFontSize(12);
     doc.text("TOTAL TTC:", W - m - 60, finalY + 20);
     doc.setTextColor(13, 71, 161);
-    doc.text(`${total.toLocaleString("fr-FR")} MAD`, W - m, finalY + 20, { align: "right" });
+    doc.text(`${total.toFixed(2)} MAD`, W - m, finalY + 20, { align: "right" });
 
     // Conditions
     doc.setTextColor(0, 0, 0);
@@ -222,7 +222,7 @@ export default function DevisPage() {
                     <button onClick={() => removeLigne(i)} style={{ background: "transparent", border: "none", color: "#EF4444", cursor: "pointer", fontSize: 16 }}>×</button>
                   </div>
                   <div style={{ textAlign: "right", fontSize: 11, color: "#F97316", marginTop: 6, fontWeight: 700 }}>
-                    {(parseFloat(l.quantite || "0") * parseFloat(l.prixUnit || "0")).toLocaleString("fr-FR")} MAD
+                    {(parseFloat(l.quantite || "0") * parseFloat(l.prixUnit || "0")).toFixed(2)} MAD
                   </div>
                 </div>
               ))}
@@ -235,9 +235,9 @@ export default function DevisPage() {
             <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 20, marginBottom: 16 }}>
               <h3 style={{ margin: "0 0 16px", fontSize: 13, color: "#8BACC8", fontWeight: 700 }}>💵 Totaux</h3>
               {[
-                { label: "Sous-total HT", value: sousTotal.toLocaleString("fr-FR") + " MAD", color: "#E2EAF2" },
-                { label: `TVA (${form.tva}%)`, value: tva.toLocaleString("fr-FR") + " MAD", color: "#64748B" },
-                { label: "TOTAL TTC", value: total.toLocaleString("fr-FR") + " MAD", color: "#F97316", big: true },
+                { label: "Sous-total HT", value: sousTotal.toFixed(2) + " MAD", color: "#E2EAF2" },
+                { label: `TVA (${form.tva}%)`, value: tva.toFixed(2) + " MAD", color: "#64748B" },
+                { label: "TOTAL TTC", value: total.toFixed(2) + " MAD", color: "#F97316", big: true },
               ].map(t => (
                 <div key={t.label} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #1E2D3D" }}>
                   <span style={{ fontSize: 13, color: "#64748B" }}>{t.label}</span>
