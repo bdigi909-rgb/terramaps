@@ -26,7 +26,6 @@ function parseCSV(content: string) {
   }
   return points;
 }
-
 function parseGSI(content: string) {
   const lines = content.split(/\r?\n/).filter(l => l.trim());
   const points: any[] = [];
