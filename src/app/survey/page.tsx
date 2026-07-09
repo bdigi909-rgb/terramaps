@@ -319,14 +319,13 @@ export default function SurveyPage() {
               <Search size={13} color="#4b6080" />
               <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Nom ou code..." style={{ background: "transparent", border: "none", color: "#e2eaf2", fontSize: 12, outline: "none", flex: 1 }} />
             </div>
-            <div style={{ display: "flex", border: "1px solid #1e3048", borderRadius: 7, overflow: "hidden" }}>
-              {(["map", "table", "chart", "profile"] as const).map((v) => (
-                <button key={v} onClick={() => setView(v)}
-                  style={{ padding: "5px 8px", background: view === v ? "#1e3048" : "transparent", border: "none", color: view === v ? "#e2eaf2" : "#4b6080", cursor: "pointer", fontSize: 10 }}>
-                  {v === "map" ? "🗺 Carte" : v === "table" ? "≡ Tableau" : v === "chart" ? "📊 Graphique" : "📈 Profil"}
-                </button>
-              ))}
-            </div>
+            <select value={view} onChange={e => setView(e.target.value as any)}
+              style={{ background: "#0f1923", border: "1px solid #1e3048", borderRadius: 7, padding: "5px 8px", color: "#e2eaf2", fontSize: 11, cursor: "pointer" }}>
+              <option value="map">🗺 Carte</option>
+              <option value="table">≡ Tableau</option>
+              <option value="chart">📊 Graphique</option>
+              <option value="profile">📈 Profil</option>
+            </select>
             {view === "map" && (
             <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
               <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
