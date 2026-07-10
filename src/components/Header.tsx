@@ -45,7 +45,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
         )}
       </div>
 
-      <div style={{ flexShrink: 1, flexGrow: 1, maxWidth: 280 }}><GlobalSearch /></div>
+      <div style={{ flex: 1, maxWidth: 300 }}><GlobalSearch /></div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>{actions}</div>
 
