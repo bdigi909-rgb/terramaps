@@ -222,14 +222,14 @@ export default function SurveyPage() {
             <ExportExcel points={filtered} projectName={projects.find(p => p.id === selectedProject)?.name} />
             <button onClick={() => {
               const projectName = projects.find(p => p.id === selectedProject)?.name || "projet";
-              const points = filtered.map((p, i) => `        <CgPoint id="${i+1}" name="${p.name || "PT"+(i+1)}" code="${p.code || "TN"}">\n          <X>${p.x.toFixed(3)}</X>\n          <Y>${p.y.toFixed(3)}</Y>\n          <Z>${p.z.toFixed(3)}</Z>\n        </CgPoint>`).join("\n");
+              const date = new Date().toISOString().slice(0,10);
               const points = filtered.map((p, i) => `        <CgPoint id="${i+1}" name="${p.name || `PT${i+1}`}" code="${p.code || "TN"}">\n          <X>${p.x.toFixed(3)}</X>\n          <Y>${p.y.toFixed(3)}</Y>\n          <Z>${p.z.toFixed(3)}</Z>\n        </CgPoint>`).join("\n");
               const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<LandXML version="1.2" date="${date}" time="${new Date().toTimeString().slice(0,8)}" xmlns="http://www.landxml.org/schema/LandXML-1.2">\n  <Project desc="${projectName}" />\n  <Units>\n    <Metric linearUnit="meter" areaUnit="squareMeter" volumeUnit="cubicMeter" />\n  </Units>\n  <CgPoints>\n${points}\n  </CgPoints>\n</LandXML>`;
               const blob = new Blob([xml], { type: "application/xml" });
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a"); a.href = url; a.download = `TerraMaps_${projectName}_${date}.xml`; a.click();
             }} className="btn-secondary" style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 4 }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               LandXML
             </button>
             <button onClick={() => {
@@ -252,7 +252,7 @@ export default function SurveyPage() {
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a"); a.href = url; a.download = "TerraMaps_" + projectName + "_" + date + ".dxf"; a.click();
             }} className="btn-secondary" style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 4 }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
               DXF
             </button>
             {selectedProject && (
@@ -326,15 +326,22 @@ export default function SurveyPage() {
               <option value="chart">📊 Graphique</option>
               <option value="profile">📈 Profil</option>
             </select>
-            {view === "map" && <button onClick={() => setMapExpanded(e => !e)}
-              style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "5px 10px", borderRadius: 7, cursor: "pointer", fontSize: 11, fontWeight: 600 }}>
-              {mapExpanded ? "⊡" : "⊞"}
-            </button>}
-          </div>
-
+            {view === "map" && (
+            <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
+              <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
+            </div>
+          )}
+          {view === "map" && (
+            <div style={{ position: "absolute", top: 8, right: 8, zIndex: 500 }}>
+              <button onClick={() => setMapExpanded(e => !e)}
+                style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
+                {mapExpanded ? "⊡ Réduire" : "⊞ Agrandir"}
+              </button>
+            </div>
+          )}
           {view === "map" && (
               <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 120px)" : "500px", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? 260 : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"></link>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
               </div>
             )}
@@ -454,7 +461,7 @@ export default function SurveyPage() {
                           data={[...filtered].sort((a, b) => a.x - b.x)} 
                           fill="#F97316" 
                           opacity={0.9}
-                          line={{ stroke: "#F97316", strokeWidth: 1.5, strokeDasharray: "4 4" }}
+                          line={{ stroke: "#F97316", strokeWidth: 1.5, strokeDasharray: "4 2" }}
                           lineType="joint"
                         />
                       </ScatterChart>
