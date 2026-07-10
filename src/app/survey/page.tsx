@@ -218,19 +218,19 @@ export default function SurveyPage() {
         subtitle=""
         actions={
           <div style={{ display: "flex", gap: 8 }}>
-            <button className="btn-secondary" style={{ fontSize: 11 }}><Upload size={12} /> Import CSV</button>
+            <button className="btn-secondary" style={{ fontSize: 11 }}><Upload size={12} /> Import</button>
             <ExportExcel points={filtered} projectName={projects.find(p => p.id === selectedProject)?.name} />
             <button onClick={() => {
               const projectName = projects.find(p => p.id === selectedProject)?.name || "projet";
               const date = new Date().toISOString().slice(0,10);
               const points = filtered.map((p, i) => `        <CgPoint id="${i+1}" name="${p.name || `PT${i+1}`}" code="${p.code || "TN"}">\n          <X>${p.x.toFixed(3)}</X>\n          <Y>${p.y.toFixed(3)}</Y>\n          <Z>${p.z.toFixed(3)}</Z>\n        </CgPoint>`).join("\n");
-              const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<LandXML version="1.2" date="${date}" time="${new Date().toTimeString().slice(0,8)}" xmlns="http://www.landxml.org/schema/LandXML-1.2">\n  <Project desc="${projectName}" />\n  <Units>\n    <Metric linearUnit="meter" areaUnit="squareMeter" volumeUnit="cubicMeter" />\n  </Units>\n  <CgPoints>\n${points}\n  </CgPoints>\n</LandXML>`;
+              const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<XML version="1.2" date="${date}" time="${new Date().toTimeString().slice(0,8)}" xmlns="http://www.XML.org/schema/XML-1.2">\n  <Project desc="${projectName}" />\n  <Units>\n    <Metric linearUnit="meter" areaUnit="squareMeter" volumeUnit="cubicMeter" />\n  </Units>\n  <CgPoints>\n${points}\n  </CgPoints>\n</XML>`;
               const blob = new Blob([xml], { type: "application/xml" });
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a"); a.href = url; a.download = `TerraMaps_${projectName}_${date}.xml`; a.click();
             }} className="btn-secondary" style={{ fontSize: 11, display: "flex", alignItems: "center", gap: 4 }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              LandXML
+              XML
             </button>
             <button onClick={() => {
               const projectName = projects.find(p => p.id === selectedProject)?.name || "projet";
@@ -257,7 +257,7 @@ export default function SurveyPage() {
             </button>
             {selectedProject && (
               <button className="btn-primary" style={{ fontSize: 11 }} onClick={generateSample}>
-                <RefreshCw size={12} /> Générer échantillon
+                <RefreshCw size={12} /> Exemple
               </button>
             )}
           </div>
