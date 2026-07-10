@@ -214,7 +214,7 @@ export default function SurveyPage() {
   return (
     <AppShell>
       <Header
-        title="Points de Levé Topographique"
+        title="Points Topo"
         subtitle=""
         actions={
           <div style={{ display: "flex", gap: 8 }}>
