@@ -314,7 +314,7 @@ export default function SurveyPage() {
         {/* Main */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }}>
           {/* Toolbar */}
-          <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "6px 8px", display: "flex", gap: 6, alignItems: "center" }}>
+          <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "6px 8px", display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 4, background: "#0f1923", border: "1px solid #1e3048", borderRadius: 7, padding: "5px 8px", maxWidth: 140 }}>
               <Search size={13} color="#4b6080" />
               <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Nom ou code..." style={{ background: "transparent", border: "none", color: "#e2eaf2", fontSize: 12, outline: "none", flex: 1 }} />
