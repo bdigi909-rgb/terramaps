@@ -688,3 +688,20 @@ body.light-mode [style*="background: #0f1923"] {
     flex: 1 !important;
   }
 }
+
+/* MOBILE FIX 1024px */
+@media (max-width: 1024px) {
+  .tm-drawer {
+    position: fixed !important;
+    transform: translateX(-100%) !important;
+    z-index: 200 !important;
+  }
+  .tm-toggle:checked ~ .tm-drawer {
+    transform: translateX(0) !important;
+  }
+  .tm-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
