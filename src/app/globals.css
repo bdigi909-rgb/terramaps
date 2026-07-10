@@ -224,7 +224,7 @@ body {
 
 /* Desktop sidebar */
 #tm-sidebar-desktop { display: flex; }
-#tm-main { margin-left: 0; }
+#tm-main { margin-left: var(--sidebar-width); }
 
 /* Mobile */
 @media (hover: none) and (pointer: coarse) {
@@ -234,7 +234,7 @@ body {
 
 /* Desktop */
 #desktop-sidebar { display: flex; }
-#main-content { margin-left: 0; }
+#main-content { margin-left: var(--sidebar-width); }
 #hamburger { display: none !important; }
 
 /* Mobile touch */
@@ -291,7 +291,7 @@ body.is-mobile #hamburger { display: flex !important; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin-left: 0;
+  margin-left: var(--sidebar-width);
 }
 
 /* Mobile styles */
