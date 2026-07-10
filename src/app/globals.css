@@ -635,3 +635,9 @@ body.light-mode [style*="background: #0f1923"] {
   color: #4B6080 !important;
 }
 
+
+@media (max-width: 768px) {
+  .tm-main { margin-left: 0 !important; }
+  .tm-drawer { transform: translateX(-100%) !important; position: fixed !important; }
+  .tm-toggle:checked ~ .tm-drawer { transform: translateX(0) !important; }
+}
