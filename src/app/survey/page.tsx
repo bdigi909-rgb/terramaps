@@ -214,7 +214,7 @@ export default function SurveyPage() {
   return (
     <AppShell>
       <Header
-        title="Points Topo"
+        title="Points de Levé Topographique"
         subtitle=""
         actions={
           <div style={{ display: "flex", gap: 8 }}>
@@ -311,7 +311,7 @@ export default function SurveyPage() {
           )}
         </div>
 
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0, position: "relative" }}>
+        {/* Main */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }}>
           {/* Toolbar */}
           <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "6px 8px", display: "flex", gap: 6, alignItems: "center" }}>
