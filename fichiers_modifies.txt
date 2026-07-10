@@ -1,0 +1,825 @@
+﻿0239e5e fix agrandir button to fixed position
+src/app/survey/page.tsx
+8dba607 fix reduire button position fixed
+src/app/survey/page.tsx
+78d5f7b fix reduire button zIndex
+src/app/survey/page.tsx
+36a77ad shorten survey action button labels
+src/app/survey/page.tsx
+15c3684 shorten survey title to Survey
+src/app/survey/page.tsx
+99e2562 fix toolbar wrap on mobile
+src/app/survey/page.tsx
+0ed3bd7 move agrandir button inside map container
+src/app/survey/page.tsx
+3fc0863 fix survey title short
+src/app/survey/page.tsx
+2eb7158 fix header title and search size
+src/components/Header.tsx
+767618d remove lang switcher from header
+src/components/Header.tsx
+d4e7efc mobile css fix
+src/app/globals.css
+a55d6dd restore survey page stable v2
+src/app/survey/page.tsx
+dfb7436 hide survey left panel on mobile
+src/app/globals.css
+src/app/survey/page.tsx
+8f8c62a fix sidebar display on mobile
+40
+src/components/Sidebar.tsx
+f36e09f rewrite AppShell with CSS classes
+src/components/AppShell.tsx
+5c3dd0b rewrite AppShell mobile v2
+src/components/AppShell.tsx
+4d0f568 rewrite AppShell for mobile
+src/components/AppShell.tsx
+c370769 final mobile fix max-width 900px
+src/app/globals.css
+ee22181 fix viewport mobile
+src/app/layout.tsx
+0863491 simple mobile fix
+src/app/globals.css
+fa174e3 restore globals.css stable
+src/app/globals.css
+9480ec5 restore desktop margin-left
+src/app/globals.css
+08c1e15 fix all margin-left sidebar
+src/app/globals.css
+5fe4c04 fix tm-main margin-left
+src/app/globals.css
+46a2dc3 fix mobile layout 1024px
+src/app/globals.css
+976a7a2 fix mobile layout final
+src/app/globals.css
+8fd8420 fix mobile content shift
+src/app/globals.css
+b45af93 fix mobile content shift
+src/app/globals.css
+ed507c6 fix map height after reduce
+src/app/survey/page.tsx
+7485db5 fix map expand on mobile
+public/manifest.json
+src/app/survey/page.tsx
+4c9d054 fix agrandir button visibility when expanded
+src/app/survey/page.tsx
+124ce6b fix agrandir button position
+src/app/survey/page.tsx
+836505c shorten survey title
+src/app/survey/page.tsx
+dcef3e9 restore header layout
+src/components/Header.tsx
+1e07c71 restore survey page stable
+src/app/survey/page.tsx
+d31f92f add position relative to map container
+src/app/survey/page.tsx
+b578655 shorten survey page title
+src/app/survey/page.tsx
+5b8286d restore survey page working version
+src/app/survey/page.tsx
+1435761 fix link self-closing tag
+src/app/survey/page.tsx
+c8d988b fix SVG self-closing tags
+src/app/survey/page.tsx
+773ecef fix strokeDasharray syntax
+src/app/survey/page.tsx
+787dc30 fix nested backtick in LandXML export
+src/app/survey/page.tsx
+8341e54 trigger vercel deploy
+8d53f55 fix toolbar with agrandir button
+src/app/survey/page.tsx
+9935ea4 move agrandir button to toolbar
+src/app/survey/page.tsx
+926cbba remove resize handle from toolbar
+src/app/globals.css
+src/app/survey/page.tsx
+5f7d68e replace view buttons with select
+src/app/survey/page.tsx
+aaf4467 restore view button labels
+src/app/survey/page.tsx
+8355135 shorten view button labels
+src/app/survey/page.tsx
+b31fc82 reduce view buttons padding
+src/app/survey/page.tsx
+17367a5 reduce survey toolbar padding
+src/app/survey/page.tsx
+eeeee65 reduce search width in survey
+src/app/survey/page.tsx
+de3be4d fix header search flex
+src/components/Header.tsx
+6900260 force redeploy
+d6e98f3 fix header actions flex
+src/components/Header.tsx
+395a677 fix header overflow
+src/components/Header.tsx
+ed9b482 fix header title flex
+src/components/Header.tsx
+1bfb1b6 fix header layout balance
+src/components/Header.tsx
+0a28158 fix search input size
+src/components/Header.tsx
+d657731 fix search input visibility
+src/app/globals.css
+src/components/GlobalSearch.tsx
+49709a0 fix search input color scheme
+src/components/GlobalSearch.tsx
+6d8be04 fix duplicate zIndex in search
+src/components/GlobalSearch.tsx
+52c04db fix search dropdown zIndex
+src/components/GlobalSearch.tsx
+02d1be0 add devis and factures to global search
+src/app/api/search/route.ts
+src/components/GlobalSearch.tsx
+d0cfdc1 add marquer payee button to factures
+src/app/finance/page.tsx
+efc66e6 force redeploy finance page
+fac87df add statut update for devis and factures
+src/app/api/devis/route.ts
+src/app/api/factures/route.ts
+src/app/finance/page.tsx
+e6e8f5f add finance dashboard page
+src/app/finance/page.tsx
+src/components/Sidebar.tsx
+3114ef2 add devis and factures API with DB save
+src/app/api/devis/route.ts
+src/app/api/factures/route.ts
+src/app/devis/page.tsx
+src/app/facture/page.tsx
+src/db/schema.ts
+b4cddf4 add signature to facture PDF
+src/app/facture/page.tsx
+c4a179c add facture generator page
+src/app/facture/page.tsx
+src/components/Sidebar.tsx
+41226b4 add company info to rapport terrain PDF
+src/app/rapport-terrain/page.tsx
+d51bc4e add company info to leve topo PDF
+src/components/GenerateLeve.tsx
+796fdd7 add company info to devis PDF
+src/app/devis/page.tsx
+89aba6e add onboarding page for new users
+src/app/login/page.tsx
+src/app/onboarding/page.tsx
+471fe10 fix Settings duplicate import
+src/components/Sidebar.tsx
+b51bc6e add company settings page
+src/app/settings/page.tsx
+src/components/Sidebar.tsx
+d816d25 fix number formatting in devis PDF
+src/app/devis/page.tsx
+fe86690 add devis generator page
+src/app/devis/page.tsx
+src/components/Sidebar.tsx
+be9bf46 add email notification on import
+src/app/api/import/route.ts
+src/lib/email.ts
+9081193 rewrite parseCSV function
+src/app/api/import/route.ts
+3feba0b fix extra closing brace
+src/app/api/import/route.ts
+1ef66c8 fix extra closing brace
+src/app/api/import/route.ts
+49106e7 fix parseCSV function
+src/app/api/import/route.ts
+6872fcc fix import auto numbering
+src/app/api/import/route.ts
+81b3952 improve auto numbering
+src/app/api/import/route.ts
+f510abc fix duplicate toCanvas
+src/app/canvas/page.tsx
+c4befaf fix canvas centering properly
+src/app/canvas/page.tsx
+d2c921b fix canvas centering
+src/app/canvas/page.tsx
+c528d15 fix canvas offset left
+src/app/canvas/page.tsx
+83ebd01 fix canvas point centering
+src/app/canvas/page.tsx
+a66b1db add project import to canvas
+src/app/canvas/page.tsx
+f345697 add DXF export function to canvas
+src/app/canvas/page.tsx
+a2a5eb1 add DXF export to survey points
+src/app/survey/page.tsx
+bfca596 fix duplicate button rapport terrain
+src/app/rapport-terrain/page.tsx
+d61e6e9 fix rapport terrain button and add signature
+src/app/rapport-terrain/page.tsx
+9d4ecec add signature and cachet to rapport terrain
+src/app/rapport-terrain/page.tsx
+50c1066 fix Anim JSX conditional
+src/app/help/page.tsx
+6140ef7 fix animation optional in tutorials
+src/app/help/page.tsx
+90fb152 fix tutorial 11 syntax
+src/app/help/page.tsx
+2fb1f1c fix tutorial 6 object
+src/app/help/page.tsx
+ff8e39a add new tutorials to help page
+src/app/help/page.tsx
+08175c1 fix bureau nom quote
+src/app/leve-topo/page.tsx
+d0024ae fix bureau cachet display in PDF
+src/components/GenerateLeve.tsx
+f82ffb5 fix bureau cachet display in PDF
+src/components/GenerateLeve.tsx
+0274dc5 add bureau cachet to leve topo PDF
+src/app/leve-topo/page.tsx
+src/components/GenerateLeve.tsx
+874904d pass signature to leveData
+src/app/leve-topo/page.tsx
+52843eb add signature image to PDF
+src/components/GenerateLeve.tsx
+556e825 add digital signature pad to leve topo
+src/app/leve-topo/page.tsx
+src/components/GenerateLeve.tsx
+src/components/SignaturePad.tsx
+d7e815e sort LIM points by angle for clean polygon
+src/components/GenerateLeve.tsx
+9273762 add voisins to LeveData interface
+src/components/GenerateLeve.tsx
+a0be87d add voisins to leve topo PDF
+src/app/leve-topo/page.tsx
+src/components/GenerateLeve.tsx
+5e7d041 add map-image proxy API route
+src/app/api/map-image/route.ts
+4eedd60 add Geoapify map fetch to leve topo
+src/components/GenerateLeve.tsx
+917e51b add Geoapify API key
+package-lock.json
+package.json
+3845761 fix duplicate try catch in GenerateLeve
+src/components/GenerateLeve.tsx
+4e3d700 improve carte situation in leve topo
+src/components/GenerateLeve.tsx
+dbc725b use geoapify static map API
+src/components/GenerateLeve.tsx
+8068016 add real OSM map to leve topographique
+src/components/GenerateLeve.tsx
+bffa2b4 update Beni Mellal example coordinates
+src/app/search-topo/page.tsx
+7766e17 fix Lambert WGS84 conversion in search-topo
+src/app/search-topo/page.tsx
+47a8cd1 fix Lambert to WGS84 precise conversion
+src/components/MapView.tsx
+085d3b9 fix leaflet invalidateSize on resize
+src/components/MapView.tsx
+379d51d fix map expand fullscreen
+src/app/survey/page.tsx
+df7dd97 fix survey map container overflow
+src/app/survey/page.tsx
+d97e844 fix expand button map height
+src/app/survey/page.tsx
+58b070f restore survey page working version
+src/app/survey/page.tsx
+eff9a49 restore survey page from git
+src/app/survey/page.tsx
+923e569 fix nested backticks in LandXML export
+src/app/survey/page.tsx
+745f9eb fix survey JSX structure
+src/app/survey/page.tsx
+6cb5a07 fix JSX closing bracket
+src/app/survey/page.tsx
+172ddc3 remove duplicate div
+src/app/survey/page.tsx
+468ad48 fix survey overflow
+src/app/survey/page.tsx
+751fa78 fix survey container overflow
+src/app/survey/page.tsx
+6ada2e1 reduce header height to 48px
+src/app/globals.css
+src/components/Header.tsx
+a7f5f4e reduce left panel width to 120
+src/app/survey/page.tsx
+a4f0ffb fix map container overflow
+src/app/survey/page.tsx
+9a3c916 add useEffect for map height
+src/app/survey/page.tsx
+fd5555a set map height with useEffect
+src/app/survey/page.tsx
+89812cc set map height to window height minus 250
+src/app/survey/page.tsx
+4d49c44 increase default map height to 600
+src/app/survey/page.tsx
+eb1cb5d reduce header padding and search width
+src/components/Header.tsx
+a266a59 reduce dashboard padding and spacing
+src/app/dashboard/page.tsx
+d3ed50e remove theme toggle
+src/components/Header.tsx
+60f395f fix light mode button visibility
+src/app/globals.css
+db4ad2b fix light mode dark text visibility
+src/app/globals.css
+7dccbcc improve light mode colors
+src/app/globals.css
+cf7dbc8 add light/dark theme toggle
+src/app/globals.css
+src/components/Header.tsx
+src/components/ThemeToggle.tsx
+6172157 remove cleanup script
+cleanup.mjs
+7510740 fix duplicate react imports
+src/app/projects/[id]/page.tsx
+d09423a add react imports to project detail
+src/app/projects/[id]/page.tsx
+f712baa add autosave to project detail
+src/app/projects/[id]/page.tsx
+3238274 fix activity log duplicate lines
+src/app/projects/[id]/page.tsx
+7a652a6 filter activity log hide multiple logins
+src/app/projects/[id]/page.tsx
+05586c8 add ActivityLog component
+src/app/projects/[id]/page.tsx
+db38b3e add activity tab to project detail
+src/app/projects/[id]/page.tsx
+159055f add mobile responsive dashboard
+src/app/dashboard/page.tsx
+src/app/globals.css
+d85e171 deduplicate points in ZIP export
+src/app/projects/[id]/page.tsx
+5657136 add ZIP export for project
+package-lock.json
+package.json
+src/app/projects/[id]/page.tsx
+863e651 fix sort by points type error
+src/app/projects/page.tsx
+818a000 add client filter and sort to projects
+src/app/projects/page.tsx
+82b0682 fix CSV header encoding
+src/app/polygonale/page.tsx
+98ca299 add PDF export for polygonale
+src/app/polygonale/page.tsx
+74a6563 fix CSV encoding
+src/app/nivellement/page.tsx
+8628861 add exportPDF function to nivellement
+src/app/nivellement/page.tsx
+17a1cc3 add PDF export nivellement
+src/app/nivellement/page.tsx
+bc20340 fix WhatsApp number
+src/components/WhatsAppButton.tsx
+c9d204e rewrite pricing page clean
+src/app/pricing/page.tsx
+361ceb3 fix pricing href and WhatsApp button
+src/app/pricing/page.tsx
+src/components/WhatsAppButton.tsx
+ba291e9 add WhatsApp button and contact
+src/app/layout.tsx
+src/app/pricing/page.tsx
+src/components/WhatsAppButton.tsx
+910379d add professional landing page
+src/app/page.tsx
+63257bd add pricing page
+src/app/pricing/page.tsx
+1c1c372 add advanced stats page
+src/app/stats/page.tsx
+src/components/Sidebar.tsx
+f858772 add auto notification on import
+src/app/api/import/route.ts
+fc780bd improve client dashboard with progress bars
+.gitignore
+src/app/client/page.tsx
+fbb866d switch to gemini-2.0-flash-lite
+src/app/api/ai/route.ts
+2d3f301 switch to gemini-pro model
+src/app/api/ai/route.ts
+94a17c8 switch to gemini-1.5-flash for more quota
+src/app/api/ai/route.ts
+267a935 rewrite AI route with Gemini and error handling
+src/app/api/ai/route.ts
+d7800bc add gemini log
+src/app/api/ai/route.ts
+ec71d53 switch AI to Google Gemini
+src/app/api/ai/route.ts
+5a3441c add rapport terrain complet PDF
+src/app/rapport-terrain/page.tsx
+src/components/Sidebar.tsx
+c1a1bfa fix localStorage load on mount
+src/app/polygonale/page.tsx
+893314b fix localStorage load on mount
+src/app/polygonale/page.tsx
+3228a60 fix stations useState syntax
+src/app/polygonale/page.tsx
+225ca45 add autosave polygonale to localStorage
+src/app/polygonale/page.tsx
+f069186 add compensation table correctly
+src/app/polygonale/page.tsx
+121db7c fix polygonale JSX structure
+src/app/polygonale/page.tsx
+ed577e2 remove emoji from compensation text
+src/app/polygonale/page.tsx
+3ea8193 fix apostrophe encoding
+src/app/polygonale/page.tsx
+ee21774 add Bowditch compensation to polygonale
+src/app/polygonale/page.tsx
+8bbebe6 add topographic calculator
+src/app/calculatrice/page.tsx
+src/components/Sidebar.tsx
+f812f3f add polygonale closure report
+src/app/polygonale/page.tsx
+src/components/Sidebar.tsx
+fbf47cb add nivellement canevas page
+src/app/nivellement/page.tsx
+src/components/Sidebar.tsx
+526843e add LandXML export
+src/app/survey/page.tsx
+8b33016 fix tooltip formatter type
+src/app/survey/page.tsx
+4a833ca fix duplicate closing bracket
+src/app/survey/page.tsx
+76abbbc fix chart block closing
+src/app/survey/page.tsx
+29e1bf0 add altimetric profile tab
+src/app/survey/page.tsx
+7b44348 rewrite map tools with proper mode switching
+src/app/map-tools/page.tsx
+f63f179 fix L.control TypeScript
+src/app/map-tools/page.tsx
+9001b26 add measure distance and area tools
+src/app/map-tools/page.tsx
+849d0e3 fix map zoom level maxZoom 16
+src/components/MapView.tsx
+f839f6d fix Lambert WGS84 conversion MapView
+src/components/MapView.tsx
+54f98ee fix Lambert to WGS84 conversion in MapView
+terrain_beni_mellal.csv
+902b83f sort LIM points by angle for correct polygon
+src/app/search-topo/page.tsx
+dccc463 add polylines on search topo map
+src/app/search-topo/page.tsx
+3ef01a1 remove duplicate SearchMap
+src/app/search-topo/page.tsx
+5cfbafb fix second comment syntax
+src/app/search-topo/page.tsx
+417f012 add map view in search topo results
+src/app/search-topo/page.tsx
+b9afde1 add map view in search topo results
+src/app/search-topo/page.tsx
+7cf59bd fix extra brace in Lambert function
+src/app/map-tools/page.tsx
+9438c1a fix Lambert Maroc conversion correct
+src/app/map-tools/page.tsx
+e035106 add map tools with Lambert conversion
+src/app/map-tools/page.tsx
+src/components/Sidebar.tsx
+11437c6 add two views plan topo page 2
+src/components/GenerateLeve.tsx
+5c1fec4 add new page for croquis
+src/components/GenerateLeve.tsx
+2f1bc15 improve croquis with grid legend scale compass
+src/components/GenerateLeve.tsx
+60b4030 dedup by name only
+src/app/leve-topo/page.tsx
+064aa34 fix dedup by name and code
+src/app/leve-topo/page.tsx
+077f21f deduplicate points in leve topo
+src/app/leve-topo/page.tsx
+3d03bd6 add leve topographique officiel generator
+src/app/leve-topo/page.tsx
+src/components/GenerateLeve.tsx
+src/components/Sidebar.tsx
+83eceef deduplicate by coordinates and name
+src/app/api/search-topo/route.ts
+255d8d8 deduplicate search results
+src/app/api/search-topo/route.ts
+64492d4 add topo search by radius
+src/app/api/search-topo/route.ts
+src/app/search-topo/page.tsx
+src/components/Sidebar.tsx
+3a1b634 add AI Assist with Claude API
+src/app/api/ai/route.ts
+src/components/AIAssist.tsx
+src/components/Header.tsx
+d9ca609 remove expand button and AR EN lang
+src/components/LangSwitcher.tsx
+0542886 fix duplicate setData line
+src/app/dashboard/page.tsx
+8563fd9 add auto-refresh dashboard every 30s
+src/app/dashboard/page.tsx
+5bed255 add agent stats tab in admin
+src/app/admin/page.tsx
+d962b0e force redeploy resizable map
+e15bea3 add resizable map handle
+src/app/survey/page.tsx
+feaa5fb increase map expand difference
+src/app/survey/page.tsx
+45d1ae2 add expand collapse map button
+src/app/survey/page.tsx
+8a190c5 reduce survey header space
+src/app/survey/page.tsx
+e9ddbff force redeploy survey panel
+34635fe reduce left panel width survey
+src/app/survey/page.tsx
+8773957 fix map height responsive
+src/app/survey/page.tsx
+045b9c1 auto detect code from point name prefix
+src/app/api/import/route.ts
+50c06fb fix duplicate legend on map
+src/components/MapView.tsx
+52f7486 fix duplicate code colors in MapView
+src/components/MapView.tsx
+cedebb1 add topo codes colors and polylines on map
+src/app/survey/page.tsx
+src/components/MapView.tsx
+0d20333 add print A4 button in canvas
+src/app/canvas/page.tsx
+0a7dc4d increase animation height
+src/app/help/page.tsx
+37b6b95 fix CSS custom property type error
+src/app/help/page.tsx
+3bfb13e fix duplicate animation property
+src/app/help/page.tsx
+7c140eb fix duplicate HelpCircle import
+src/components/Sidebar.tsx
+82dc6ea add help page with CSS animations
+src/app/help/page.tsx
+src/components/Sidebar.tsx
+d276eef add onboarding guide for new users
+src/app/dashboard/page.tsx
+src/components/Onboarding.tsx
+b9fe1ef add forgot-password to public routes
+src/proxy.ts
+6eb57ee make resend optional if no API key
+src/lib/email.ts
+f7bc34f add email welcome and forgot password
+package-lock.json
+package.json
+src/app/api/forgot-password/route.ts
+src/app/api/reset-password/route.ts
+src/app/api/users/route.ts
+src/app/forgot-password/page.tsx
+src/app/login/page.tsx
+src/app/reset-password/page.tsx
+src/lib/email.ts
+f536e5b fix mobile header responsive
+src/app/globals.css
+a39b7bf fix mobile font size zoom
+src/app/globals.css
+src/app/layout.tsx
+23ffe75 force sidebar background in mobile drawer
+src/app/globals.css
+1d8b423 pure CSS sidebar toggle no JS
+src/app/globals.css
+src/components/AppShell.tsx
+14ef353 CSS-only mobile sidebar no rerender
+src/app/globals.css
+src/components/AppShell.tsx
+613db7f fix duplicate MapView and height
+src/app/survey/page.tsx
+5df9500 fix map height and search layout
+src/components/Header.tsx
+791870c fix header layout for search
+src/components/Header.tsx
+580a4a1 add global search in header
+src/app/api/search/route.ts
+src/components/GlobalSearch.tsx
+src/components/Header.tsx
+5ba81fb remove debug page + finalize
+src/app/debug/page.tsx
+4ed4deb add Excel export for survey points
+package-lock.json
+package.json
+src/app/survey/page.tsx
+src/components/ExportExcel.tsx
+aa466e1 use useLayoutEffect for mobile detection
+src/components/AppShell.tsx
+77441ca default mobile true to prevent flash
+src/components/AppShell.tsx
+fef4bf1 add onClose to Sidebar
+src/components/Sidebar.tsx
+a0823fa professional mobile drawer layout
+src/components/AppShell.tsx
+8e89721 fix drawer width and background
+src/components/AppShell.tsx
+d282695 use left instead of transform for drawer
+src/components/AppShell.tsx
+9fa157a test alert on click
+src/components/AppShell.tsx
+0418e9a add type button to hamburger
+src/components/AppShell.tsx
+f42775b add preventDefault on hamburger
+src/components/AppShell.tsx
+16e9847 pure DOM sidebar no react rerender
+src/app/globals.css
+src/components/AppShell.tsx
+0fbc87d use DOM refs for sidebar no rerender
+src/app/globals.css
+src/components/AppShell.tsx
+abce62a fix sidebar drawer animation
+src/app/globals.css
+src/components/AppShell.tsx
+8e8266b fix AppShell ready state
+src/components/AppShell.tsx
+a6e09c6 fix mobile sidebar with CSS classes
+src/app/globals.css
+src/components/AppShell.tsx
+22ed5a5 isMobile default true
+src/components/AppShell.tsx
+ddce294 fix mobile detection 980px viewport
+src/components/AppShell.tsx
+fdf7d78 add debug page
+src/app/debug/page.tsx
+9650caa fix AppShell with mounted pattern
+src/components/AppShell.tsx
+018c8df restore stable AppShell
+src/components/AppShell.tsx
+afe67ad full drawer sidebar mobile
+src/app/globals.css
+0418197 full drawer sidebar mobile
+src/app/globals.css
+src/components/AppShell.tsx
+b3b892a breakpoint 2000px test
+src/components/AppShell.tsx
+f444ef8 simplify AppShell mobile detection
+src/components/AppShell.tsx
+057c6bf fix sidebar link display flex
+src/components/Sidebar.tsx
+5f4c986 clean CSS mobile rules
+src/app/globals.css
+9f57189 fix AppShell desktop sidebar always visible
+src/components/AppShell.tsx
+b41d13c default isMobile true in AppShell
+src/components/AppShell.tsx
+acfc1ce fix mobile layout with drawer pattern
+src/components/AppShell.tsx
+4f90e97 detect touch device for mobile sidebar
+src/components/Sidebar.tsx
+f1fc6ee set breakpoint 1400px for mobile
+src/components/Sidebar.tsx
+fc1db26 increase mobile breakpoint to 1024px
+src/components/Sidebar.tsx
+4b6fbb7 use dynamic import for sidebar SSR fix
+src/components/AppShell.tsx
+dff2df6 set isMobile default true for SSR
+src/components/Sidebar.tsx
+72f7d88 remove duplicate display flex
+src/components/Sidebar.tsx
+bff8b65 use display none for mobile sidebar
+src/components/Sidebar.tsx
+d511cd3 add sidebar className for mobile CSS
+src/components/Sidebar.tsx
+cb530d6 force hide sidebar mobile CSS important
+src/app/globals.css
+91137b3 fix sidebar duplicate position on mobile
+src/components/Sidebar.tsx
+3f30c1d fix sidebar width on mobile
+src/components/Sidebar.tsx
+049fad4 fix AppShell mobile layout
+src/app/globals.css
+src/components/AppShell.tsx
+4968f46 add hamburger button for mobile
+src/app/globals.css
+src/components/Header.tsx
+ff66882 hide sidebar on mobile with JS
+src/components/Sidebar.tsx
+7dde9af fix sidebar mobile CSS
+src/components/Sidebar.tsx
+48265b9 fix mobile sidebar CSS
+src/app/globals.css
+src/components/Sidebar.tsx
+05213e1 hide sidebar on mobile
+src/app/globals.css
+21119f2 add mobile responsive sidebar
+src/app/globals.css
+src/components/Sidebar.tsx
+dc5b8e9 fix viewport for mobile + PWA metadata
+src/app/layout.tsx
+src/scripts/gen_png.mjs
+e7193af add PWA manifest and icons
+src/scripts/gen_icons.ts
+8c31ab8 add multilang FR/AR/EN switcher
+src/components/Header.tsx
+src/components/LangSwitcher.tsx
+src/lib/i18n.ts
+646a00e fix subtitle SRM to TerraMaps
+src/app/dashboard/page.tsx
+f2add7f fix SRM Pro to TerraMaps + custom 404 page
+src/app/not-found.tsx
+264df8d fix User import in sidebar
+src/components/Sidebar.tsx
+393a1d3 add profile link in sidebar
+src/components/Sidebar.tsx
+1881c70 add user profile page
+src/app/api/profile/route.ts
+src/app/profile/page.tsx
+41e12b2 add client portal page
+src/app/api/client/route.ts
+src/app/client/page.tsx
+src/scripts/test_notif.ts
+8c8817d add notification bell in header
+src/app/api/notifications/route.ts
+src/components/Header.tsx
+src/components/NotificationBell.tsx
+src/db/schema.ts
+6bfdb69 fix login activity log with concat
+src/app/api/auth/login/route.ts
+a766400 fix activity tab in admin
+src/app/admin/page.tsx
+fe0fc4b add activity feed in admin dashboard
+src/app/admin/page.tsx
+18e579f add activity tracking on login
+src/app/api/auth/login/route.ts
+9e829ba add activity log page and API
+src/app/activity/page.tsx
+src/app/api/activity/route.ts
+src/components/Sidebar.tsx
+src/db/schema.ts
+03438a6 add assign link in sidebar
+src/components/Sidebar.tsx
+07c3579 add project assignment page
+src/app/assign/page.tsx
+feb3b0f add admin dashboard with stats and tabs
+src/app/admin/page.tsx
+src/app/api/users/route.ts
+7eacc2a add PDF export for volume reports
+Get-Content
+package-lock.json
+package.json
+src/app/survey/page.tsx
+src/app/volumes/page.tsx
+src/components/ExportPDF.tsx
+src/components/MapView.tsx
+7e84e73 force redeploy with DATABASE_URL
+68c7944 fix TypeScript errors - build success
+next-env.d.ts
+src/app/api/import/route.ts
+b8bc1bd fix proxy export name
+src/proxy.ts
+f227dec rename middleware to proxy for Next.js 16
+src/proxy.ts
+c296f13 fix duplicate showPwd
+src/app/login/page.tsx
+0a3c3d6 force redeploy import page
+82e3418 add import topo points module
+src/app/api/import/route.ts
+src/app/import/page.tsx
+src/components/Sidebar.tsx
+710bab3 add logout button sidebar
+src/components/Sidebar.tsx
+9718ba7 add logout button in sidebar
+src/components/Sidebar.tsx
+a239dd0 add password toggle
+src/app/login/page.tsx
+b2d8aba add auth system admin manager agent
+package-lock.json
+package.json
+src/app/admin/page.tsx
+src/app/api/auth/login/route.ts
+src/app/api/auth/logout/route.ts
+src/app/api/auth/me/route.ts
+src/app/api/users/route.ts
+src/app/login/page.tsx
+src/db/schema.ts
+src/middleware.ts
+src/scripts/create_admin.ts
+9bd41a0 fix db connection for production
+drizzle.config.json
+src/db/index.ts
+cb78743 fix bottomItems type
+src/components/Sidebar.tsx
+fb2a6ed TerraMaps v2.0
+.gitignore
+Fiche_Produit_SRM_Pro.pdf
+Guide_SRM_Pro.pdf
+Proposition_Commerciale_SRM_Pro.pdf
+SRM_Pro_Pitch_Deck.pptx
+cad-srm-pro.zip
+drizzle.config.json
+eslint.config.mjs
+init.sql
+next-env.d.ts
+next.config.ts
+package-lock.json
+package.json
+postcss.config.mjs
+seed_demo.ts
+src/app/alignment/page.tsx
+src/app/api/dashboard/route.ts
+src/app/api/health/route.ts
+src/app/api/projects/[id]/alignments/route.ts
+src/app/api/projects/[id]/entities/route.ts
+src/app/api/projects/[id]/layers/route.ts
+src/app/api/projects/[id]/route.ts
+src/app/api/projects/[id]/stats/route.ts
+src/app/api/projects/[id]/survey-points/route.ts
+src/app/api/projects/[id]/volumes/route.ts
+src/app/api/projects/route.ts
+src/app/canvas/page.tsx
+src/app/dashboard/page.tsx
+src/app/globals.css
+src/app/layers/page.tsx
+src/app/layout.tsx
+src/app/page.tsx
+src/app/projects/[id]/page.tsx
+src/app/projects/page.tsx
+src/app/survey/page.tsx
+src/app/terrain/page.tsx
+src/app/volumes/page.tsx
+src/components/AppShell.tsx
+src/components/Header.tsx
+src/components/Sidebar.tsx
+src/db/index.ts
+src/db/schema.ts
+src/lib/geometry.ts
+src/scripts/seed_demo.ts
+tsconfig.json
