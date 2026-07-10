@@ -370,7 +370,6 @@ body.is-mobile #hamburger { display: flex !important; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin-left: var(--sidebar-width);
 }
 
 @media (pointer: coarse), (max-width: 1024px) {
@@ -705,3 +704,4 @@ body.light-mode [style*="background: #0f1923"] {
     max-width: 100% !important;
   }
 }
+
