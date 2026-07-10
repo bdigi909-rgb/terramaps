@@ -1,7 +1,6 @@
 ﻿"use client";
 import NotificationBell from "@/components/NotificationBell";
 import GlobalSearch from "@/components/GlobalSearch";
-import LangSwitcher from "@/components/LangSwitcher";
 
 import AIAssist from "@/components/AIAssist";
 import { useState } from "react";
@@ -50,7 +49,7 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>{actions}</div>
 
       
-      <LangSwitcher />
+      
       <NotificationBell />
 
       <AIAssist />
