@@ -59,7 +59,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void } = {}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < window.screen.width * 0.95 || window.innerWidth < 1200);
+    const check = () => setIsMobile(window.innerWidth < 900);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -75,7 +75,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void } = {}) {
     <aside
       className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`}
       style={{
-        display: isMobile && !mobileOpen ? "none" : "flex",
+        display: "flex",
         position: isMobile ? "fixed" as const : "relative" as const,
         zIndex: isMobile ? 1000 : "auto",
         width: "var(--sidebar-width)",
