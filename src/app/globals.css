@@ -664,3 +664,9 @@ body.light-mode [style*="background: #0f1923"] {
     display: flex !important;
   }
 }
+
+@media (max-width: 900px) {
+  .survey-left-panel {
+    display: none !important;
+  }
+}
