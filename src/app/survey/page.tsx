@@ -331,13 +331,14 @@ export default function SurveyPage() {
               <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
             </div>
           )}
+          {mapExpanded && (
+            <button onClick={() => setMapExpanded(e => !e)} style={{ position: "fixed", top: 70, right: 16, zIndex: 99999, background: "#F97316", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: 700 }}>
+              Réduire ⊡
+            </button>
+          )}
           {view === "map" && (
               <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 120px)" : "500px", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? 260 : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-                <MapView points={filtered} epsg={undefined} />
-                <button onClick={() => setMapExpanded(e => !e)} style={{ position: "absolute", top: 8, right: 8, zIndex: 9999, background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
-                  {mapExpanded ? "Reduire" : "Agrandir"}
-                </button>
               </div>
             )}
 
