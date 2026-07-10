@@ -649,3 +649,17 @@ body.light-mode [style*="background: #0f1923"] {
     z-index: 100 !important;
   }
 }
+
+/* Fix mobile content shift */
+@media (max-width: 768px) {
+  .tm-main {
+    margin-left: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  aside.tm-drawer {
+    position: fixed !important;
+    z-index: 100 !important;
+  }
+}
