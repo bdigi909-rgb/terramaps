@@ -214,7 +214,7 @@ export default function SurveyPage() {
   return (
     <AppShell>
       <Header
-        title="Points Topo"
+        title="Points de Levé Topographique"
         subtitle=""
         actions={
           <div style={{ display: "flex", gap: 8 }}>
@@ -265,7 +265,7 @@ export default function SurveyPage() {
       />
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <div style={{ width: 160, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto", minWidth: 0 }} className="survey-left-panel">
+        {/* Left panel */}
         <div style={{ width: 160, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
           <div className="section-title">Projet</div>
           <select className="srm-select" style={{ marginTop: 6 }} value={selectedProject ?? ""} onChange={(e) => setSelectedProject(parseInt(e.target.value))}>
@@ -312,7 +312,7 @@ export default function SurveyPage() {
         </div>
 
         {/* Main */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0, position: "relative" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }}>
           {/* Toolbar */}
           <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "6px 8px", display: "flex", gap: 6, alignItems: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 4, background: "#0f1923", border: "1px solid #1e3048", borderRadius: 7, padding: "5px 8px", maxWidth: 140 }}>
@@ -332,7 +332,7 @@ export default function SurveyPage() {
             </div>
           )}
           {view === "map" && (
-            <div style={{ position: "fixed", top: 70, right: 16, zIndex: 1000 }}>
+            <div style={{ position: "absolute", top: 8, right: 8, zIndex: 500 }}>
               <button onClick={() => setMapExpanded(e => !e)}
                 style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
                 {mapExpanded ? "⊡ Réduire" : "⊞ Agrandir"}
@@ -340,7 +340,7 @@ export default function SurveyPage() {
             </div>
           )}
           {view === "map" && (
-              <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 120px)" : "calc(100vh - 200px)", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? (window.innerWidth > 768 ? 260 : 0) : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
+              <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 120px)" : "500px", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? 260 : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
               </div>
