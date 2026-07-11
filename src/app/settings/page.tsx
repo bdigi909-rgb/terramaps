@@ -72,7 +72,6 @@ export default function SettingsPage() {
             { key: "societeICE", label: "ICE" },
             { key: "societePatente", label: "Numéro de Patente" },
           ].map(f => (
-          ].map(f => (
             <div key={f.key} style={{ marginBottom: 12 }}>
               <input value={(settings as any)[f.key]} onChange={e => setSettings(p => ({ ...p, [f.key]: e.target.value }))}
                 style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#fff", fontSize: 13, boxSizing: "border-box" }} />
