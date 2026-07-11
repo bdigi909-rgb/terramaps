@@ -7,6 +7,7 @@ export default function StatsPage() {
   const [data, setData] = useState<any>(null);
   const [activity, setActivity] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [devisStats, setDevisStats] = useState({ total: 0, count: 0, payee: 0, factures: 0 });
 
   useEffect(() => {
     Promise.all([
