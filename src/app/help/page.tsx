@@ -417,6 +417,26 @@ export default function HelpPage() {
             { q: "Comment assigner un projet à un agent ?", a: "Allez dans 'Assignation' depuis le menu. Sélectionnez le projet et l'agent dans le menu déroulant." },
             { q: "Comment exporter en PDF ?", a: "Dans 'Volumes & Reports', sélectionnez votre projet, calculez les volumes et cliquez sur 'Exporter PDF'." },
             { q: "Quel système de coordonnées utiliser au Maroc ?", a: "Utilisez EPSG:26191 (Lambert Maroc) pour les projets marocains. Pour les coordonnées GPS, utilisez EPSG:4326 (WGS84)." },
+    {
+      q: "Comment utiliser le Chat ?",
+      a: "Allez dans Chat depuis le menu. Tapez votre message et appuyez sur Entree. Les messages se rafraichissent toutes les 5 secondes automatiquement."
+    },
+    {
+      q: "Comment planifier une mission terrain ?",
+      a: "Allez dans Planning, cliquez sur un jour du calendrier ou sur + Nouvelle mission. Remplissez le titre, le technicien et le projet. Vous recevrez une notification le jour J."
+    },
+    {
+      q: "Comment generer un devis PDF ?",
+      a: "Allez dans Devis, choisissez un modele rapide ou importez depuis votre grille tarifaire, remplissez les infos client et cliquez Generer le Devis PDF."
+    },
+    {
+      q: "Comment ajouter mon logo sur les PDFs ?",
+      a: "Allez dans Parametres, section Logo de la societe, uploadez votre logo PNG ou JPG et cliquez Sauvegarder. Le logo apparaitra sur tous vos documents PDF."
+    },
+    {
+      q: "Comment marquer une facture comme payee ?",
+      a: "Allez dans Finance, onglet Factures, cliquez sur le bouton Marquer payee a droite de la facture. Le montant paye se met a jour automatiquement."
+    },
           ].map((faq, i) => (
             <div key={i} style={{ borderBottom: i < 4 ? "1px solid #1E2D3D" : "none", paddingBottom: i < 4 ? 16 : 0, marginBottom: i < 4 ? 16 : 0 }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: "#E2EAF2", marginBottom: 6 }}>❓ {faq.q}</div>
