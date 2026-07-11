@@ -402,7 +402,6 @@ export default function DashboardPage() {
                 { label: "Finance", icon: BarChart3, color: "#22C55E", href: "/finance" },
                 { label: "Tarifs", icon: BarChart3, color: "#A855F7", href: "/tarifs" },
                 { label: "Devis", icon: BarChart3, color: "#3B82F6", href: "/devis" },
-                { label: "Gérer Calques", icon: Layers, color: "#14b8a6", href: "/layers" },
               ].map((action) => (
                 <Link
                   key={action.label}
