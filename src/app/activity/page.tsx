@@ -181,5 +181,6 @@ export default function ActivityPage() {
         </div>
       </div>
     </div>
+    </div>
   );
 }
