@@ -74,10 +74,12 @@ export default function DevisPage() {
     doc.setFontSize(18); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
     doc.text(societe.societeNom || "TerraMaps", societe.societeLogo ? m + 35 : m, 18);
     doc.setFontSize(9); doc.setFont("helvetica", "normal");
-    doc.text(societe.societeAdresse || "", m, 25);
-    doc.text((societe.societeVille || "") + " — " + (societe.societeTel || ""), m, 31);
-    doc.text(societe.societeEmail || "", m, 37);
-    if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), m, 43);
+    const textX = societe.societeLogo ? m + 35 : m;
+    doc.text(societe.societeAdresse || "", textX, 25);
+    doc.text((societe.societeVille || "") + " — " + (societe.societeTel || ""), textX, 31);
+    doc.text(societe.societeEmail || "", textX, 37);
+    if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), textX, 43);
+    
     doc.setFontSize(20); doc.setFont("helvetica", "bold");
     doc.text("DEVIS", W - m - 30, 22);
     doc.setFontSize(10); doc.setFont("helvetica", "normal");
