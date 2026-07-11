@@ -303,10 +303,16 @@ export default function AdminPage() {
                     <td style={{ padding: "12px", fontSize: 14, fontWeight: 600, color: "#E2EAF2" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <div style={{ width: 32, height: 32, borderRadius: "50%", background: roleBg[u.role], display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: roleColor[u.role] }}>
+                          {u.name.charAt(0).toUpperCase()}
+                        </div>
                         <button onClick={() => resetPassword(u.id, u.name)} style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", color: "#3B82F6", padding: "4px 12px", borderRadius: 6, cursor: "pointer", fontSize: 11, marginRight: 6 }}>
-                          🔑 Reset MDP
+                          Reset MDP
                         </button>
                         <button onClick={() => deleteUser(u.id)} style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#EF4444", padding: "4px 12px", borderRadius: 6, cursor: "pointer", fontSize: 11 }}>
+                          Supprimer
+                        </button>
+
+
                         </div>
                         {u.name}
                       </div>
