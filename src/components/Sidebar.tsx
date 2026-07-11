@@ -21,7 +21,7 @@ import {
   Users,
   Activity,
   User,
-  HelpCircle, Calendar,
+  HelpCircle, Calendar, MessageSquare,
   Search,
 } from "lucide-react";
 
@@ -35,8 +35,9 @@ const navItems = [
   { label: "Statistiques", icon: BarChart3, href: "/stats" },
   { label: "Mon Profil", icon: User, href: "/profile" },
   { label: "Parametres", icon: Settings, href: "/settings" },
-  { label: "Aide", icon: HelpCircle, Calendar, href: "/help" },
+  { label: "Aide", icon: HelpCircle, Calendar, MessageSquare, href: "/help" },
   { label: "Planning", icon: Calendar, href: "/planning" },
+  { label: "Chat", icon: MessageSquare, href: "/chat" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
   { label: "Levé Topo", icon: FileText, href: "/leve-topo" },
   { label: "Rapport Terrain", icon: FileText, href: "/rapport-terrain" },
