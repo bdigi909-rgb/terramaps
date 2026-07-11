@@ -127,9 +127,6 @@ export default function ActivityPage() {
           )}
           <span style={{ color: "#64748B", fontSize: 13, padding: "8px 0" }}>{filtered.length} résultats</span>
         </div>
-            </div>
-          ))}
-        </div>
 
         {/* Filters */}
         <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
