@@ -21,12 +21,6 @@ export default function ActivityPage() {
   const [filterAction, setFilterAction] = useState("all");
   const [filterUser, setFilterUser] = useState("");
   const [filterDate, setFilterDate] = useState("");
-
-  const filtered = logs.filter(l => {
-    if (filterAction !== "all" && l.action !== filterAction) return false;
-    if (filterUser && !l.userName?.toLowerCase().includes(filterUser.toLowerCase())) return false;
-    if (filterDate && !l.createdAt.startsWith(filterDate)) return false;
-    return true;
   });
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -58,6 +52,16 @@ export default function ActivityPage() {
   };
 
   const filtered = logs.filter(l => {
+    const matchFilter = (filter === "all" || l.action === filter) && (filterAction === "all" || l.action === filterAction);
+    const matchSearch = search === "" ||
+      (l.userName || "").toLowerCase().includes(search.toLowerCase()) ||
+      l.action.toLowerCase().includes(search.toLowerCase()) ||
+      l.entity.toLowerCase().includes(search.toLowerCase()) ||
+      (l.details || "").toLowerCase().includes(search.toLowerCase());
+    const matchUser = !filterUser || (l.userName || "").toLowerCase().includes(filterUser.toLowerCase());
+    const matchDate = !filterDate || l.createdAt.startsWith(filterDate);
+    return matchFilter && matchSearch && matchUser && matchDate;
+  });
     const matchFilter = filter === "all" || l.action === filter;
     const matchSearch = search === "" ||
       (l.userName || "").toLowerCase().includes(search.toLowerCase()) ||
