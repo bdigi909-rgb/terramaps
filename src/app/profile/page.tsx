@@ -13,6 +13,16 @@ export default function ProfilePage() {
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ text: "", type: "" });
+  const [stats, setStats] = useState({ projects: 0, points: 0, devis: 0 });
+
+  useEffect(() => {
+    fetch("/api/projects").then(r => r.json()).then(d => {
+      if (Array.isArray(d)) setStats(s => ({ ...s, projects: d.length }));
+    });
+    fetch("/api/devis").then(r => r.json()).then(d => {
+      if (Array.isArray(d)) setStats(s => ({ ...s, devis: d.length }));
+    });
+  }, []);
 
   useEffect(() => {
     fetch("/api/auth/me").then(r => r.json()).then(d => {
@@ -77,6 +87,20 @@ export default function ProfilePage() {
               {roleLabel[me?.role] || me?.role}
             </span>
           </div>
+        {/* Stats */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }}>
+          {[
+            { label: "Projets", value: stats.projects, icon: "📁", color: "#3B82F6" },
+            { label: "Devis", value: stats.devis, icon: "💰", color: "#22C55E" },
+            { label: "Rôle", value: me?.role?.toUpperCase() || "—", icon: "👤", color: "#F97316" },
+          ].map(s => (
+            <div key={s.label} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 20, textAlign: "center" }}>
+              <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: s.color }}>{s.value}</div>
+              <div style={{ fontSize: 11, color: "#64748B", marginTop: 4, textTransform: "uppercase" }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
         </div>
 
         {/* Edit form */}
