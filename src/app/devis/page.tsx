@@ -162,6 +162,25 @@ export default function DevisPage() {
   }
 
   return (
+    <>
+    {showTarifs && (
+      <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: 24, minWidth: 400, maxHeight: "80vh", overflowY: "auto" }}>
+          <h3 style={{ margin: "0 0 16px", color: "#E2EAF2" }}>Sélectionner une prestation</h3>
+          {tarifs.map((t: any) => (
+            <div key={t.id} onClick={() => importTarif(t)}
+              style={{ padding: "10px 14px", background: "#0D1117", borderRadius: 8, marginBottom: 8, cursor: "pointer", border: "1px solid #1E2D3D" }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = "#F97316")}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = "#1E2D3D")}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>{t.prestation}</div>
+              <div style={{ fontSize: 11, color: "#64748B", marginTop: 2 }}>{t.unite} — {t.prix.toFixed(2)} MAD HT</div>
+            </div>
+          ))}
+          <button onClick={() => setShowTarifs(false)} style={{ width: "100%", background: "transparent", border: "1px solid #1E2D3D", color: "#64748B", padding: "10px", borderRadius: 8, cursor: "pointer", marginTop: 8 }}>Fermer</button>
+        </div>
+      </div>
+    )}
+    <div style={{ minHeight: "100vh", background: "#0D1117", color: "#E2EAF2", fontFamily: "Arial" }}>
     <div style={{ minHeight: "100vh", background: "#0D1117", color: "#E2EAF2", fontFamily: "Arial" }}>
       <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -284,5 +303,8 @@ export default function DevisPage() {
         </div>
       </div>
     </div>
+  );
+    </div>
+    </>
   );
 }
