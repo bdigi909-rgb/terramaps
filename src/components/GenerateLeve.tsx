@@ -444,6 +444,14 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
     doc.setFont("helvetica", "normal");
     const societe = getSociete();
     if (societe.societeNom) {
+      if (societe.societeLogo) { try { doc.addImage(societe.societeLogo, "PNG", m+4, footY-18, 15, 15); } catch {} }
+      const logoX = societe.societeLogo ? m+22 : m+4;
+      doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(0,0,100);
+      doc.text(societe.societeNom, logoX, footY-8);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(6); doc.setTextColor(100,100,100);
+      doc.text((societe.societeAdresse || "") + " — " + (societe.societeVille || "") + " — " + (societe.societeTel || ""), logoX, footY-4);
+      if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), logoX, footY);
+    }
       doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(0,0,100);
       doc.text(societe.societeNom, m+4, footY-8);
       doc.setFont("helvetica", "normal"); doc.setFontSize(6); doc.setTextColor(100,100,100);

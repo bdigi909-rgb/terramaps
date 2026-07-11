@@ -13,6 +13,11 @@ export default function RapportTerrainPage() {
     const saved = localStorage.getItem("tm_settings");
     if (saved) setSociete(JSON.parse(saved));
   }, []);
+  const [societe, setSociete] = useState<any>({});
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_settings");
+    if (saved) setSociete(JSON.parse(saved));
+  }, []);
   const [signature, setSignature] = useState("");
   const [bureauNom, setBureauNom] = useState("");
   const [bureauOrdre, setBureauOrdre] = useState("");
@@ -167,6 +172,21 @@ export default function RapportTerrainPage() {
 
     // Footer
     const footY = H - m - 20;
+    doc.setLineWidth(0.3);
+    doc.line(m+4, footY, W-m-4, footY);
+    // Logo societe
+    if (societe.societeLogo) { try { doc.addImage(societe.societeLogo, "PNG", m+4, footY-18, 15, 15); } catch {} }
+    const logoX = societe.societeLogo ? m+22 : m+4;
+    if (societe.societeNom) {
+      doc.setFontSize(7); doc.setFont("helvetica","bold"); doc.setTextColor(0,0,100);
+      doc.text(societe.societeNom, logoX, footY-8);
+      doc.setFont("helvetica","normal"); doc.setFontSize(6); doc.setTextColor(100,100,100);
+      doc.text((societe.societeAdresse||"") + " — " + (societe.societeVille||"") + " — " + (societe.societeTel||""), logoX, footY-4);
+      if (societe.societeRC) doc.text("RC: "+societe.societeRC+" | IF: "+(societe.societeIF||"")+" | ICE: "+(societe.societeICE||""), logoX, footY);
+    }
+    doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.setTextColor(0,0,0);
+    doc.text(`Fait a ${form.commune}, le ${form.date}`, m+10, footY+6);
+    doc.text("Cachet et Signature", W-m-40, footY+6);
     doc.setLineWidth(0.3);
     doc.line(m+4, footY, W-m-4, footY);
     doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.setTextColor(0,0,0);
