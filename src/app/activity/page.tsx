@@ -18,6 +18,16 @@ export default function ActivityPage() {
   const router = useRouter();
   const [logs, setLogs] = useState<Log[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filterAction, setFilterAction] = useState("all");
+  const [filterUser, setFilterUser] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+
+  const filtered = logs.filter(l => {
+    if (filterAction !== "all" && l.action !== filterAction) return false;
+    if (filterUser && !l.userName?.toLowerCase().includes(filterUser.toLowerCase())) return false;
+    if (filterDate && !l.createdAt.startsWith(filterDate)) return false;
+    return true;
+  });
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
@@ -94,6 +104,30 @@ export default function ActivityPage() {
             <div key={s.label} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: "16px 20px", borderLeft: `3px solid ${s.color}` }}>
               <div style={{ fontSize: 26, fontWeight: 700, color: s.color }}>{s.value}</div>
               <div style={{ fontSize: 11, color: "#64748B", marginTop: 4, textTransform: "uppercase" }}>{s.label}</div>
+        {/* Filtres */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+          <select value={filterAction} onChange={e => setFilterAction(e.target.value)}
+            style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#E2EAF2", fontSize: 13 }}>
+            <option value="all">Toutes les actions</option>
+            <option value="CREATE">➕ Créations</option>
+            <option value="UPDATE">✏️ Modifications</option>
+            <option value="DELETE">🗑️ Suppressions</option>
+            <option value="IMPORT">📥 Imports</option>
+            <option value="LOGIN">🔑 Connexions</option>
+          </select>
+          <input value={filterUser} onChange={e => setFilterUser(e.target.value)}
+            placeholder="Filtrer par utilisateur..."
+            style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#E2EAF2", fontSize: 13, minWidth: 200 }} />
+          <input type="date" value={filterDate} onChange={e => setFilterDate(e.target.value)}
+            style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#E2EAF2", fontSize: 13 }} />
+          {(filterAction !== "all" || filterUser || filterDate) && (
+            <button onClick={() => { setFilterAction("all"); setFilterUser(""); setFilterDate(""); }}
+              style={{ background: "#EF4444", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13 }}>
+              ✕ Effacer filtres
+            </button>
+          )}
+          <span style={{ color: "#64748B", fontSize: 13, padding: "8px 0" }}>{filtered.length} résultats</span>
+        </div>
             </div>
           ))}
         </div>
