@@ -76,6 +76,40 @@ export default function FinancePage() {
           <div style={{ flex: 1 }} />
           <Link href="/devis" style={{ background: "#3B82F6", color: "#fff", padding: "8px 16px", borderRadius: 8, textDecoration: "none", fontSize: 13, fontWeight: 600 }}>+ Nouveau devis</Link>
           <Link href="/facture" style={{ background: "#22C55E", color: "#fff", padding: "8px 16px", borderRadius: 8, textDecoration: "none", fontSize: 13, fontWeight: 600 }}>+ Nouvelle facture</Link>
+          <button onClick={async () => {
+            const { default: jsPDF } = await import("jspdf");
+            const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+            const W = 210, m = 15;
+            const now = new Date();
+            const mois = now.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+            doc.setFillColor(13,71,161); doc.rect(0,0,W,40,"F");
+            doc.setFontSize(20); doc.setFont("helvetica","bold"); doc.setTextColor(255,255,255);
+            doc.text("RAPPORT MENSUEL", m, 20);
+            doc.setFontSize(12); doc.setFont("helvetica","normal");
+            doc.text(mois.toUpperCase(), m, 30);
+            doc.setTextColor(0,0,0); doc.setFontSize(14); doc.setFont("helvetica","bold");
+            doc.text("RÉSUMÉ FINANCIER", m, 55);
+            doc.setFontSize(11); doc.setFont("helvetica","normal");
+            doc.text("Total devis: " + totalDevis.toFixed(2) + " MAD (" + devis.length + " devis)", m, 70);
+            doc.text("Total factures: " + totalFactures.toFixed(2) + " MAD (" + factures.length + " factures)", m, 80);
+            doc.text("Montant payé: " + totalPaye.toFixed(2) + " MAD", m, 90);
+            doc.text("En attente: " + (totalFactures - totalPaye).toFixed(2) + " MAD", m, 100);
+            doc.setLineWidth(0.5); doc.line(m, 110, W-m, 110);
+            doc.setFontSize(13); doc.setFont("helvetica","bold");
+            doc.text("DÉTAIL DES FACTURES", m, 122);
+            let y = 132;
+            factures.forEach(f => {
+              doc.setFontSize(10); doc.setFont("helvetica","normal");
+              doc.text((f.numero || "") + " — " + (f.client || "—") + " — " + (f.total||0).toFixed(2) + " MAD — " + (f.statut === "payee" ? "Payée" : "Non payée"), m, y);
+              y += 8;
+              if (y > 270) { doc.addPage(); y = 20; }
+            });
+            doc.setFontSize(8); doc.setTextColor(100,100,100);
+            doc.text("Document généré par TerraMaps v2.0 — terramaps.vercel.app", W/2, 285, { align: "center" });
+            doc.save("Rapport_mensuel_" + mois.replace(" ","_") + ".pdf");
+          }} style={{ background: "#A855F7", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: "pointer", border: "none", fontSize: 13, fontWeight: 600 }}>
+            📊 Rapport mensuel PDF
+          </button>
         </div>
 
         {/* Devis list */}
