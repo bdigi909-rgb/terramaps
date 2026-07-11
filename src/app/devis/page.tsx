@@ -296,6 +296,26 @@ export default function DevisPage() {
             </div>
 
             <button onClick={generatePDF} disabled={loading}
+
+            {/* Modeles */}
+            <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 16, marginBottom: 16 }}>
+              <div style={{ fontSize: 12, color: "#8BACC8", fontWeight: 700, marginBottom: 10, textTransform: "uppercase" }}>📋 Modèles rapides</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {[
+                  { label: "Levé standard < 1 Ha", lignes: [{ description: "Levé topographique < 1 Ha", quantite: "1", unite: "Forfait", prixUnit: "3000" }, { description: "Rapport PDF officiel", quantite: "1", unite: "Forfait", prixUnit: "500" }] },
+                  { label: "Levé 1-5 Ha + rapport", lignes: [{ description: "Levé topographique 1-5 Ha", quantite: "1", unite: "Forfait", prixUnit: "5000" }, { description: "Rapport PDF officiel", quantite: "1", unite: "Forfait", prixUnit: "500" }] },
+                  { label: "Polygonale complète", lignes: [{ description: "Polygonale", quantite: "1", unite: "Forfait", prixUnit: "2000" }, { description: "Canevas de nivellement", quantite: "1", unite: "Forfait", prixUnit: "1500" }, { description: "Rapport PDF officiel", quantite: "1", unite: "Forfait", prixUnit: "500" }] },
+                  { label: "Bornage terrain", lignes: [{ description: "Levé topographique < 1 Ha", quantite: "1", unite: "Forfait", prixUnit: "3000" }, { description: "Levé topo certifié", quantite: "1", unite: "Forfait", prixUnit: "800" }, { description: "Frais de déplacement", quantite: "50", unite: "km", prixUnit: "5" }] },
+                ].map(m => (
+                  <button key={m.label} onClick={() => setLignes(m.lignes)}
+                    style={{ background: "#0D1117", border: "1px solid #1E2D3D", color: "#8BACC8", padding: "8px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, textAlign: "left" }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = "#F97316")}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = "#1E2D3D")}>
+                    📄 {m.label}
+                  </button>
+                ))}
+              </div>
+            </div>
               style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Génération..." : "📄 Générer le Devis PDF"}
             </button>
