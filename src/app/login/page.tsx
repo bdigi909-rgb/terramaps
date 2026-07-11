@@ -108,4 +108,8 @@ export default function LoginPage() {
           <a href="/help" style={{ color: "#64748B", textDecoration: "none", fontSize: 12 }}>📖 Aide</a>
           <a href="/status" style={{ color: "#22C55E", textDecoration: "none", fontSize: 12 }}>🟢 Status</a>
         </div>
+      </div>
+    </div>
+  );
+}
 }
