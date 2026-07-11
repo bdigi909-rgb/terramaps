@@ -61,13 +61,6 @@ export default function ActivityPage() {
     const matchDate = !filterDate || l.createdAt.startsWith(filterDate);
     return matchFilter && matchSearch && matchUser && matchDate;
   });
-    const matchFilter = filter === "all" || l.action === filter;
-    const matchSearch = search === "" ||
-      (l.userName || "").toLowerCase().includes(search.toLowerCase()) ||
-      l.action.toLowerCase().includes(search.toLowerCase()) ||
-      l.entity.toLowerCase().includes(search.toLowerCase()) ||
-      (l.details || "").toLowerCase().includes(search.toLowerCase());
-    return matchFilter && matchSearch;
 
   function timeAgo(date: string) {
     const diff = Date.now() - new Date(date).getTime();
