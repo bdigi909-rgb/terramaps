@@ -397,7 +397,11 @@ export default function DashboardPage() {
                 { label: "Importer Points Topo", icon: Compass, color: "#3b82f6", href: "/survey" },
                 { label: "Calculer Volumes", icon: BarChart3, color: "#10b981", href: "/volumes" },
                 { label: "Ouvrir Planche", icon: Map, color: "#8b5cf6", href: "/canvas" },
-                { label: "Modèle Terrain", icon: Mountain, color: "#ec4899", href: "/terrain" },
+                { label: "Gérer Calques", icon: Layers, color: "#14b8a6", href: "/layers" },
+                { label: "Planning Missions", icon: BarChart3, color: "#F97316", href: "/planning" },
+                { label: "Finance", icon: BarChart3, color: "#22C55E", href: "/finance" },
+                { label: "Tarifs", icon: BarChart3, color: "#A855F7", href: "/tarifs" },
+                { label: "Devis", icon: BarChart3, color: "#3B82F6", href: "/devis" },
                 { label: "Gérer Calques", icon: Layers, color: "#14b8a6", href: "/layers" },
               ].map((action) => (
                 <Link
