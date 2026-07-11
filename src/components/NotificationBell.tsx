@@ -30,6 +30,27 @@ export default function NotificationBell() {
   }, []);
 
   async function loadNotifs() {
+    // Vérifier missions du jour
+    const missions = JSON.parse(localStorage.getItem("tm_missions") || "[]");
+    const today = new Date().toISOString().slice(0, 10);
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    missions.forEach((m: any) => {
+      if (m.date === today || m.date === tomorrow) {
+        const key = "notif_mission_" + m.id;
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, "1");
+          fetch("/api/notifications", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: m.date === today ? "Mission aujourd hui" : "Mission demain",
+              message: m.titre + (m.technicien ? " — " + m.technicien : ""),
+              type: "mission"
+            })
+          });
+        }
+      }
+    });
     const res = await fetch("/api/notifications");
     if (res.ok) {
       const data = await res.json();
