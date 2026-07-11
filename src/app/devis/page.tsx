@@ -295,8 +295,6 @@ export default function DevisPage() {
               ))}
             </div>
 
-            <button onClick={generatePDF} disabled={loading}
-
             {/* Modeles */}
             <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 16, marginBottom: 16 }}>
               <div style={{ fontSize: 12, color: "#8BACC8", fontWeight: 700, marginBottom: 10, textTransform: "uppercase" }}>📋 Modèles rapides</div>
@@ -316,8 +314,9 @@ export default function DevisPage() {
                 ))}
               </div>
             </div>
+            <button onClick={generatePDF} disabled={loading}
               style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
-              {loading ? "Génération..." : "📄 Générer le Devis PDF"}
+              {loading ? "Generation..." : "Generer le Devis PDF"}
             </button>
           </div>
         </div>
