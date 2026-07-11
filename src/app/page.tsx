@@ -10,6 +10,7 @@ export default function HomePage() {
           <Link href="#features" style={{ color: "#8BACC8", fontSize: 14, textDecoration: "none" }}>Fonctionnalités</Link>
           <Link href="#pricing" style={{ color: "#8BACC8", fontSize: 14, textDecoration: "none" }}>Tarifs</Link>
           <Link href="/login" style={{ color: "#8BACC8", fontSize: 14, textDecoration: "none" }}>Connexion</Link>
+          <Link href="/status" style={{ color: "#22C55E", fontSize: 14, textDecoration: "none" }}>🟢 Status</Link>
           <Link href="/login" style={{ background: "#F97316", color: "#fff", padding: "9px 22px", borderRadius: 8, textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Démarrer →</Link>
         </div>
       </nav>
