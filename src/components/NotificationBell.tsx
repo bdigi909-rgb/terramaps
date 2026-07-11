@@ -106,7 +106,7 @@ export default function NotificationBell() {
       </button>
 
       {open && (
-        <div style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", width: 360, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.4)", zIndex: 1000 }}>
+        <div style={{ position: "fixed", right: 16, top: 56, width: 360, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.4)", zIndex: 9999 }}>
           <div style={{ padding: "14px 16px", borderBottom: "1px solid #1E2D3D", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: "#E2EAF2" }}>Notifications {unreadCount > 0 && <span style={{ color: "#EF4444" }}>({unreadCount})</span>}</span>
             {unreadCount > 0 && (
