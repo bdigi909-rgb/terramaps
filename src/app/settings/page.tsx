@@ -73,16 +73,36 @@ export default function SettingsPage() {
             { key: "societePatente", label: "Numéro de Patente" },
           ].map(f => (
             <div key={f.key} style={{ marginBottom: 12 }}>
+              <label style={{ fontSize: 11, color: "#64748B", display: "block", marginBottom: 4, textTransform: "uppercase" }}>{f.label}</label>
+              <input value={(settings as any)[f.key]} onChange={e => setSettings(p => ({ ...p, [f.key]: e.target.value }))}
+                style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#fff", fontSize: 13, boxSizing: "border-box" }} />
               <input value={(settings as any)[f.key]} onChange={e => setSettings(p => ({ ...p, [f.key]: e.target.value }))}
                 style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#fff", fontSize: 13, boxSizing: "border-box" }} />
             </div>
           ))}
         </div>
-
+        <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24, marginBottom: 16 }}>
+          <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#22C55E", fontWeight: 700 }}>Logo de la societe</h3>
+          {settings.societeLogo && (
+            <div style={{ marginBottom: 16, textAlign: "center" }}>
+              <img src={settings.societeLogo} alt="Logo" style={{ maxHeight: 80, maxWidth: 200, objectFit: "contain", background: "#fff", padding: 8, borderRadius: 8 }} />
+            </div>
+          )}
+          <input type="file" accept="image/*" onChange={e => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => setSettings(p => ({ ...p, societeLogo: reader.result as string }));
+            reader.readAsDataURL(file);
+          }} style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#fff", fontSize: 13, boxSizing: "border-box" }} />
+        </div>
         <button onClick={save} style={{ width: "100%", background: saved ? "#22C55E" : "#F97316", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
-          {saved ? "✅ Paramètres sauvegardés !" : "💾 Sauvegarder"}
+          {saved ? "Parametres sauvegardes !" : "Sauvegarder"}
         </button>
-      </div>
+
+
+
+
     </div>
   );
 }
