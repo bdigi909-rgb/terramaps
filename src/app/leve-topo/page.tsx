@@ -25,7 +25,6 @@ export default function LeveTopoPage() {
         to: clientEmail,
         projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
         superficie: form.superficie ? form.superficie + " m²" : "Non renseignée",
-        superficie: leveData.superficie + " m²",
         technicien: form.technicien || "Technicien"
       })
     });
