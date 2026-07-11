@@ -12,7 +12,13 @@ export default function StatsPage() {
     Promise.all([
       fetch("/api/dashboard").then(r => r.json()),
       fetch("/api/activity").then(r => r.json()),
-    ]).then(([dash, act]) => {
+      fetch("/api/devis").then(r => r.json()),
+      fetch("/api/factures").then(r => r.json()),
+    ]).then(([dash, act, devisData, facturesData]) => {
+      const totalDevis = Array.isArray(devisData) ? devisData.reduce((s: number, d: any) => s + (d.total || 0), 0) : 0;
+      const totalFactures = Array.isArray(facturesData) ? facturesData.reduce((s: number, f: any) => s + (f.total || 0), 0) : 0;
+      const facturesPayees = Array.isArray(facturesData) ? facturesData.filter((f: any) => f.statut === "payee").reduce((s: number, f: any) => s + (f.total || 0), 0) : 0;
+      if (Array.isArray(devisData)) setDevisStats({ total: totalDevis, count: devisData.length, payee: facturesPayees, factures: totalFactures });
       setData(dash);
       if (Array.isArray(act)) setActivity(act);
       setLoading(false);
