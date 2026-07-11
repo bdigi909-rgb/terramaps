@@ -14,6 +14,18 @@ interface Message {
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [search, setSearch] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+
+  const filteredMessages = search ? messages.filter(m => 
+    m.content.toLowerCase().includes(search.toLowerCase()) ||
+    m.user_name.toLowerCase().includes(search.toLowerCase())
+  ) : messages;
+
+  const msgStats = messages.reduce((acc: any, m) => {
+    acc[m.user_name] = (acc[m.user_name] || 0) + 1;
+    return acc;
+  }, {});
   const [me, setMe] = useState<any>(null);
   const [sending, setSending] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
@@ -103,6 +115,9 @@ export default function ChatPage() {
       <Header title="Chat" subtitle={`Messagerie interne — ${onlineUsers.length} en ligne`}
         actions={
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button onClick={() => setShowSearch(s => !s)} style={{ background: showSearch ? "#F97316" : "transparent", border: "1px solid #1E2D3D", borderRadius: 8, padding: "6px 10px", cursor: "pointer", color: showSearch ? "#fff" : "#8BACC8", fontSize: 12 }}>
+              🔍
+            </button>
             {onlineUsers.map(u => (
               <div key={u} style={{ display: "flex", alignItems: "center", gap: 4, background: "#0D1117", border: "1px solid #22C55E33", borderRadius: 20, padding: "4px 10px" }}>
                 <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22C55E" }} />
@@ -122,7 +137,16 @@ export default function ChatPage() {
               <div>Aucun message — commencez la conversation !</div>
             </div>
           )}
-          {messages.map(m => {
+          {showSearch && (
+            <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "8px 24px", display: "flex", gap: 8, alignItems: "center" }}>
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher dans les messages..."
+                style={{ flex: 1, background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "6px 12px", color: "#E2EAF2", fontSize: 13, outline: "none" }} />
+              {search && <button onClick={() => setSearch("")} style={{ background: "transparent", border: "none", color: "#EF4444", cursor: "pointer" }}>✕</button>}
+              <span style={{ fontSize: 11, color: "#64748B" }}>{filteredMessages.length} résultats</span>
+            </div>
+          )}
+          <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+          {filteredMessages.map(m => {
             const isMe = m.user_id === me?.id;
             const color = userColor(m.user_name || "?");
             return (
