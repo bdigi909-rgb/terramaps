@@ -100,9 +100,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
-        <p style={{ textAlign: "center", marginTop: 20, fontSize: 12, color: "#4B6080" }}>
-          <a href="/forgot-password" style={{ color: "#F97316", textDecoration: "none", fontSize: 13 }}>Mot de passe oublié ?</a>
-        </p>
         <div style={{ textAlign: "center", marginTop: 24, paddingTop: 24, borderTop: "1px solid #1E2D3D", display: "flex", justifyContent: "center", gap: 24 }}>
           <a href="/" style={{ color: "#64748B", textDecoration: "none", fontSize: 12 }}>🏠 Accueil</a>
           <a href="/help" style={{ color: "#64748B", textDecoration: "none", fontSize: 12 }}>📖 Aide</a>
