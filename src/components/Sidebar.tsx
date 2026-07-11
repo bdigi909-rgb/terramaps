@@ -27,6 +27,7 @@ import {
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "Mon Espace", icon: User, href: "/agent" },
   { label: "Projects", icon: FolderOpen, href: "/projects" },
   { label: "Survey Points", icon: Compass, href: "/survey" },
   { label: "Import Points", icon: FileText, href: "/import" },
