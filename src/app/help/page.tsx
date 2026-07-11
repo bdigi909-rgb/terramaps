@@ -98,7 +98,7 @@ const tutorials = [
     steps: ["Allez dans Calculatrice", "Choisissez Distance et Gisement", "Entrez les coordonnees X Y", "Obtenez distance et gisement", "Utilisez Superficie Gauss pour les parcelles"],
     href: "/calculatrice",
   },
-  { id: 11, title: "Gerer les utilisateurs",
+  { id: 11, title: "Gerer les utilisateurs", description: "Gerez les roles et permissions de votre equipe", icon: "👥", color: "#EF4444", steps: ["Allez dans Admin", "Cliquez sur Ajouter utilisateur", "Choisissez le role", "Envoyez l invitation"], href: "/admin" },
   {
     id: 12,
     title: "Chat equipe",
