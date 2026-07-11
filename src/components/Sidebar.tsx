@@ -43,6 +43,7 @@ const navItems = [
   { label: "Devis", icon: FileText, href: "/devis" },
   { label: "Factures", icon: FileText, href: "/facture" },
   { label: "Finance", icon: BarChart3, href: "/finance" },
+  { label: "Tarifs", icon: FileText, href: "/tarifs" },
   { label: "Outils Carte", icon: Map, href: "/map-tools" },
   { label: "Nivellement", icon: BarChart3, href: "/nivellement" },
   { label: "Polygonale", icon: Route, href: "/polygonale" },
