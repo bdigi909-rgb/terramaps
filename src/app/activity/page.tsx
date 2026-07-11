@@ -68,7 +68,6 @@ export default function ActivityPage() {
       l.entity.toLowerCase().includes(search.toLowerCase()) ||
       (l.details || "").toLowerCase().includes(search.toLowerCase());
     return matchFilter && matchSearch;
-  });
 
   function timeAgo(date: string) {
     const diff = Date.now() - new Date(date).getTime();
