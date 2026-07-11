@@ -322,7 +322,6 @@ export default function DevisPage() {
         </div>
       </div>
     </div>
-  );
     </div>
     </>
   );
