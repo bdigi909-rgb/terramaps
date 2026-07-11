@@ -135,12 +135,6 @@ const tutorials = [
     steps: ["Allez dans Tarifs", "Ajoutez vos prestations avec prix HT et TVA", "Dans Devis, cliquez Importer depuis tarifs", "Selectionnez une prestation", "Le prix s ajoute automatiquement"],
     href: "/tarifs",
   },
-    icon: "👥",
-    color: "#F97316",
-    steps: ["Allez dans 'Admin'", "Cliquez sur '+ Nouvel utilisateur'", "Remplissez les informations", "Choisissez le rôle (Agent/Manager)"],
-    animation: "users",
-    href: "/admin",
-  },
 ];
 
 function AnimationProject() {
