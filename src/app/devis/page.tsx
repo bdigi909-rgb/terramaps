@@ -253,6 +253,9 @@ export default function DevisPage() {
                   </div>
                 </div>
               ))}
+              <button onClick={() => setShowTarifs(true)} style={{ width: "100%", background: "transparent", border: "1px dashed #3B82F6", color: "#3B82F6", padding: "8px", borderRadius: 8, cursor: "pointer", fontSize: 12, marginBottom: 6 }}>
+                📋 Importer depuis tarifs
+              </button>
               <button onClick={addLigne} style={{ width: "100%", background: "transparent", border: "1px dashed #1E2D3D", color: "#64748B", padding: "8px", borderRadius: 8, cursor: "pointer", fontSize: 12, marginTop: 4 }}>
                 + Ajouter une prestation
               </button>
