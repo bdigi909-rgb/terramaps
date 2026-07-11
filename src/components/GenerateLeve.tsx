@@ -452,7 +452,6 @@ export default function GenerateLeve({ data }: { data: LeveData }) {
       doc.text((societe.societeAdresse || "") + " — " + (societe.societeVille || "") + " — " + (societe.societeTel || ""), logoX, footY-4);
       if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), logoX, footY);
     }
-    }
     doc.text(`Fait a ${data.commune}, le ${data.date}`, m + 10, footY + 6);
     doc.text("Cachet et Signature", W - m - 40, footY + 6);
     if (data.signature) { doc.addImage(data.signature, "PNG", W-m-45, footY+3, 40, 15); }
