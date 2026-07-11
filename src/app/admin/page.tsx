@@ -311,8 +311,6 @@ export default function AdminPage() {
                         <button onClick={() => deleteUser(u.id)} style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#EF4444", padding: "4px 12px", borderRadius: 6, cursor: "pointer", fontSize: 11 }}>
                           Supprimer
                         </button>
-                        </div>
-                        {u.name}
                       </div>
                     </td>
                     <td style={{ padding: "12px", fontSize: 13, color: "#8BACC8" }}>{u.email}</td>
