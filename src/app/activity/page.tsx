@@ -21,7 +21,6 @@ export default function ActivityPage() {
   const [filterAction, setFilterAction] = useState("all");
   const [filterUser, setFilterUser] = useState("");
   const [filterDate, setFilterDate] = useState("");
-  });
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
