@@ -54,15 +54,6 @@ const tutorials = [
     href: "/survey",
   },
   {
-    id: 6,
-    title: "Gerer les utilisateurs",
-    description: "Gerez les roles et permissions de votre equipe",
-    icon: "👥",
-    color: "#EF4444",
-    steps: ["Allez dans Admin", "Cliquez sur Ajouter utilisateur", "Choisissez le role", "Envoyez l invitation"],
-    href: "/admin",
-  },
-  {
     id: 7,
     title: "Canevas de nivellement",
     description: "Calculez les altitudes par nivellement direct et verifiez la fermeture",
