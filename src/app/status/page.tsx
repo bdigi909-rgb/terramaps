@@ -22,7 +22,7 @@ export default function StatusPage() {
       { name: "Base de données", url: "/api/dashboard" },
       { name: "Authentification", url: "/api/auth/me" },
       { name: "Projets", url: "/api/projects" },
-      { name: "Survey Points", url: "/api/survey-points" },
+      { name: "Survey Points", url: "/api/projects/3/survey-points" },
       { name: "Notifications", url: "/api/notifications" },
     ];
 
