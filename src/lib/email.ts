@@ -124,3 +124,47 @@ export async function sendImportNotificationEmail(to: string, managerName: strin
     `,
   });
 }
+
+export async function sendLeveEmail(to: string, clientName: string, projectName: string, superficie: string, technicien: string) {
+  if (!resend) { console.log("RESEND_API_KEY not set"); return; }
+  await resend.emails.send({
+    from: "TerraMaps <onboarding@resend.dev>",
+    to,
+    subject: `TerraMaps — Votre levé topographique : ${projectName}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0D1117; color: #E2EAF2; padding: 40px; border-radius: 16px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h1 style="color: #F97316; font-size: 28px; margin: 0;">Terra<span style="color: #fff;">Maps</span></h1>
+          <p style="color: #64748B; margin: 4px 0 0;">Topographie & Cartographie</p>
+        </div>
+        <h2 style="color: #E2EAF2; font-size: 20px;">Votre levé topographique est prêt ! 📄</h2>
+        <p style="color: #8BACC8;">Bonjour ${clientName},</p>
+        <p style="color: #8BACC8;">Votre levé topographique a été généré avec succès. Voici les détails :</p>
+        <div style="background: #161B22; border: 1px solid #1E2D3D; border-radius: 12px; padding: 24px; margin: 24px 0;">
+          <div style="margin-bottom: 12px;">
+            <span style="color: #64748B; font-size: 12px; text-transform: uppercase;">Projet</span>
+            <div style="color: #F97316; font-size: 16px; font-weight: 600; margin-top: 4px;">${projectName}</div>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <span style="color: #64748B; font-size: 12px; text-transform: uppercase;">Superficie</span>
+            <div style="color: #22C55E; font-size: 16px; font-weight: 600; margin-top: 4px;">${superficie}</div>
+          </div>
+          <div>
+            <span style="color: #64748B; font-size: 12px; text-transform: uppercase;">Technicien</span>
+            <div style="color: #3B82F6; font-size: 14px; font-weight: 600; margin-top: 4px;">${technicien}</div>
+          </div>
+        </div>
+        <p style="color: #8BACC8;">Le document PDF officiel a été généré et est disponible dans votre espace TerraMaps.</p>
+        <div style="text-align: center; margin: 32px 0;">
+          <a href="https://terramaps.vercel.app/login"
+            style="background: #F97316; color: #fff; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block;">
+            Acceder a TerraMaps
+          </a>
+        </div>
+        <p style="color: #4B6080; font-size: 12px; text-align: center; margin-top: 32px;">
+          TerraMaps v2.0 — terramaps.vercel.app
+        </p>
+      </div>
+    `,
+  });
+}

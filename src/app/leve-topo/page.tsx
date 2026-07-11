@@ -11,6 +11,28 @@ export default function LeveTopoPage() {
   const [points, setPoints] = useState<any[]>([]);
   const [selectedProject, setSelectedProject] = useState("");
   const [signature, setSignature] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [sendingEmail, setSendingEmail] = useState(false);
+
+  async function sendEmail() {
+    if (!clientEmail) return;
+    setSendingEmail(true);
+    await fetch("/api/send-leve-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        to: clientEmail,
+        clientName: form.proprietaire || "Client",
+        projectName: leveData.projectName,
+        superficie: leveData.superficie + " m²",
+        technicien: form.technicien || "Technicien"
+      })
+    });
+    setEmailSent(true);
+    setSendingEmail(false);
+    setTimeout(() => setEmailSent(false), 3000);
+  }
   const [form, setForm] = useState({
     province: "Séttat",
     cercle: "Cherrat",
@@ -28,6 +50,7 @@ export default function LeveTopoPage() {
     voisinSud: "",
     voisinEst: "",
     voisinOuest: "",
+    clientEmail: "",
     bureauNom: "",
     bureauOrdre: "",
     bureauVille: "",
@@ -232,6 +255,18 @@ export default function LeveTopoPage() {
                 ✅ Rose des vents<br/>
                 ✅ Zone cachet et signature
               </p>
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: 11, color: "#64748B", marginBottom: 4, fontWeight: 600, textTransform: "uppercase" }}>Email du client</label>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <input value={clientEmail} onChange={e => setClientEmail(e.target.value)}
+                    placeholder="client@email.com"
+                    style={{ flex: 1, background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#fff", fontSize: 13 }} />
+                  <button onClick={sendEmail} disabled={!clientEmail || sendingEmail}
+                    style={{ background: clientEmail ? "#22C55E" : "#1E2D3D", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: clientEmail ? "pointer" : "not-allowed", fontSize: 12, fontWeight: 600, whiteSpace: "nowrap" }}>
+                    {emailSent ? "✅ Envoyé!" : sendingEmail ? "Envoi..." : "📧 Envoyer"}
+                  </button>
+                </div>
+              </div>
               <GenerateLeve data={leveData} />
             </div>
           </div>
