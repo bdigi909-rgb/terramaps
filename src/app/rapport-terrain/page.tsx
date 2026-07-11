@@ -13,11 +13,6 @@ export default function RapportTerrainPage() {
     const saved = localStorage.getItem("tm_settings");
     if (saved) setSociete(JSON.parse(saved));
   }, []);
-  const [societe, setSociete] = useState<any>({});
-  useEffect(() => {
-    const saved = localStorage.getItem("tm_settings");
-    if (saved) setSociete(JSON.parse(saved));
-  }, []);
   const [signature, setSignature] = useState("");
   const [bureauNom, setBureauNom] = useState("");
   const [bureauOrdre, setBureauOrdre] = useState("");
