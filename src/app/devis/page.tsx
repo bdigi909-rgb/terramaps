@@ -23,6 +23,19 @@ export default function DevisPage() {
     description: "",
     tva: "20",
   });
+  const [tarifs, setTarifs] = useState<any[]>([]);
+  const [showTarifs, setShowTarifs] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_tarifs");
+    if (saved) setTarifs(JSON.parse(saved));
+  }, []);
+
+  function importTarif(t: any) {
+    setLignes(prev => [...prev, { description: t.prestation, quantite: "1", unite: t.unite, prixUnit: String(t.prix) }]);
+    setShowTarifs(false);
+  }
+
   const [lignes, setLignes] = useState([
     { description: "Levé topographique", quantite: "1", unite: "Forfait", prixUnit: "3000" },
     { description: "Rapport PDF officiel", quantite: "1", unite: "Forfait", prixUnit: "500" },
