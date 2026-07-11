@@ -23,8 +23,8 @@ export default function LeveTopoPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         to: clientEmail,
-        clientName: form.proprietaire || "Client",
-        projectName: leveData.projectName,
+        projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
+        superficie: form.superficie ? form.superficie + " m²" : "Non renseignée",
         superficie: leveData.superficie + " m²",
         technicien: form.technicien || "Technicien"
       })
