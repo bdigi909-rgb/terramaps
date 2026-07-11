@@ -4,7 +4,7 @@ import GlobalSearch from "@/components/GlobalSearch";
 
 import AIAssist from "@/components/AIAssist";
 import { useState } from "react";
-import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
+import { Bell, Search, ChevronDown, User, Zap, Sun, Moon } from "lucide-react";
 
 interface HeaderProps {
   title: string;
@@ -13,6 +13,24 @@ interface HeaderProps {
 }
 
 export default function Header({ title, subtitle, actions }: HeaderProps) {
+  const [dark, setDark] = useState(true);
+
+  function toggleTheme() {
+    const newDark = !dark;
+    setDark(newDark);
+    if (newDark) {
+      document.body.classList.remove("light-mode");
+      localStorage.setItem("tm_theme", "dark");
+    } else {
+      document.body.classList.add("light-mode");
+      localStorage.setItem("tm_theme", "light");
+    }
+  }
+
+  useState(() => {
+    const saved = localStorage.getItem("tm_theme");
+    if (saved === "light") { setDark(false); document.body.classList.add("light-mode"); }
+  });
   return (
     <>
     <button id="mobile-menu-trigger" onClick={() => { const s = document.querySelector(".sidebar"); if(s) s.classList.toggle("sidebar-open"); }} style={{ display: "none", position: "fixed", top: 14, left: 14, zIndex: 1001, background: "#F97316", border: "none", borderRadius: 8, padding: "8px 10px", cursor: "pointer" }} className="mobile-hamburger">
@@ -50,6 +68,9 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       
       
+      <button onClick={toggleTheme} style={{ background: "transparent", border: "1px solid #1E2D3D", borderRadius: 8, padding: "6px 8px", cursor: "pointer", color: "#8BACC8", display: "flex", alignItems: "center" }}>
+        {dark ? <Sun size={15} /> : <Moon size={15} />}
+      </button>
       <NotificationBell />
 
       <AIAssist />
