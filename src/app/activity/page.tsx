@@ -99,7 +99,11 @@ export default function ActivityPage() {
             <div key={s.label} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: "16px 20px", borderLeft: `3px solid ${s.color}` }}>
               <div style={{ fontSize: 26, fontWeight: 700, color: s.color }}>{s.value}</div>
               <div style={{ fontSize: 11, color: "#64748B", marginTop: 4, textTransform: "uppercase" }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
         {/* Filtres */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
         <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
           <select value={filterAction} onChange={e => setFilterAction(e.target.value)}
             style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 8, padding: "8px 12px", color: "#E2EAF2", fontSize: 13 }}>
