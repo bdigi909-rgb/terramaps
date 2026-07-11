@@ -16,6 +16,14 @@ export async function GET() {
   return NextResponse.json(result.rows.reverse());
 }
 
+export async function DELETE(req: NextRequest) {
+  const user = await getUser(req);
+  if (!user) return NextResponse.json({ error: "Non connecté" }, { status: 401 });
+  const { id } = await req.json();
+  await db.execute(sql`DELETE FROM messages WHERE id = ${id} AND user_id = ${user.id as number}`);
+  return NextResponse.json({ success: true });
+}
+
 export async function POST(req: NextRequest) {
   const user = await getUser(req);
   if (!user) return NextResponse.json({ error: "Non connecté" }, { status: 401 });

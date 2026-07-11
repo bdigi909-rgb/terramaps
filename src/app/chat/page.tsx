@@ -16,6 +16,28 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const [me, setMe] = useState<any>(null);
   const [sending, setSending] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Enregistrer presence
+    const pingInterval = setInterval(() => {
+      if (me?.name) {
+        const key = "online_" + me.name;
+        localStorage.setItem(key, Date.now().toString());
+      }
+      // Lire tous les utilisateurs en ligne (actifs dans les 30 dernières secondes)
+      const online: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k?.startsWith("online_")) {
+          const t = parseInt(localStorage.getItem(k) || "0");
+          if (Date.now() - t < 30000) online.push(k.replace("online_", ""));
+        }
+      }
+      setOnlineUsers(online);
+    }, 5000);
+    return () => clearInterval(pingInterval);
+  }, [me]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,6 +52,15 @@ export default function ChatPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  async function deleteMessage(id: number) {
+    await fetch("/api/messages", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+    setMessages(prev => prev.filter(m => m.id !== id));
+  }
 
   async function loadMessages() {
     const res = await fetch("/api/messages");
@@ -69,7 +100,18 @@ export default function ChatPage() {
 
   return (
     <AppShell>
-      <Header title="Chat" subtitle="Messagerie interne de l équipe" />
+      <Header title="Chat" subtitle={`Messagerie interne — ${onlineUsers.length} en ligne`}
+        actions={
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {onlineUsers.map(u => (
+              <div key={u} style={{ display: "flex", alignItems: "center", gap: 4, background: "#0D1117", border: "1px solid #22C55E33", borderRadius: 20, padding: "4px 10px" }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22C55E" }} />
+                <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 600 }}>{u}</span>
+              </div>
+            ))}
+          </div>
+        }
+      />
       <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 48px)", background: "#0D1117" }}>
 
         {/* Messages */}
@@ -97,8 +139,9 @@ export default function ChatPage() {
                   <div style={{ background: isMe ? "#0D47A1" : "#161B22", border: `1px solid ${isMe ? "#1565C0" : "#1E2D3D"}`, borderRadius: isMe ? "16px 16px 4px 16px" : "16px 16px 16px 4px", padding: "10px 14px" }}>
                     <div style={{ fontSize: 13, color: "#E2EAF2", lineHeight: 1.5 }}>{m.content}</div>
                   </div>
-                  <div style={{ fontSize: 10, color: "#64748B", marginTop: 4, textAlign: isMe ? "right" : "left", paddingLeft: 4 }}>
+                  <div style={{ fontSize: 10, color: "#64748B", marginTop: 4, textAlign: isMe ? "right" : "left", paddingLeft: 4, display: "flex", justifyContent: isMe ? "flex-end" : "flex-start", alignItems: "center", gap: 8 }}>
                     {timeAgo(m.created_at)}
+                    {isMe && <button onClick={() => deleteMessage(m.id)} style={{ background: "transparent", border: "none", color: "#EF4444", cursor: "pointer", fontSize: 10, padding: 0 }}>🗑️</button>}
                   </div>
                 </div>
               </div>
