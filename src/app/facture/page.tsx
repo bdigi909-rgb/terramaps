@@ -47,13 +47,19 @@ export default function FacturePage() {
     // En-tete societe
     doc.setFillColor(13, 71, 161);
     doc.rect(0, 0, W, 45, "F");
+    // Logo
+    if (societe.societeLogo) {
+      try { doc.addImage(societe.societeLogo, "PNG", m, 5, 30, 30); } catch {}
+    }
     doc.setFontSize(18); doc.setFont("helvetica", "bold"); doc.setTextColor(255,255,255);
-    doc.text(societe.societeNom || "TerraMaps", m, 18);
+    const textX = societe.societeLogo ? m + 35 : m;
+    doc.text(societe.societeNom || "TerraMaps", textX, 18);
     doc.setFontSize(9); doc.setFont("helvetica", "normal");
-    doc.text(societe.societeAdresse || "", m, 25);
-    doc.text((societe.societeVille || "") + " — " + (societe.societeTel || ""), m, 31);
-    doc.text(societe.societeEmail || "", m, 37);
-    if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), m, 43);
+    doc.text(societe.societeAdresse || "", textX, 25);
+    doc.text((societe.societeVille || "") + " — " + (societe.societeTel || ""), textX, 31);
+    doc.text(societe.societeEmail || "", textX, 37);
+    if (societe.societeRC) doc.text("RC: " + societe.societeRC + " | IF: " + (societe.societeIF || "") + " | ICE: " + (societe.societeICE || ""), textX, 43);
+    
 
     // Titre FACTURE
     doc.setFontSize(22); doc.setFont("helvetica", "bold"); doc.setTextColor(255,255,255);
