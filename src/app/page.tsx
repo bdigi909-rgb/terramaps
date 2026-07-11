@@ -110,6 +110,34 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
+
+      {/* Témoignages */}
+      <section style={{ padding: "80px 32px", maxWidth: 1100, margin: "0 auto" }}>
+        <h2 style={{ textAlign: "center", fontSize: 36, fontWeight: 700, marginBottom: 16 }}>Ce que disent nos clients</h2>
+        <p style={{ textAlign: "center", color: "#64748B", marginBottom: 56, fontSize: 16 }}>Topographes marocains qui utilisent TerraMaps</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
+          {[
+            { nom: "Ahmed Benali", ville: "Casablanca", role: "Topographe indépendant", avis: "TerraMaps m a permis de générer des levés officiels en 5 minutes. Le PDF Royaume du Maroc est parfait pour mes clients.", stars: 5 },
+            { nom: "Fatima Zahra", ville: "Rabat", role: "Bureau d études", avis: "La facturation intégrée est excellente. Je génère mes devis et factures directement depuis la plateforme.", stars: 5 },
+            { nom: "Youssef Alami", ville: "Béni Mellal", role: "Géomètre expert", avis: "L export DXF compatible AutoCAD et le chat équipe ont révolutionné notre workflow terrain.", stars: 5 },
+          ].map(t => (
+            <div key={t.nom} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
+              <div style={{ color: "#F59E0B", fontSize: 18, marginBottom: 12 }}>{"★".repeat(t.stars)}</div>
+              <p style={{ color: "#8BACC8", fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>"{t.avis}"</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#F97316", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff" }}>
+                  {t.nom.charAt(0)}
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#E2EAF2" }}>{t.nom}</div>
+                  <div style={{ fontSize: 11, color: "#64748B" }}>{t.role} — {t.ville}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section style={{ padding: "80px 32px", textAlign: "center" }}>
         <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 16 }}>Prêt à moderniser votre cabinet ?</h2>
         <p style={{ color: "#64748B", fontSize: 16, marginBottom: 40 }}>Rejoignez les topographes marocains qui utilisent TerraMaps</p>
