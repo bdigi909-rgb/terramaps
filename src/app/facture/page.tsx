@@ -275,11 +275,6 @@ export default function FacturePage() {
               <SignaturePad onSignature={setSignature} />
             </div>
             <button onClick={generatePDF} disabled={loading}
-            <button onClick={generatePDF} disabled={loading}
-              style={{ width: "100%", background: "#22C55E", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
-              {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
-            </button>
-            <button onClick={async () => {
               const allFact = await fetch("/api/factures").then(r => r.json());
               const last = Array.isArray(allFact) ? allFact[0] : null;
               if (!last) return alert("Generez d abord une facture !");
