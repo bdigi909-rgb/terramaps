@@ -3,6 +3,7 @@ import NotificationBell from "@/components/NotificationBell";
 import GlobalSearch from "@/components/GlobalSearch";
 
 import AIAssist from "@/components/AIAssist";
+import PushNotification from "@/components/PushNotification";
 import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
@@ -51,7 +52,8 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       
       
-      <NotificationBell />
+      <PushNotification />
+        <NotificationBell />
 
       <AIAssist />
 
