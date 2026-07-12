@@ -3,7 +3,6 @@ import NotificationBell from "@/components/NotificationBell";
 import PushNotification from "@/components/PushNotification";
 import GlobalSearch from "@/components/GlobalSearch";
 import AIAssist from "@/components/AIAssist";
-import PushNotification from "@/components/PushNotification";
 import { useState } from "react";
 import { Bell, Search, ChevronDown, User, Zap } from "lucide-react";
 
