@@ -144,8 +144,6 @@ export default function DashboardPage() {
         title="Tableau de Bord"
         subtitle="Vue d'ensemble de vos projets TerraMaps"
         actions={
-          <Link href="/projects" className="btn-primary" style={{ textDecoration: "none" }}>
-        actions={
           <>
             <button onClick={async () => {
               const [proj, devis, fact] = await Promise.all([
@@ -157,8 +155,7 @@ export default function DashboardPage() {
               const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a");
-              a.href = url; a.download = "terramaps_backup_" + new Date().toLocaleDateString("fr-FR").replace(/\//g, "-") + ".json";
-              a.click();
+              a.href = url; a.download = "terramaps_backup.json"; a.click();
             }} style={{ background: "#1E2D3D", border: "1px solid #2A4060", color: "#8BACC8", padding: "8px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
               📦 Export
             </button>
@@ -168,29 +165,6 @@ export default function DashboardPage() {
             </Link>
           </>
         }
-          <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={async () => {
-              const [proj, devis, fact] = await Promise.all([
-                fetch("/api/projects").then(r => r.json()),
-                fetch("/api/devis").then(r => r.json()),
-                fetch("/api/factures").then(r => r.json()),
-              ]);
-              const data = { exported: new Date().toISOString(), projects: proj, devis, factures: fact };
-              const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url; a.download = "terramaps_backup_" + new Date().toLocaleDateString("fr-FR").replace(/\//g, "-") + ".json";
-              a.click();
-            }} style={{ background: "#1E2D3D", border: "1px solid #2A4060", color: "#8BACC8", padding: "8px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}>
-              📦 Export
-            </button>
-            <Link href="/projects" className="btn-primary" style={{ textDecoration: "none" }}>
-              <Plus size={16} />
-              Nouveau Projet
-            </Link>
-          </>
-        }
-      />
 
       <main style={{ padding: "12px 16px", flex: 1, overflowY: "auto" }}>
         {/* Welcome banner */}
