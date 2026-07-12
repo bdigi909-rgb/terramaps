@@ -676,3 +676,77 @@ body.light-mode [style*="background: #0f1923"] {
   .app-burger { display: flex !important; }
   .app-main-content { margin-left: 0 !important; width: 100% !important; }
 }
+
+/* ── AppShell Mobile ── */
+.app-shell-wrap {
+  display: flex;
+  min-height: 100vh;
+  background: #0D1117;
+}
+
+.app-sidebar-desktop {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.app-sidebar-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 240px;
+  height: 100vh;
+  z-index: 1000;
+  transition: left 0.3s ease;
+  background: #161B22;
+}
+
+.app-sidebar-open {
+  left: 0 !important;
+}
+
+.app-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
+}
+
+.app-burger {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 1001;
+  background: #F97316;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.app-burger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .app-sidebar-desktop {
+    display: none;
+  }
+  .app-sidebar-mobile {
+    display: block;
+  }
+  .app-overlay {
+    display: block;
+  }
+  .app-burger {
+    display: flex;
+  }
+}
