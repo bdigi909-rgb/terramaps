@@ -27,7 +27,21 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (res.ok && data.user) {
-      router.push("/dashboard");
+      // Verifier si 2FA est active
+      const totpCheck = await fetch("/api/totp", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: data.user.id, code: "check" })
+      });
+      const totpData = await totpCheck.json();
+      if (totpData.skip) {
+        router.push("/dashboard");
+      } else {
+        setUserId(data.user.id);
+        setUserEmail(data.user.email);
+        setUserName(data.user.name);
+        setStep("2fa");
+      }
     } else {
       setError(data.error || "Email ou mot de passe incorrect");
     }
@@ -52,6 +66,26 @@ export default function LoginPage() {
   return (
     <div style={{ minHeight: "100vh", background: "#0D1117", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ width: 420, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: "40px 36px" }}>
+        {step === "2fa" ? (
+          <div>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>📱</div>
+              <h2 style={{ margin: "0 0 8px", fontSize: 20, fontWeight: 700, color: "#E2EAF2" }}>Code Google Authenticator</h2>
+              <p style={{ color: "#64748B", fontSize: 13 }}>Entrez le code a 6 chiffres de votre application</p>
+            </div>
+            <form onSubmit={verify2FA}>
+              <input value={code} onChange={e => setCode(e.target.value)} maxLength={6} placeholder="000000"
+                style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "14px", color: "#fff", fontSize: 32, fontWeight: 700, textAlign: "center", letterSpacing: 8, boxSizing: "border-box", marginBottom: 16 }} />
+              {codeError && <div style={{ color: "#EF4444", fontSize: 13, marginBottom: 16, textAlign: "center" }}>{codeError}</div>}
+              <button type="submit" style={{ width: "100%", background: "#F97316", border: "none", borderRadius: 8, padding: "12px", color: "#fff", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
+                Verifier le code
+              </button>
+              <button type="button" onClick={() => setStep("login")} style={{ width: "100%", background: "transparent", border: "none", color: "#64748B", fontSize: 13, cursor: "pointer", marginTop: 12 }}>
+                Retour a la connexion
+              </button>
+            </form>
+          </div>
+        ) : (
         {step === "2fa" ? (
           <div>
             <div style={{ textAlign: "center", marginBottom: 32 }}>
