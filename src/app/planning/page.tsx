@@ -61,13 +61,6 @@ export default function PlanningPage() {
     setForm({ titre: "", projet: "", technicien: "", date: "", statut: "planifiee", couleur: "#F97316" });
     setShowForm(false);
   }
-  function addMission() {
-    if (!form.titre || !form.date) return;
-    const newMission: Mission = { id: Date.now(), ...form };
-    saveMissions([...missions, newMission]);
-    setForm({ titre: "", projet: "", technicien: "", date: "", statut: "planifiee", couleur: "#F97316" });
-    setShowForm(false);
-  }
 
   function deleteMission(id: number) {
     saveMissions(missions.filter(m => m.id !== id));
