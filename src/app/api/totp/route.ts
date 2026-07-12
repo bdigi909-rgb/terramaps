@@ -2,7 +2,7 @@
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
-import { totp, Secret } from "otplib";
+import { generateSecret, TOTP, generateURI, verify } from "otplib";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
 
@@ -15,8 +15,8 @@ async function getUser(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const user = await getUser(req);
   if (!user) return NextResponse.json({ error: "Non connecte" }, { status: 401 });
-  const secret = Secret.generate();
-  const otpauth = totp.keyuri(user.email as string, "TerraMaps", secret);
+  const secret = generateSecret();
+  const otpauth = generateURI({ secret, account: user.email as string, issuer: "TerraMaps", type: "totp" });
   await db.execute(sql`UPDATE users SET totp_secret = ${secret} WHERE id = ${user.id as number}`);
   return NextResponse.json({ secret, otpauth });
 }
@@ -28,7 +28,7 @@ export async function PUT(req: NextRequest) {
   const result = await db.execute(sql`SELECT totp_secret FROM users WHERE id = ${user.id as number}`);
   const secret = result.rows[0]?.totp_secret as string;
   if (!secret) return NextResponse.json({ error: "Secret non trouve" }, { status: 400 });
-  const isValid = totp.verify({ token: code, secret });
+  const isValid = verify({ secret, token: code, type: "totp" });
   if (!isValid) return NextResponse.json({ error: "Code invalide" }, { status: 400 });
   await db.execute(sql`UPDATE users SET totp_enabled = TRUE WHERE id = ${user.id as number}`);
   return NextResponse.json({ success: true });
@@ -39,7 +39,7 @@ export async function PATCH(req: NextRequest) {
   const result = await db.execute(sql`SELECT totp_secret, totp_enabled FROM users WHERE id = ${userId}`);
   const row = result.rows[0] as any;
   if (!row?.totp_enabled) return NextResponse.json({ success: true, skip: true });
-  const isValid = totp.verify({ token: code, secret: row.totp_secret });
+  const isValid = verify({ secret: row.totp_secret, token: code, type: "totp" });
   if (!isValid) return NextResponse.json({ error: "Code invalide" }, { status: 400 });
   return NextResponse.json({ success: true });
 }
