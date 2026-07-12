@@ -41,7 +41,6 @@ const STATUS_ICON: Record<string, React.ReactNode> = {
   archived: <Archive size={12} />,
 };
 
-];
 
 interface DashboardData {
   totals: { projects: number; points: number; alignments: number; entities: number };
