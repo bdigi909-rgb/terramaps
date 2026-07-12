@@ -27,15 +27,7 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (res.ok && data.user) {
-      setUserId(data.user.id);
-      setUserEmail(data.user.email);
-      setUserName(data.user.name);
-      await fetch("/api/2fa", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: data.user.id, email: data.user.email, name: data.user.name })
-      });
-      setStep("2fa");
+      router.push("/dashboard");
     } else {
       setError(data.error || "Email ou mot de passe incorrect");
     }
