@@ -158,10 +158,6 @@ export default function FacturePage() {
     });
     const saved = await saveRes.json();
     if (saved.id) setSavedId(saved.id);
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, sousTotal, tva: tva, timbre, total, lignes }),
-    });
     doc.save("Facture_" + form.numero + "_" + (form.client || "client").replace(/\s+/g,"_") + ".pdf");
     setLoading(false);
   }
