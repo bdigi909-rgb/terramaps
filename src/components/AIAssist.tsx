@@ -51,6 +51,8 @@ const suggestions: Record<string, string[]> = {
     "Quels sont les tarifs du marche au Maroc ?",
   ],
 };
+export default function AIAssist({ context }: { context?: string }) {
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
 
 
   const pathname = typeof window !== "undefined" ? window.location.pathname : "";
