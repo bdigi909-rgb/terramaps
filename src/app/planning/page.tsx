@@ -55,7 +55,8 @@ export default function PlanningPage() {
       body: JSON.stringify({
         title: "Nouvelle mission planifiee",
         message: form.titre + (form.technicien ? " — " + form.technicien : "") + " — " + form.date,
-        type: "mission"
+        type: "info",
+        userId: 1
       })
     });
     setForm({ titre: "", projet: "", technicien: "", date: "", statut: "planifiee", couleur: "#F97316" });
