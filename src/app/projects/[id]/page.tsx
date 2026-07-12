@@ -292,7 +292,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               navigator.clipboard.writeText(url);
               alert("Lien copie ! " + url);
             }}>🔗 Partager</button>
-            }}>🔗 Partager</button>
             <PrintButton title={project?.name || "Projet TerraMaps"} />
             <button className="btn-primary" onClick={handleSave} disabled={saving}>
             {autoSaved && <span style={{ color: "#22C55E", fontSize: 11, marginLeft: 8 }}>✅ Sauvegarde auto</span>}
