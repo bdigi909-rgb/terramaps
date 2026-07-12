@@ -23,8 +23,9 @@ export default function LeveTopoPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         to: clientEmail,
+        clientName: form.proprietaire || "Client",
         projectName: projects.find(p => p.id === parseInt(selectedProject))?.name || "Projet",
-        superficie: form.superficie ? form.superficie + " m²" : "Non renseignée",
+        superficie: form.superficie ? form.superficie + " m2" : "Non renseignee",
         technicien: form.technicien || "Technicien"
       })
     });
