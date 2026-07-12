@@ -188,7 +188,7 @@ export default function DashboardPage() {
               <Plus size={16} />
               Nouveau Projet
             </Link>
-          </div>
+          </>
         }
       />
 
