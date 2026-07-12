@@ -31,8 +31,13 @@ function DocPublicContent() {
     </div>
   );
 
-  const items = (() => { try { return JSON.parse(doc.items || "[]"); } catch { return []; } })();
-  const total = items.reduce((s: number, i: any) => s + (parseFloat(i.prixUnitaire) * parseFloat(i.quantite) || 0), 0);
+  const items = (() => { 
+    try { 
+      const raw = doc.lignes || doc.items || "[]";
+      return typeof raw === "string" ? JSON.parse(raw) : raw;
+    } catch { return []; } 
+  })();
+  const total = items.reduce((s: number, i: any) => s + (parseFloat(i.prixUnit || i.prixUnitaire || 0) * parseFloat(i.quantite || 0) || 0), 0);
 
   return (
     <div style={{ minHeight: "100vh", background: "#f8f9fa", fontFamily: "Arial", color: "#333" }}>
@@ -72,8 +77,8 @@ function DocPublicContent() {
                 <tr key={i} style={{ borderBottom: "1px solid #e2e8f0" }}>
                   <td style={{ padding: "10px 12px", fontSize: 13 }}>{item.description}</td>
                   <td style={{ padding: "10px 12px", fontSize: 13 }}>{item.quantite}</td>
-                  <td style={{ padding: "10px 12px", fontSize: 13 }}>{parseFloat(item.prixUnitaire).toFixed(2)} MAD</td>
-                  <td style={{ padding: "10px 12px", fontSize: 13, fontWeight: 600 }}>{(parseFloat(item.prixUnitaire) * parseFloat(item.quantite)).toFixed(2)} MAD</td>
+                  <td style={{ padding: "10px 12px", fontSize: 13 }}>{parseFloat(item.prixUnit || item.prixUnitaire || 0).toFixed(2)} MAD</td>
+                  <td style={{ padding: "10px 12px", fontSize: 13, fontWeight: 600 }}>{(parseFloat(item.prixUnit || item.prixUnitaire || 0) * parseFloat(item.quantite || 0)).toFixed(2)} MAD</td>
                 </tr>
               ))}
             </tbody>
