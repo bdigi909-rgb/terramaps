@@ -6,6 +6,7 @@ export default function DevisPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [savedId, setSavedId] = useState<number|null>(null);
+  const [savedId, setSavedId] = useState<number|null>(null);
   const [societe, setSociete] = useState<any>({});
 
   useEffect(() => {
@@ -162,7 +163,14 @@ export default function DevisPage() {
     await fetch("/api/devis", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+    // Sauvegarder dans BDD
+    const saveRes = await fetch("/api/devis", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form, sousTotal, tva, total, lignes }),
+    });
+    const saved = await saveRes.json();
+    if (saved.id) setSavedId(saved.id);
     });
     doc.save(`Devis_${form.numero}_${form.client.replace(/\s+/g, "_")}.pdf`);
     setLoading(false);
