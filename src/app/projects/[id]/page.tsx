@@ -280,6 +280,17 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               a.download = `TerraMaps_${project.name.replace(/\s+/g, "_")}_export.zip`;
               a.click();
             }}><FileDown size={14} /> Exporter ZIP</button>
+            <button className="btn-secondary" onClick={async () => {
+              const res = await fetch("/api/share", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ projectId: project.id })
+              });
+              const data = await res.json();
+              const url = window.location.origin + "/share/" + data.token;
+              navigator.clipboard.writeText(url);
+              alert("Lien copie ! " + url);
+            }}>🔗 Partager</button>
             <button className="btn-primary" onClick={handleSave} disabled={saving}>
             {autoSaved && <span style={{ color: "#22C55E", fontSize: 11, marginLeft: 8 }}>✅ Sauvegarde auto</span>}
               <Save size={14} /> {saving ? "Enregistrement..." : "Enregistrer"}
