@@ -436,8 +436,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 <Link href={`/map-fullscreen?projectId=${id}`} style={{ textDecoration: "none" }}>
                   <button className="btn-secondary" style={{ fontSize: 12 }}>🗺️ Carte plein ecran</button>
                 </Link>
-                  <Plus size={14} /> Ajouter point
-                </button>
               </div>
             </div>
 
