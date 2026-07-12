@@ -327,7 +327,22 @@ export default function DevisPage() {
               style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Generation..." : "Generer le Devis PDF"}
             </button>
-            {savedId && (
+            <button onClick={async () => {
+                const allDevis = await fetch("/api/devis").then(r => r.json());
+                const last = Array.isArray(allDevis) ? allDevis[0] : null;
+                if (!last) return alert("Generez d abord un devis !");
+                const res = await fetch("/api/devis/share", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id: last.id })
+                });
+                const data = await res.json();
+                const url = window.location.origin + "/doc-public?type=devis&token=" + data.token;
+                navigator.clipboard.writeText(url);
+                alert("Lien copie ! " + url);
+              }} style={{ width: "100%", marginTop: 8, background: "#22C55E", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
+                🔗 Partager le dernier devis
+              </button>
               <button onClick={async () => {
                 const res = await fetch("/api/devis/share", {
                   method: "POST",
