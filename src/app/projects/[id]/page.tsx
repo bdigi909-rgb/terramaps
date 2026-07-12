@@ -49,9 +49,10 @@ import { use, useEffect, useRef, useState } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
 import Link from "next/link";
+import PhotosTab from "@/components/PhotosTab";
 import {
   ArrowLeft, Save, Compass, Route, BarChart3, Layers, Map,
-  Mountain, Plus, Trash2, X, FileDown, Activity,
+  Mountain, Plus, Trash2, X, FileDown, Activity, Camera,
 } from "lucide-react";
 
 interface Project {
@@ -68,6 +69,7 @@ const TABS = [
   { id: "alignment", label: "Alignements", icon: Route },
   { id: "terrain", label: "MNT", icon: Mountain },
   { id: "volumes", label: "Volumes", icon: BarChart3 },
+  { id: "photos", label: "Photos", icon: Camera },
   { id: "layers", label: "Calques", icon: Layers },
   { id: "activity", label: "Activite", icon: Activity },
 ];
@@ -618,6 +620,15 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             <ActivityLog projectId={id} />
           </div>
         )}
+        {tab === "photos" && (
+          <div className="srm-card">
+            <h3 style={{ margin: "0 0 20px", fontSize: 15, fontWeight: 600, color: "#8BACC8" }}>📸 Photos terrain</h3>
+            <PhotosTab projectId={parseInt(id)} />
+          </div>
+        )}
+    </AppShell>
+  );
+}
     </AppShell>
   );
 }
