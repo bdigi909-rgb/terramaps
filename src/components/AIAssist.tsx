@@ -7,15 +7,61 @@ interface Message {
   time: string;
 }
 
-const suggestions = [
-  "Comment calculer le volume de déblai ?",
-  "Quelle est la différence entre EPSG:26191 et WGS84 ?",
-  "Comment importer des points GSI Leica ?",
-  "Comment lire un fichier CSV topographique ?",
-  "Explique-moi le calcul de remblai",
-];
+const suggestions: Record<string, string[]> = {
+  default: [
+    "Comment calculer le volume de deblai ?",
+    "Quelle est la difference entre EPSG:26191 et WGS84 ?",
+    "Comment importer des points GSI Leica ?",
+    "Comment lire un fichier CSV topographique ?",
+  ],
+  survey: [
+    "Comment numéroter automatiquement les points ?",
+    "Comment convertir Lambert vers WGS84 ?",
+    "Comment calculer la superficie d un polygone ?",
+    "Quelle precision pour un leve topographique ?",
+  ],
+  nivellement: [
+    "Comment verifier la fermeture du nivellement ?",
+    "Quelle tolerance de fermeture utiliser ?",
+    "Comment compenser un circuit de nivellement ?",
+    "Difference entre nivellement direct et indirect ?",
+  ],
+  polygonale: [
+    "Comment calculer la fermeture angulaire ?",
+    "Comment appliquer la compensation de Bowditch ?",
+    "Quelle precision pour une polygonale ?",
+    "Comment calculer les coordonnees des sommets ?",
+  ],
+  volumes: [
+    "Comment calculer les volumes par la methode des prismes ?",
+    "Quelle est la difference entre deblai et remblai ?",
+    "Comment optimiser le bilan des terres ?",
+    "Comment calculer le foisonnement ?",
+  ],
+  devis: [
+    "Quel prix pour un leve topographique < 1 Ha au Maroc ?",
+    "Comment calculer le cout d un bornage ?",
+    "Quels documents pour un leve officiel ?",
+    "Delai moyen pour un leve topographique ?",
+  ],
+  finance: [
+    "Comment calculer la TVA sur les prestations topo ?",
+    "Quelles charges pour un bureau d etudes au Maroc ?",
+    "Comment etablir un devis professionnel ?",
+    "Quels sont les tarifs du marche au Maroc ?",
+  ],
+};
 
-export default function AIAssist({ context }: { context?: string }) {
+
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+  const pageKey = pathname.includes("nivellement") ? "nivellement" :
+    pathname.includes("polygonale") ? "polygonale" :
+    pathname.includes("volumes") ? "volumes" :
+    pathname.includes("survey") ? "survey" :
+    pathname.includes("devis") ? "devis" :
+    pathname.includes("finance") ? "finance" : "default";
+  const currentSuggestions = suggestions[pageKey] || suggestions.default;
+  const _unused = context; {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Bonjour ! Je suis votre assistant IA TerraMaps 🗺️\n\nJe peux vous aider avec :\n• Calculs topographiques\n• Systèmes de coordonnées\n• Import/Export de fichiers\n• Questions sur TerraMaps\n\nQue puis-je faire pour vous ?", time: new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) }
