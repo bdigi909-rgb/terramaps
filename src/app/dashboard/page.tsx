@@ -165,7 +165,6 @@ export default function DashboardPage() {
             </Link>
           </>
         }
-        }
       />
         {/* Welcome banner */}
         <div
