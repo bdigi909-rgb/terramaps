@@ -51,8 +51,6 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       
       
-        <PushNotification />
-        <NotificationBell />
         <NotificationBell />
 
       <AIAssist />
