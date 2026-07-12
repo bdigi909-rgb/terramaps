@@ -44,7 +44,23 @@ export default function PlanningPage() {
     setMissions(m);
     localStorage.setItem("tm_missions", JSON.stringify(m));
   }
-
+  function addMission() {
+    if (!form.titre || !form.date) return;
+    const newMission: Mission = { id: Date.now(), ...form };
+    saveMissions([...missions, newMission]);
+    // Notification
+    fetch("/api/notifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: "Nouvelle mission planifiee",
+        message: form.titre + (form.technicien ? " — " + form.technicien : "") + " — " + form.date,
+        type: "mission"
+      })
+    });
+    setForm({ titre: "", projet: "", technicien: "", date: "", statut: "planifiee", couleur: "#F97316" });
+    setShowForm(false);
+  }
   function addMission() {
     if (!form.titre || !form.date) return;
     const newMission: Mission = { id: Date.now(), ...form };
