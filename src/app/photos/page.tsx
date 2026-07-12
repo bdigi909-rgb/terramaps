@@ -143,7 +143,7 @@ export default function PhotosPage() {
                   {photos.map(p => (
                     <div key={p.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, overflow: "hidden" }}>
                       <div style={{ position: "relative" }}>
-                        <img src={`/api/photos/${p.id}/image`} alt={p.filename}
+                        <img src={p.data} alt={p.filename}
                           onClick={() => setFullscreen(`/api/photos/${p.id}/image`)}
                           style={{ width: "100%", height: 150, objectFit: "cover", cursor: "pointer" }}
                           onError={e => { (e.target as HTMLImageElement).style.display = "none" }} />

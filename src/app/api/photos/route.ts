@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
   const projectId = searchParams.get("projectId");
   if (!projectId) return NextResponse.json([]);
   const result = await db.execute(sql`
-    SELECT id, project_id, user_name, filename, description, created_at
+    SELECT id, project_id, user_name, filename, description, data, created_at
     FROM terrain_photos WHERE project_id = ${parseInt(projectId)}
     ORDER BY created_at DESC
   `);
