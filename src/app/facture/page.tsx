@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function FacturePage() {
   const [loading, setLoading] = useState(false);
+  const [savedId, setSavedId] = useState<number|null>(null);
   const [signature, setSignature] = useState("");
   const [societe, setSociete] = useState<any>({});
   const [form, setForm] = useState({
@@ -149,7 +150,14 @@ export default function FacturePage() {
 
     if (signature) { doc.addImage(signature, "PNG", W/2, footY+10, 70, 15); }
     // Sauvegarder dans BDD
-    await fetch("/api/factures", {
+    // Sauvegarder dans BDD
+    const saveRes = await fetch("/api/factures", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, sousTotal, tva: tva, timbre, total, lignes }),
+    });
+    const saved = await saveRes.json();
+    if (saved.id) setSavedId(saved.id);
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form, sousTotal, tva: tva, timbre, total, lignes }),
@@ -271,7 +279,26 @@ export default function FacturePage() {
               <SignaturePad onSignature={setSignature} />
             </div>
             <button onClick={generatePDF} disabled={loading}
+            <button onClick={generatePDF} disabled={loading}
               style={{ width: "100%", background: "#22C55E", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
+              {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
+            </button>
+            <button onClick={async () => {
+              const allFact = await fetch("/api/factures").then(r => r.json());
+              const last = Array.isArray(allFact) ? allFact[0] : null;
+              if (!last) return alert("Generez d abord une facture !");
+              const res = await fetch("/api/factures/share", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: last.id })
+              });
+              const data = await res.json();
+              const url = window.location.origin + "/doc-public?type=facture&token=" + data.token;
+              navigator.clipboard.writeText(url);
+              alert("Lien copie ! " + url);
+            }} style={{ width: "100%", marginTop: 8, background: "#3B82F6", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
+              🔗 Partager la derniere facture
+            </button>
               {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
             </button>
           </div>
