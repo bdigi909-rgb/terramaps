@@ -353,14 +353,9 @@ export default function AdminPage() {
         {/* ── ACTIVITY TAB ── */}
         {/* ── ACTIVITY TAB ── */}
         {activeTab === "activity" && <ActivityFeed />}
-        {/* ── STATS TAB ── */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                  {[
-                    { label: "Membre depuis", value: new Date(u.createdAt).toLocaleDateString("fr-FR"), color: "#64748B" },
-                    { label: "Statut", value: "Actif", color: "#22C55E" },
-                    { label: "Projets assignes", value: agentStats.find(s => s.id === u.id)?.projects || 0, color: "#3B82F6" },
-                    { label: "Missions", value: agentStats.find(s => s.id === u.id)?.missions || 0, color: "#F97316" },
-                  ].map(s => (
+        {activeTab === "activity" && <ActivityFeed />}
+        {/* STATS TAB */}
+        {activeTab === "stats" && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
             {users.filter(u => u.role === "agent" || u.role === "manager").map(u => (
               <div key={u.id} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
