@@ -327,12 +327,12 @@ export default function SurveyPage() {
               <option value="profile">📈 Profil</option>
             </select>
             {view === "map" && (
-            <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
+            <div onMouseDown={onMouseDown} style={{ height: 8, background: "#1E2D3D", cursor: "ns-resize", display: "none", alignItems: "center", justifyContent: "center", borderRadius: "0 0 4px 4px", userSelect: "none" }}>
               <div style={{ width: 40, height: 3, background: "#F97316", borderRadius: 2 }} />
             </div>
           )}
           {view === "map" && (
-            <div style={{ position: "fixed", top: 64, right: 16, zIndex: 99999 }}>
+            <div style={{ position: "fixed", top: 64, right: 16, zIndex: 99999, display: "flex", gap: 8, alignItems: "center" }}>
               <button onClick={() => setMapExpanded(e => !e)}
                 style={{ background: "#161B22", border: "1px solid #1E2D3D", color: "#F97316", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
                 {mapExpanded ? "⊡ Réduire" : "⊞ Agrandir"}
