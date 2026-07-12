@@ -10,6 +10,7 @@ interface Photo {
   user_name: string;
   filename: string;
   description: string;
+  data: string;
   created_at: string;
 }
 
@@ -144,7 +145,7 @@ export default function PhotosPage() {
                     <div key={p.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, overflow: "hidden" }}>
                       <div style={{ position: "relative" }}>
                         <img src={p.data} alt={p.filename}
-                          onClick={() => setFullscreen(`/api/photos/${p.id}/image`)}
+                          onClick={() => setFullscreen(p.data)}
                           style={{ width: "100%", height: 150, objectFit: "cover", cursor: "pointer" }}
                           onError={e => { (e.target as HTMLImageElement).style.display = "none" }} />
                       </div>
