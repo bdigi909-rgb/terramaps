@@ -275,6 +275,10 @@ export default function FacturePage() {
               <SignaturePad onSignature={setSignature} />
             </div>
             <button onClick={generatePDF} disabled={loading}
+              style={{ width: "100%", background: "#22C55E", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
+              {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
+            </button>
+            <button onClick={async () => {
               const allFact = await fetch("/api/factures").then(r => r.json());
               const last = Array.isArray(allFact) ? allFact[0] : null;
               if (!last) return alert("Generez d abord une facture !");
@@ -289,8 +293,6 @@ export default function FacturePage() {
               alert("Lien copie ! " + url);
             }} style={{ width: "100%", marginTop: 8, background: "#3B82F6", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
               🔗 Partager la derniere facture
-            </button>
-              {loading ? "Generation..." : "🧾 Générer la Facture PDF"}
             </button>
           </div>
         </div>
