@@ -6,7 +6,6 @@ export default function DevisPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [savedId, setSavedId] = useState<number|null>(null);
-  const [savedId, setSavedId] = useState<number|null>(null);
   const [societe, setSociete] = useState<any>({});
 
   useEffect(() => {
