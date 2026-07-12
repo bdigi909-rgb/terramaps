@@ -1,5 +1,6 @@
 ﻿"use client";
 import NotificationBell from "@/components/NotificationBell";
+import PushNotification from "@/components/PushNotification";
 import GlobalSearch from "@/components/GlobalSearch";
 
 import AIAssist from "@/components/AIAssist";
@@ -52,7 +53,8 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
 
       
       
-      <PushNotification />
+        <PushNotification />
+        <NotificationBell />
         <NotificationBell />
 
       <AIAssist />
