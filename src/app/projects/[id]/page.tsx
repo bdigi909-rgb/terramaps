@@ -49,6 +49,7 @@ import { use, useEffect, useRef, useState } from "react";
 import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
 import Link from "next/link";
+import PrintButton from "@/components/PrintButton";
 import PhotosTab from "@/components/PhotosTab";
 import {
   ArrowLeft, Save, Compass, Route, BarChart3, Layers, Map,
@@ -291,6 +292,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               navigator.clipboard.writeText(url);
               alert("Lien copie ! " + url);
             }}>🔗 Partager</button>
+            }}>🔗 Partager</button>
+            <PrintButton title={project?.name || "Projet TerraMaps"} />
             <button className="btn-primary" onClick={handleSave} disabled={saving}>
             {autoSaved && <span style={{ color: "#22C55E", fontSize: 11, marginLeft: 8 }}>✅ Sauvegarde auto</span>}
               <Save size={14} /> {saving ? "Enregistrement..." : "Enregistrer"}

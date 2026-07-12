@@ -1,4 +1,5 @@
 ﻿"use client";
+import PrintButton from "@/components/PrintButton";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
