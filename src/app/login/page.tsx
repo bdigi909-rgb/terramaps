@@ -24,10 +24,48 @@ export default function LoginPage() {
     const onboardingDone = localStorage.getItem("tm_onboarding_done");
         if (!onboardingDone) { router.push("/onboarding"); } else { router.push("/dashboard"); };
   }
+  async function verify2FA(e: React.FormEvent) {
+    e.preventDefault();
+    setCodeError("");
+    const res = await fetch("/api/2fa", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, code })
+    });
+    if (res.ok) {
+      router.push("/dashboard");
+    } else {
+      setCodeError("Code invalide ou expiré. Réessayez.");
+    }
+  }
 
+  return (
   return (
     <div style={{ minHeight: "100vh", background: "#0D1117", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ width: 420, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: "40px 36px" }}>
+        {step === "2fa" ? (
+          <div>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>📧</div>
+              <h2 style={{ margin: "0 0 8px", fontSize: 20, fontWeight: 700, color: "#E2EAF2" }}>Verification 2FA</h2>
+              <p style={{ color: "#64748B", fontSize: 13 }}>Code envoyé a {userEmail}</p>
+            </div>
+            <form onSubmit={verify2FA}>
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: 12, color: "#64748B", marginBottom: 6 }}>Code a 6 chiffres</label>
+                <input value={code} onChange={e => setCode(e.target.value)} maxLength={6} placeholder="000000"
+                  style={{ width: "100%", background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 8, padding: "14px", color: "#fff", fontSize: 28, fontWeight: 700, textAlign: "center", letterSpacing: 8, boxSizing: "border-box" }} />
+              </div>
+              {codeError && <div style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 8, padding: "10px 16px", marginBottom: 16, fontSize: 13, color: "#EF4444" }}>{codeError}</div>}
+              <button type="submit" style={{ width: "100%", background: "#F97316", border: "none", borderRadius: 8, padding: "12px", color: "#fff", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>
+                Verifier le code
+              </button>
+              <button type="button" onClick={() => setStep("login")} style={{ width: "100%", background: "transparent", border: "none", color: "#64748B", fontSize: 13, cursor: "pointer", marginTop: 12 }}>
+                Retour a la connexion
+              </button>
+            </form>
+          </div>
+        ) : (
         
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 32 }}>
@@ -103,6 +141,11 @@ export default function LoginPage() {
           <a href="/help" style={{ color: "#64748B", textDecoration: "none", fontSize: 12 }}>📖 Aide</a>
           <a href="/status" style={{ color: "#22C55E", textDecoration: "none", fontSize: 12 }}>🟢 Status</a>
         </div>
+        )}
+      </div>
+    </div>
+  );
+}
       </div>
     </div>
   );
