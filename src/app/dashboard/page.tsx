@@ -165,8 +165,8 @@ export default function DashboardPage() {
             </Link>
           </>
         }
-
-      <main style={{ padding: "12px 16px", flex: 1, overflowY: "auto" }}>
+        }
+      />
         {/* Welcome banner */}
         <div
           style={{
