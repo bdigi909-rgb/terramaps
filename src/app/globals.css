@@ -773,3 +773,10 @@ body.light-mode [style*="background: #0f1923"] {
     overflow-y: auto !important;
   }
 }
+
+/* Survey mobile - hide unnecessary buttons */
+@media (max-width: 768px) {
+  .survey-hide-mobile {
+    display: none !important;
+  }
+}
