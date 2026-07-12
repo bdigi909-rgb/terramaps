@@ -23,6 +23,7 @@ import {
   User,
   HelpCircle, Calendar, MessageSquare,
   Search,
+  Camera,
 } from "lucide-react";
 
 const navItems = [
@@ -43,6 +44,7 @@ const navItems = [
   { label: "Chat", icon: MessageSquare, href: "/chat" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
   { label: "Levé Topo", icon: FileText, href: "/leve-topo" },
+  { label: "Photos Terrain", icon: Camera, href: "/photos" },
   { label: "Rapport Terrain", icon: FileText, href: "/rapport-terrain" },
   { label: "Devis", icon: FileText, href: "/devis" },
   { label: "Factures", icon: FileText, href: "/facture" },
