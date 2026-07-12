@@ -160,10 +160,6 @@ export default function DevisPage() {
     doc.text("Document genere par TerraMaps v2.0 — terramaps.vercel.app", W/2, 290, { align: "center" });
 
     // Sauvegarder dans BDD
-    await fetch("/api/devis", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    // Sauvegarder dans BDD
     const saveRes = await fetch("/api/devis", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -171,7 +167,6 @@ export default function DevisPage() {
     });
     const saved = await saveRes.json();
     if (saved.id) setSavedId(saved.id);
-    });
     doc.save(`Devis_${form.numero}_${form.client.replace(/\s+/g, "_")}.pdf`);
     setLoading(false);
   }
