@@ -750,3 +750,10 @@ body.light-mode [style*="background: #0f1923"] {
     display: flex;
   }
 }
+
+/* Survey page mobile */
+@media (max-width: 768px) {
+  .survey-left-panel {
+    display: none !important;
+  }
+}
