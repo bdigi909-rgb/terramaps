@@ -68,6 +68,72 @@ export default function SurveyPage() {
     document.removeEventListener('mouseup', onMouseUp);
   }
   const [view, setView] = useState<"map" | "table" | "chart" | "profile">("map");
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+  if (isMobile) return (
+    <AppShell>
+      <Header title="Points topo" subtitle={`${filtered.length} points`} />
+      <div style={{ padding: 16, background: "#0D1117", minHeight: "100vh" }}>
+        <select style={{ width: "100%", background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 8, padding: "10px", color: "#E2EAF2", fontSize: 14, marginBottom: 16 }}
+          value={selectedProject ?? ""} onChange={e => setSelectedProject(parseInt(e.target.value))}>
+          <option value="">-- Choisir un projet --</option>
+          {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+        <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+          {["map", "table", "chart"].map(v => (
+            <button key={v} onClick={() => setView(v as any)}
+              style={{ background: view === v ? "#F97316" : "#161B22", border: "1px solid #1E2D3D", color: "#fff", padding: "8px 14px", borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: view === v ? 700 : 400 }}>
+              {v === "map" ? "🗺️ Carte" : v === "table" ? "📋 Tableau" : "📊 Graphique"}
+            </button>
+          ))}
+        </div>
+        {view === "map" && (
+          <div style={{ height: "50vh", borderRadius: 12, overflow: "hidden", border: "1px solid #1E2D3D" }}>
+            <MapView points={filtered} />
+          </div>
+        )}
+        {view === "table" && (
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+              <thead>
+                <tr style={{ background: "#161B22" }}>
+                  {["Nom", "Code", "X", "Y", "Z"].map(h => (
+                    <th key={h} style={{ padding: "8px", color: "#64748B", textAlign: "left", borderBottom: "1px solid #1E2D3D" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((p, i) => (
+                  <tr key={i} style={{ borderBottom: "1px solid #1E2D3D" }}>
+                    <td style={{ padding: "8px", color: "#F97316" }}>{p.name}</td>
+                    <td style={{ padding: "8px", color: "#22C55E" }}>{p.code}</td>
+                    <td style={{ padding: "8px", fontFamily: "monospace", color: "#3B82F6", fontSize: 11 }}>{p.x?.toFixed(2)}</td>
+                    <td style={{ padding: "8px", fontFamily: "monospace", color: "#22C55E", fontSize: 11 }}>{p.y?.toFixed(2)}</td>
+                    <td style={{ padding: "8px", fontFamily: "monospace", color: "#A855F7", fontSize: 11 }}>{p.z?.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {view === "chart" && (
+          <div style={{ color: "#64748B", textAlign: "center", padding: 40 }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>📊</div>
+            <div>Graphique disponible sur desktop</div>
+          </div>
+        )}
+        <div style={{ marginTop: 16, fontSize: 12, color: "#64748B", textAlign: "center" }}>
+          {filtered.length} points — {points.length} total
+        </div>
+      </div>
+    </AppShell>
+  );
+
+  return (
+  }, []);
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [selectedPoint, setSelectedPoint] = useState<SurveyPoint | null>(null);
