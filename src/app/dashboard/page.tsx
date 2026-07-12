@@ -149,12 +149,6 @@ export default function DashboardPage() {
             Nouveau Projet
           </Link>
         }
-          <>
-            <button onClick={async () => {
-              const [proj, devis, fact] = await Promise.all([
-                fetch("/api/projects").then(r => r.json()),
-                fetch("/api/devis").then(r => r.json()),
-      />
         {/* Welcome banner */}
         <div
           style={{
