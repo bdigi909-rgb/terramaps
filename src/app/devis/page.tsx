@@ -343,20 +343,6 @@ export default function DevisPage() {
               }} style={{ width: "100%", marginTop: 8, background: "#22C55E", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
                 🔗 Partager le dernier devis
               </button>
-              <button onClick={async () => {
-                const res = await fetch("/api/devis/share", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ id: savedId })
-                });
-                const data = await res.json();
-                const url = window.location.origin + "/doc-public?type=devis&token=" + data.token;
-                navigator.clipboard.writeText(url);
-                alert("Lien copie ! " + url);
-              }} style={{ width: "100%", marginTop: 8, background: "#22C55E", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
-                🔗 Partager ce devis
-              </button>
-            )}
           </div>
         </div>
       </div>
