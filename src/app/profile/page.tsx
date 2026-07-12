@@ -154,15 +154,11 @@ export default function ProfilePage() {
 
             <button type="submit" disabled={loading}
               style={{ width: "100%", background: loading ? "#1E2D3D" : "#F97316", border: "none", color: "#fff", padding: "12px", borderRadius: 8, cursor: loading ? "not-allowed" : "pointer", fontSize: 14, fontWeight: 600, opacity: loading ? 0.7 : 1 }}>
-          <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none", marginTop: 12 }}>
-            🔐 Configurer le 2FA (Google Authenticator)
-          </a>
-            style={{ width: "100%", background: "#F97316", border: "none", borderRadius: 8, padding: "12px", color: "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 12 }}>
-            {loading ? "Enregistrement..." : "💾 Enregistrer les modifications"}
-          </button>
-          <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none" }}>
-            🔐 Configurer le 2FA (Google Authenticator)
-          </a>
+              {loading ? "Enregistrement..." : "💾 Enregistrer les modifications"}
+            </button>
+            <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none", marginTop: 12 }}>
+              🔐 Configurer le 2FA (Google Authenticator)
+            </a>
             </button>
           </form>
         </div>
