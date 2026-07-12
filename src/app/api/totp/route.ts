@@ -1,7 +1,8 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
-import { authenticator } from "otplib";
+import * as otplib from "otplib";
+const authenticator = otplib.authenticator;
 import { jwtVerify } from "jose";
 
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
