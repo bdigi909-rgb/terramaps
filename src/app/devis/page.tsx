@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function DevisPage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [savedId, setSavedId] = useState<number|null>(null);
   const [societe, setSociete] = useState<any>({});
 
   useEffect(() => {
@@ -321,6 +322,24 @@ export default function DevisPage() {
               </div>
             </div>
             <button onClick={generatePDF} disabled={loading}
+              style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
+              {loading ? "Generation..." : "Generer le Devis PDF"}
+            </button>
+            {savedId && (
+              <button onClick={async () => {
+                const res = await fetch("/api/devis/share", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id: savedId })
+                });
+                const data = await res.json();
+                const url = window.location.origin + "/doc-public?type=devis&token=" + data.token;
+                navigator.clipboard.writeText(url);
+                alert("Lien copie ! " + url);
+              }} style={{ width: "100%", marginTop: 8, background: "#22C55E", border: "none", color: "#fff", padding: "12px", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
+                🔗 Partager ce devis
+              </button>
+            )}
               style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
               {loading ? "Generation..." : "Generer le Devis PDF"}
             </button>
