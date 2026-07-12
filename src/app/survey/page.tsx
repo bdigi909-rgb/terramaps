@@ -332,7 +332,6 @@ export default function SurveyPage() {
             </div>
           )}
           {view === "map" && (
-          {view === "map" && (
               <div style={{ width: "100%", height: mapExpanded ? "calc(100vh - 60px)" : "500px", position: mapExpanded ? "fixed" : "relative", top: mapExpanded ? 60 : "auto", left: mapExpanded ? 0 : "auto", right: mapExpanded ? 0 : "auto", zIndex: mapExpanded ? 999 : "auto" }}>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
                 <MapView points={filtered} epsg={undefined} />
