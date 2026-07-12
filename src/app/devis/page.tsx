@@ -340,9 +340,6 @@ export default function DevisPage() {
                 🔗 Partager ce devis
               </button>
             )}
-              style={{ width: "100%", background: "#0D47A1", border: "none", color: "#fff", padding: "14px", borderRadius: 10, cursor: "pointer", fontSize: 15, fontWeight: 700 }}>
-              {loading ? "Generation..." : "Generer le Devis PDF"}
-            </button>
           </div>
         </div>
       </div>
