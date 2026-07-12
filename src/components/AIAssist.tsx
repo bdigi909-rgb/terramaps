@@ -61,7 +61,7 @@ const suggestions: Record<string, string[]> = {
     pathname.includes("devis") ? "devis" :
     pathname.includes("finance") ? "finance" : "default";
   const currentSuggestions = suggestions[pageKey] || suggestions.default;
-  const _unused = context; {
+  const _unused = context;
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: "Bonjour ! Je suis votre assistant IA TerraMaps 🗺️\n\nJe peux vous aider avec :\n• Calculs topographiques\n• Systèmes de coordonnées\n• Import/Export de fichiers\n• Questions sur TerraMaps\n\nQue puis-je faire pour vous ?", time: new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) }
@@ -154,7 +154,7 @@ const suggestions: Record<string, string[]> = {
           {/* Suggestions */}
           {messages.length < 3 && (
             <div style={{ padding: "0 12px 8px", display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {suggestions.slice(0, 3).map((s, i) => (
+              {currentSuggestions.slice(0, 3).map((s, i) => (
                 <button key={i} onClick={() => sendMessage(s)}
                   style={{ background: "#0D1117", border: "1px solid #1E2D3D", color: "#8BACC8", padding: "4px 10px", borderRadius: 20, cursor: "pointer", fontSize: 10, whiteSpace: "nowrap" }}>
                   {s}
