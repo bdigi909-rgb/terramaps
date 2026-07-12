@@ -105,6 +105,21 @@ export default function AdminPage() {
     else setMsg("❌ Erreur lors de la réinitialisation");
   }
 
+  async function loadAgentStats() {
+    const [proj, points, missions] = await Promise.all([
+      fetch("/api/projects").then(r => r.json()),
+      fetch("/api/dashboard").then(r => r.json()),
+    ]);
+    if (Array.isArray(proj)) {
+      const stats = users.map(u => ({
+        id: u.id,
+        projects: Array.isArray(proj) ? proj.filter((p: any) => p.assignedTo === u.id).length : 0,
+        missions: JSON.parse(localStorage.getItem("tm_missions") || "[]").filter((m: any) => m.technicien === u.name).length,
+      }));
+      setAgentStats(stats);
+    }
+  }
+
   function loadStats() {
     fetch("/api/dashboard").then(r => r.json()).then(data => {
       if (data?.totals) {
@@ -174,7 +189,7 @@ export default function AdminPage() {
           { key: "overview", label: "Vue d'ensemble" },
           { key: "users", label: "Utilisateurs" },
           { key: "activity", label: "Activité" },
-          { key: "stats", label: "Stats Agents" },
+          { key: "stats", label: "Stats Agents", onClick: loadAgentStats },
         ].map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
             style={{ background: "transparent", border: "none", borderBottom: activeTab === tab.key ? "2px solid #F97316" : "2px solid transparent", color: activeTab === tab.key ? "#F97316" : "#64748B", padding: "14px 20px", cursor: "pointer", fontSize: 13, fontWeight: activeTab === tab.key ? 600 : 400 }}>
@@ -339,7 +354,13 @@ export default function AdminPage() {
         {/* ── ACTIVITY TAB ── */}
         {activeTab === "activity" && <ActivityFeed />}
         {/* ── STATS TAB ── */}
-        {activeTab === "stats" && (
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  {[
+                    { label: "Membre depuis", value: new Date(u.createdAt).toLocaleDateString("fr-FR"), color: "#64748B" },
+                    { label: "Statut", value: "Actif", color: "#22C55E" },
+                    { label: "Projets assignes", value: agentStats.find(s => s.id === u.id)?.projects || 0, color: "#3B82F6" },
+                    { label: "Missions", value: agentStats.find(s => s.id === u.id)?.missions || 0, color: "#F97316" },
+                  ].map(s => (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
             {users.filter(u => u.role === "agent" || u.role === "manager").map(u => (
               <div key={u.id} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
