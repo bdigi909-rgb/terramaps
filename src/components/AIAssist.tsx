@@ -55,7 +55,6 @@ export default function AIAssist({ context }: { context?: string }) {
   const pathname = typeof window !== "undefined" ? window.location.pathname : "";
 
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
   const pageKey = pathname.includes("nivellement") ? "nivellement" :
     pathname.includes("polygonale") ? "polygonale" :
     pathname.includes("volumes") ? "volumes" :
