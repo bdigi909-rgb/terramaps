@@ -38,6 +38,7 @@ const navItems = [
   { label: "Parametres", icon: Settings, href: "/settings" },
   { label: "Aide", icon: HelpCircle, href: "/help" },
   { label: "Status", icon: Activity, href: "/status" },
+  { label: "Export", icon: Activity, href: "/export" },
   { label: "Planning", icon: Calendar, href: "/planning" },
   { label: "Chat", icon: MessageSquare, href: "/chat" },
   { label: "Recherche Topo", icon: Search, href: "/search-topo" },
