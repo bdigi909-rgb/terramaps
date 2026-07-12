@@ -2,10 +2,11 @@
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 
-export async function GET(req: NextRequest, { params }: { params: { token: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params;
   const result = await db.execute(sql`
     SELECT * FROM projects
-    WHERE share_token = ${params.token} AND share_enabled = TRUE
+    WHERE share_token = ${token} AND share_enabled = TRUE
   `);
   if (result.rows.length === 0) return NextResponse.json({ error: "Lien invalide" }, { status: 404 });
   const project = result.rows[0] as any;
