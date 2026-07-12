@@ -1,4 +1,9 @@
 ﻿"use client";
+import PushNotification from "@/components/PushNotification";
+
+function PushNotificationButton() {
+  return <PushNotification />;
+}
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -157,7 +162,12 @@ export default function ProfilePage() {
               {loading ? "Enregistrement..." : "💾 Enregistrer les modifications"}
             </button>
             <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none", marginTop: 12 }}>
+            <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none", marginTop: 12 }}>
               🔐 Configurer le 2FA (Google Authenticator)
+            </a>
+            <div style={{ marginTop: 12 }}>
+              <PushNotificationButton />
+            </div>
             </a>
           </form>
         </div>
