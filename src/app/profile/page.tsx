@@ -159,7 +159,6 @@ export default function ProfilePage() {
             <a href="/double-auth" style={{ display: "block", textAlign: "center", background: "#161B22", border: "1px solid #3B82F6", borderRadius: 8, padding: "12px", color: "#3B82F6", fontSize: 14, fontWeight: 600, textDecoration: "none", marginTop: 12 }}>
               🔐 Configurer le 2FA (Google Authenticator)
             </a>
-            </button>
           </form>
         </div>
       </div>
