@@ -190,9 +190,6 @@ export default function DashboardPage() {
             </Link>
           </div>
         }
-            Nouveau Projet
-          </Link>
-        }
       />
 
       <main style={{ padding: "12px 16px", flex: 1, overflowY: "auto" }}>
