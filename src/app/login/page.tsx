@@ -40,7 +40,6 @@ export default function LoginPage() {
   }
 
   return (
-  return (
     <div style={{ minHeight: "100vh", background: "#0D1117", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ width: 420, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 16, padding: "40px 36px" }}>
         {step === "2fa" ? (
