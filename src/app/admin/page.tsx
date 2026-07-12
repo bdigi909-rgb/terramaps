@@ -106,7 +106,7 @@ export default function AdminPage() {
   }
 
   async function loadAgentStats() {
-    const [proj, points, missions] = await Promise.all([
+    const [proj] = await Promise.all([
       fetch("/api/projects").then(r => r.json()),
       fetch("/api/dashboard").then(r => r.json()),
     ]);
