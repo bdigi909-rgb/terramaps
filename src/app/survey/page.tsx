@@ -263,7 +263,7 @@ export default function SurveyPage() {
           </div>
         }
       />
-      <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+      <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }} className="survey-container">
         {/* Left panel */}
         <div style={{ width: 160, background: "#111c28", borderRight: "1px solid #1e3048", padding: 12, flexShrink: 0, overflowY: "auto" }}>
           <div className="section-title">Projet</div>
@@ -310,7 +310,7 @@ export default function SurveyPage() {
           )}
         </div>
 
-        {/* Main */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }} className="survey-right-panel">
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "auto", minHeight: 0 }}>
           {/* Toolbar */}
           <div style={{ background: "#111c28", borderBottom: "1px solid #1e3048", padding: "6px 8px", display: "flex", gap: 6, alignItems: "center" }}>
