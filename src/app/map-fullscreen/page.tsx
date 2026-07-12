@@ -54,7 +54,7 @@ function MapFullscreenContent() {
             Chargement de la carte...
           </div>
         ) : (
-          <MapView points={points} height="100%" />
+          <MapView points={points} />
         )}
       </div>
 
