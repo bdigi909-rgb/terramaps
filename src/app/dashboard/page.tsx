@@ -149,7 +149,7 @@ export default function DashboardPage() {
             Nouveau Projet
           </Link>
         }
-        {/* Welcome banner */}
+      />
         <div
           style={{
             background: "linear-gradient(135deg, #0f1923 0%, #1a2f46 50%, #162030 100%)",
