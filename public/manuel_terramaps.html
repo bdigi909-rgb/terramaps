@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Manuel TerraMaps v2.0</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; color: #333; }
+  h1 { color: #F97316; border-bottom: 3px solid #F97316; padding-bottom: 10px; }
+  h2 { color: #1a2f46; border-left: 4px solid #F97316; padding-left: 12px; margin-top: 30px; }
+  h3 { color: #3B82F6; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: #1a2f46; color: white; padding: 10px; text-align: left; }
+  td { padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  hr { border: none; border-top: 1px solid #e2e8f0; margin: 24px 0; }
+  .header { background: #1a2f46; color: white; padding: 24px; border-radius: 8px; margin-bottom: 32px; }
+  .header h1 { color: #F97316; border: none; }
+  .header p { color: #8BACC8; margin: 0; }
+  @media print { body { padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📖 Manuel TerraMaps v2.0</h1>
+  <p>Guide complet d'utilisation — terramaps.vercel.app</p>
+</div>
+﻿# 📖 Manuel d'utilisation TerraMaps v2.0</p><p><h2>🌐 Accès</h2>
+<li><strong>URL :</strong> https://terramaps.vercel.app</li>
+<li><strong>Login :</strong> admin@terramaps.ma / Admin2026!</li></p><p><hr></p><p><h2>🏠 1. TABLEAU DE BORD (Dashboard)</h2></p><p>La page principale affiche :
+<li><strong>KPIs</strong> : Total projets, points topo, alignements</li>
+<li><strong>Graphiques</strong> : Activité mensuelle, volumes</li>
+<li><strong>Projets récents</strong> : Accès rapide</li>
+<li><strong>Actions rapides</strong> : Nouveau projet, import, calculs</li></p><p><hr></p><p><h2>📁 2. PROJETS</h2></p><p><h3>Créer un projet</h3>
+<li>Cliquer <strong>"Nouveau Projet"</strong></li>
+<li>Remplir : Nom, Type, Client, Localisation, EPSG</li>
+<li>Cliquer <strong>"Enregistrer"</strong></li></p><p><h3>Dans un projet vous avez :</h3>
+<li><strong>Vue générale</strong> : Infos du projet</li>
+<li><strong>Points topo</strong> : Liste et carte des points</li>
+<li><strong>Alignements</strong> : Axes routiers</li>
+<li><strong>MNT</strong> : Modèle Numérique de Terrain</li>
+<li><strong>Volumes</strong> : Calcul cubatures</li>
+<li><strong>Photos</strong> : Galerie photos terrain</li>
+<li><strong>Calques</strong> : Gestion des calques</li>
+<li><strong>Activité</strong> : Historique des actions</li></p><p><h3>Partager un projet avec un client</h3>
+<li>Ouvrir le projet</li>
+<li>Cliquer <strong>"🔗 Partager"</strong></li>
+<li>Le lien est copié automatiquement</li>
+<li>Envoyer le lien au client par WhatsApp/Email</li>
+<li>Le client voit : nom, points, photos — sans connexion</li></p><p><hr></p><p><h2>📍 3. SURVEY POINTS (Points Topographiques)</h2></p><p><h3>Importer des points</h3>
+<li>Aller sur <strong>/survey</strong></li>
+<li>Sélectionner un projet</li>
+<li>Cliquer <strong>"Import CSV"</strong></li>
+<li>Format : Nom, Code, X, Y, Z</li></p><p><h3>Vues disponibles</h3>
+<li><strong>🗺 Carte</strong> : Points sur OpenStreetMap (EPSG:26191)</li>
+<li><strong>≡ Tableau</strong> : Liste des points avec coordonnées</li>
+<li><strong>📊 Graphique</strong> : Visualisation canvas</li>
+<li><strong>📈 Profil</strong> : Profil altimétrique Z</li></p><p><h3>Exporter les points</h3>
+<li><strong>Excel</strong> : Tableau XLS</li>
+<li><strong>LandXML</strong> : Format standard topo</li>
+<li><strong>DXF</strong> : AutoCAD/Covadis</li>
+<li><strong>ZIP</strong> : Tous les formats</li></p><p><hr></p><p><h2>📄 4. DEVIS</h2></p><p><h3>Créer un devis</h3>
+<li>Aller sur <strong>/devis</strong></li>
+<li>Le numéro <strong>DEV-2026-XXX</strong> est automatique</li>
+<li>Remplir : Client, Adresse, Téléphone, Email</li>
+<li>Sélectionner le projet</li>
+<li>Ajouter les prestations (ou utiliser un modèle rapide)</li>
+<li>Cliquer <strong>"Generer le Devis PDF"</strong></li>
+<li>PDF téléchargé automatiquement</li></p><p><h3>Modèles rapides disponibles</h3>
+<li>Levé standard < 1 Ha (3 500 MAD)</li>
+<li>Levé 1-5 Ha + rapport (5 500 MAD)</li>
+<li>Polygonale complète (4 000 MAD)</li>
+<li>Bornage terrain (4 050 MAD)</li></p><p><h3>Partager un devis avec le client</h3>
+<li>Générer le devis PDF</li>
+<li>Cliquer <strong>"🔗 Partager le dernier devis"</strong></li>
+<li>Lien copié → envoyer au client</li>
+<li>Le client voit le devis en ligne sans connexion</li></p><p><hr></p><p><h2>🧾 5. FACTURES</h2></p><p><h3>Créer une facture</h3>
+<li>Aller sur <strong>/facture</strong></li>
+<li>Le numéro <strong>FAC-2026-XXX</strong> est automatique</li>
+<li>Remplir les informations client</li>
+<li>Ajouter les prestations</li>
+<li>Signer avec le pad de signature</li>
+<li>Cliquer <strong>"🧾 Générer la Facture PDF"</strong></li>
+<li>PDF avec timbre fiscal 20 MAD inclus</li></p><p><h3>Partager une facture</h3>
+<li>Générer la facture</li>
+<li>Cliquer <strong>"🔗 Partager la derniere facture"</strong></li>
+<li>Envoyer le lien au client</li></p><p><hr></p><p><h2>📸 6. PHOTOS TERRAIN</h2></p><p><h3>Uploader des photos</h3>
+<li>Aller sur <strong>/photos</strong> ou onglet Photos dans le projet</li>
+<li>Sélectionner le projet</li>
+<li>Choisir une photo depuis votre appareil</li>
+<li>Ajouter une description (optionnel)</li>
+<li>Cliquer <strong>"📤 Uploader"</strong></li></p><p><h3>Les photos sont visibles par le client</h3>
+Quand vous partagez un projet, le client voit aussi les photos terrain !</p><p><hr></p><p><h2>📅 7. PLANNING MISSIONS</h2></p><p><h3>Créer une mission</h3>
+<li>Aller sur <strong>/planning</strong></li>
+<li>Cliquer <strong>"+ Nouvelle mission"</strong></li>
+<li>Remplir : Titre, Projet, Technicien, Date</li>
+<li>Cliquer <strong>"Créer"</strong></li></p><p><h3>Envoyer un rappel email</h3>
+<li>Cliquer <strong>📧</strong> sur la mission</li>
+<li>Entrer l'email du technicien</li>
+<li>Cliquer OK → Email envoyé automatiquement</li></p><p><hr></p><p><h2>📊 8. LEVÉ TOPOGRAPHIQUE OFFICIEL</h2></p><p><h3>Générer un levé officiel PDF</h3>
+<li>Aller sur <strong>/leve-topo</strong></li>
+<li>Remplir : Province, Commune, Propriétaire, CIN</li>
+<li>Sélectionner le projet avec les points</li>
+<li>Dessiner la signature</li>
+<li>Cliquer <strong>"Générer le Levé PDF"</strong></li></p><p><h3>Envoyer par email au client</h3>
+<li>Entrer l'email du client</li>
+<li>Cliquer <strong>"📧 Envoyer"</strong></li>
+<li>Le client reçoit les détails par email</li></p><p><hr></p><p><h2>⚙️ 9. PARAMÈTRES SOCIÉTÉ</h2></p><p><h3>Configurer votre société</h3>
+<li>Aller sur <strong>/settings</strong></li>
+<li>Remplir : Nom société, RC, IF, ICE</li>
+<li>Uploader votre <strong>logo</strong> (affiché sur tous les PDFs)</li>
+<li>Sauvegarder</li></p><p><hr></p><p><h2>🔐 10. SÉCURITÉ</h2></p><p><h3>Activer le 2FA (Double authentification)</h3>
+<li>Aller sur <strong>/profile</strong></li>
+<li>Cliquer <strong>"🔐 Configurer le 2FA"</strong></li>
+<li>Scanner le QR Code avec Google Authenticator</li>
+<li>Entrer le code à 6 chiffres</li>
+<li>✅ 2FA activé !</li></p><p><hr></p><p><h2>📱 11. INSTALLATION MOBILE (PWA)</h2></p><p><h3>Android</h3>
+<li>Ouvrir terramaps.vercel.app dans Chrome</li>
+<li>Menu ⋮ → "Ajouter à l'écran d'accueil"</li>
+<li>Confirmer → Icône TerraMaps installée !</li></p><p><h3>iPhone</h3>
+<li>Ouvrir dans Safari</li>
+<li>Bouton Partager → "Sur l'écran d'accueil"</li>
+<li>Confirmer !</li></p><p><hr></p><p><h2>🔔 12. NOTIFICATIONS PUSH</h2></p><p><li>Aller sur <strong>/profile</strong></li>
+<li>Cliquer <strong>"🔕 Activer notifs"</strong></li>
+<li>Accepter la permission</li>
+<li>✅ Vous recevrez des notifications même hors ligne</li></p><p><hr></p><p><h2>💰 13. FINANCE</h2></p><p><h3>Tableau de bord financier</h3>
+<li>Aller sur <strong>/finance</strong></li>
+<li>Voir : Revenus, Factures payées/en attente</li>
+<li>Cliquer <strong>"📄 Rapport mensuel PDF"</strong></li></p><p><hr></p><p><h2>🗺️ 14. OUTILS TOPOGRAPHIQUES</h2></p><p>| Page | Outil |
+|------|-------|
+| /nivellement | Circuit de nivellement |
+| /polygonale | Calcul de polygonale |
+| /calculatrice | Calculatrice topo |
+| /volumes | Cubatures déblai/remblai |
+| /alignment | Axes routiers |
+| /terrain | Modèle numérique de terrain |
+| /canvas | Dessin CAO |</p><p><hr></p><p><h2>📦 15. EXPORT & BACKUP</h2></p><p><li>Aller sur <strong>/export</strong></li>
+<li>Choisir : Backup complet, Projets, Devis, ou Factures</li>
+<li>Fichier JSON téléchargé</li></p><p><hr></p><p><h2>🆘 SUPPORT</h2></p><p><li><strong>Email :</strong> admin@terramaps.ma</li>
+<li><strong>Page aide :</strong> /help</li>
+<li><strong>Status système :</strong> /status</li></p><p><hr></p><p>*TerraMaps v2.0 — terramaps.vercel.app*
+*Document généré le 13/07/2026*
+
+</body>
+</html>
