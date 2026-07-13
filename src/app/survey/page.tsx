@@ -391,9 +391,6 @@ export default function SurveyPage() {
                             <Trash2 size={12} />
                           </button>
                         </td>
-                            <Trash2 size={12} />
-                          </button>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
