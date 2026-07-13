@@ -1,5 +1,4 @@
 ﻿"use client";
-// Manuel disponible sur /manuel_terramaps.html
 import { useState } from "react";
 import Link from "next/link";
 
@@ -352,19 +351,6 @@ export default function HelpPage() {
             Comment utiliser <span style={{ color: "#F97316" }}>TerraMaps</span> ?
           </h1>
           <p style={{ color: "#64748B", fontSize: 15, maxWidth: 500, margin: "0 auto" }}>
-            Guides et tutoriels pour maîtriser TerraMaps
-          </p>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 24 }}>
-            <a href="/manuel_terramaps.html" target="_blank"
-              style={{ background: "#F97316", color: "#fff", padding: "12px 24px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 14 }}>
-              📖 Voir le Manuel Complet
-            </a>
-            <a href="/manuel_terramaps.html" target="_blank"
-              onClick={() => window.print()}
-              style={{ background: "#1E2D3D", color: "#8BACC8", padding: "12px 24px", borderRadius: 10, textDecoration: "none", fontWeight: 700, fontSize: 14, border: "1px solid #2A4060" }}>
-              🖨️ Imprimer le Manuel
-            </a>
-          </div>
             Guides animés pour maîtriser toutes les fonctionnalités de la plateforme
           </p>
         </div>
