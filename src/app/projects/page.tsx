@@ -459,7 +459,25 @@ export default function ProjectsPage() {
                     onChange={(e) => setForm({ ...form, location: e.target.value })}
                     placeholder="Ville, région, pays"
                   />
+                  <input
+                    className="srm-input"
+                    value={form.location}
+                    onChange={(e) => setForm({ ...form, location: e.target.value })}
+                    placeholder="Ville, région, pays"
+                  />
                 </div>
+              </div>
+              <div>
+                <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
+                  📧 Email client (pour accès espace client)
+                </label>
+                <input
+                  className="srm-input"
+                  type="email"
+                  value={(form as any).clientEmail || ""}
+                  onChange={(e) => setForm({ ...form, clientEmail: e.target.value } as any)}
+                  placeholder="client@email.com"
+                />
               </div>
 
               <div>
