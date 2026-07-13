@@ -522,9 +522,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                           <Trash2 size={13} />
                         </button>
                       </td>
-                          <Trash2 size={13} />
-                        </button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>
