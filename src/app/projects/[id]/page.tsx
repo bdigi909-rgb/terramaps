@@ -130,17 +130,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     }).catch(() => setLoading(false));
   }, [id]);
 
-  const handleSave = async () => {
-    if (!project) return;
-    setSaving(true);
-    const r = await fetch(`/api/projects/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(project),
-    });
-    const updated = await r.json();
-    setProject(updated);
-    setSaving(false);
   };
   const handleDeletePoint = async (pid: number) => {
     await fetch(`/api/projects/${id}/survey-points?pointId=${pid}`, { method: "DELETE" });
