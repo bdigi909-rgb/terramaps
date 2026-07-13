@@ -20,11 +20,17 @@ export default function ClientSpacePage() {
         fetch("/api/devis").then(r => r.json()),
         fetch("/api/factures").then(r => r.json()),
       ]).then(([proj, dev, fact]) => {
+      }).catch(() => { setLoading(false); });
+      Promise.all([
+        fetch("/api/projects").then(r => r.json()),
+        fetch("/api/devis").then(r => r.json()),
+        fetch("/api/factures").then(r => r.json()),
+      ]).then(([proj, dev, fact]) => {
         if (Array.isArray(proj)) setProjects(proj);
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         setLoading(false);
-      });
+      }).catch(() => setLoading(false));
     });
   }, []);
 
