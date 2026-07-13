@@ -33,7 +33,7 @@ export default function LoginPage() {
       });
       const totpData = await totpRes.json();
       if (totpData.skip) {
-        router.push(data.user.role === "client" ? "/client-space" : "/dashboard");
+        router.push((data.user.role === "client" || data.user.role === "client_admin") ? "/client-space" : "/dashboard");
       } else {
         setUserId(data.user.id);
         setUserRole(data.user.role);
@@ -54,7 +54,7 @@ export default function LoginPage() {
       body: JSON.stringify({ userId, code })
     });
     if (res.ok) {
-      router.push(userRole === "client" ? "/client-space" : "/dashboard");
+      router.push((userRole === "client" || userRole === "client_admin") ? "/client-space" : "/dashboard");
     } else {
       setCodeError("Code invalide. Reessayez.");
     }

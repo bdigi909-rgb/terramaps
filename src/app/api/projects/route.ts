@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     if (token) {
       const { payload } = await jwtVerify(token, SECRET);
       if (payload.role === "client") clientEmail = payload.email as string;
+      // client_admin voit tous les projets (pas de filtre)
     }
   } catch {}
   try {

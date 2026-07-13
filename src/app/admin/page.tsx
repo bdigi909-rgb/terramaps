@@ -293,6 +293,7 @@ export default function AdminPage() {
                     <option value="manager">Manager</option>
                     <option value="admin">Admin</option>
                     <option value="client">Client (lecture seule)</option>
+                    <option value="client_admin">Client Admin (société)</option>
                   </select>
                 </div>
                 <div style={{ gridColumn: "1/-1", display: "flex", gap: 10 }}>
