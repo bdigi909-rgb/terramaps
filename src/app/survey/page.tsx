@@ -372,21 +372,6 @@ export default function SurveyPage() {
                         <td style={{ fontFamily: "monospace", color: "#f97316" }}>{p.z.toFixed(3)}</td>
                         <td style={{ color: "#4b6080", fontSize: 10 }}>#{p.projectId}</td>
                         <td>
-                          <button onClick={async (e) => {
-                            e.stopPropagation();
-                            const name = prompt("Nom:", p.name || "");
-                            if (name === null) return;
-                            const code = prompt("Code:", p.code || "") || p.code;
-                            const x = parseFloat(prompt("X:", p.x.toString()) || p.x.toString());
-                            const y = parseFloat(prompt("Y:", p.y.toString()) || p.y.toString());
-                            const z = parseFloat(prompt("Z:", p.z.toString()) || p.z.toString());
-                            await fetch("/api/survey-points", {
-                              method: "PUT",
-                              headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ id: p.id, name, code, x, y, z })
-                            });
-                            setPoints(prev => prev.map(pt => pt.id === p.id ? { ...pt, name, code, x, y, z } : pt));
-                          }} style={{ background: "none", border: "none", cursor: "pointer", color: "#3B82F6", marginRight: 4 }}>✏️</button>
                           <button onClick={(e) => { e.stopPropagation(); deletePoint(p.id); }} style={{ background: "none", border: "none", cursor: "pointer", color: "#f87171" }}>
                             <Trash2 size={12} />
                           </button>
