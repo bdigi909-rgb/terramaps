@@ -56,34 +56,6 @@ export default function Header({ title, subtitle, actions }: HeaderProps) {
       <AIAssist />
 
       {/* User */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "4px 10px",
-          background: "#0f1923",
-          border: "1px solid #1e3048",
-          borderRadius: 8,
-          cursor: "pointer",
-        }}
-      >
-        <div
-          style={{
-            width: 26,
-            height: 26,
-            borderRadius: "50%",
-            background: "linear-gradient(135deg, #3b82f6, #1d4ed8)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <User size={14} color="white" />
-        </div>
-        <span style={{ fontSize: 12, color: "#c8daea", fontWeight: 500 }}>Ingénieur</span>
-        <ChevronDown size={13} color="#4b6080" />
-      </div>
     </header>
   </>
   );
