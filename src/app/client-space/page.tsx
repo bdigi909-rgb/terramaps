@@ -16,15 +16,15 @@ export default function ClientSpacePage() {
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
       Promise.all([
-        fetch("/api/projects").then(r => r.json()),
-        fetch("/api/devis").then(r => r.json()),
-        fetch("/api/factures").then(r => r.json()),
+        fetch("/api/projects", { credentials: "include" }).then(r => r.json()),
+        fetch("/api/devis", { credentials: "include" }).then(r => r.json()),
+        fetch("/api/factures", { credentials: "include" }).then(r => r.json()),
       ]).then(([proj, dev, fact]) => {
       }).catch(() => { setLoading(false); });
       Promise.all([
-        fetch("/api/projects").then(r => r.json()),
-        fetch("/api/devis").then(r => r.json()),
-        fetch("/api/factures").then(r => r.json()),
+        fetch("/api/projects", { credentials: "include" }).then(r => r.json()),
+        fetch("/api/devis", { credentials: "include" }).then(r => r.json()),
+        fetch("/api/factures", { credentials: "include" }).then(r => r.json()),
       ]).then(([proj, dev, fact]) => {
         if (Array.isArray(proj)) setProjects(proj);
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
