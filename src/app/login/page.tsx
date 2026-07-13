@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [showPwd, setShowPwd] = useState(false);
   const [step, setStep] = useState<"login"|"2fa">("login");
   const [userId, setUserId] = useState<number>(0);
+  const [userRole, setUserRole] = useState<string>("");
   const [code, setCode] = useState("");
   const [codeError, setCodeError] = useState("");
 
