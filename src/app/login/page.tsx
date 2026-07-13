@@ -52,7 +52,7 @@ export default function LoginPage() {
       body: JSON.stringify({ userId, code })
     });
     if (res.ok) {
-      router.push("/dashboard");
+      router.push(data.user?.role === "client" ? "/client-space" : "/dashboard");
     } else {
       setCodeError("Code invalide. Reessayez.");
     }
