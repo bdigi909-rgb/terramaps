@@ -22,8 +22,8 @@ export default function ClientSpacePage() {
       fetch("/api/factures").then(r => r.json()),
     ]).then(([proj, dev, fact]) => {
       if (Array.isArray(proj)) setProjects(proj);
-      if (Array.isArray(dev)) setDevis(dev);
-      if (Array.isArray(fact)) setFactures(fact);
+      if (Array.isArray(dev)) setDevis(dev.filter((d: any) => d.client === user?.name || d.clientEmail === user?.email));
+      if (Array.isArray(fact)) setFactures(fact.filter((f: any) => f.client === user?.name || f.clientEmail === user?.email));
       setLoading(false);
     });
   }, []);
