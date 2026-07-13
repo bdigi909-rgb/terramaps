@@ -372,7 +372,6 @@ export default function SurveyPage() {
                         <td style={{ fontFamily: "monospace", color: "#f97316" }}>{p.z.toFixed(3)}</td>
                         <td style={{ color: "#4b6080", fontSize: 10 }}>#{p.projectId}</td>
                         <td>
-                        <td>
                           <button onClick={async (e) => {
                             e.stopPropagation();
                             const name = prompt("Nom:", p.name || "");
