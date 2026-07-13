@@ -128,7 +128,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       setAlignments(aligns);
       setLoading(false);
     }).catch(() => setLoading(false));
-  }, [id]);
   };
   const handleDeletePoint = async (pid: number) => {
     await fetch(`/api/projects/${id}/survey-points?pointId=${pid}`, { method: "DELETE" });
