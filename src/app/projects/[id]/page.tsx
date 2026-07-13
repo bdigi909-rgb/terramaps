@@ -503,7 +503,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <td style={{ fontFamily: "monospace", color: "#4ade80" }}>{p.y.toFixed(3)}</td>
                       <td style={{ fontFamily: "monospace", color: "#f97316" }}>{p.z.toFixed(3)}</td>
                       <td>
-                      <td>
                         <button onClick={async () => {
                           const name = prompt("Nom:", p.name || "");
                           if (name === null) return;
