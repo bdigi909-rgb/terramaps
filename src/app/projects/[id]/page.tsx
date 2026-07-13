@@ -142,22 +142,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     setProject(updated);
     setSaving(false);
   };
-
-  const handleAddPoint = async () => {
-    if (!pForm.x || !pForm.y || !pForm.z) return;
-    await fetch(`/api/projects/${id}/survey-points`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...pForm, x: parseFloat(pForm.x), y: parseFloat(pForm.y), z: parseFloat(pForm.z) }),
-    });
-    const pts = await fetch(`/api/projects/${id}/survey-points`).then((r) => r.json());
-    setPoints(pts);
-    setShowPointForm(false);
-    setPForm({ name: "", code: "", x: "", y: "", z: "" });
-    const st = await fetch(`/api/projects/${id}/stats`).then((r) => r.json());
-    setStats(st);
-  };
-
   const handleDeletePoint = async (pid: number) => {
     await fetch(`/api/projects/${id}/survey-points?pointId=${pid}`, { method: "DELETE" });
     setPoints((prev) => prev.filter((p) => p.id !== pid));
