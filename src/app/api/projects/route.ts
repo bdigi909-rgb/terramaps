@@ -1,9 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { projects, surveyPoints, alignments, entities } from "@/db/schema";
 import { eq, desc, count, sql } from "drizzle-orm";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  let clientEmail: string | null = null;
+  try {
+    const { jwtVerify } = await import("jose");
+    const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-secret-2026");
+    const token = req.cookies.get("tm_token")?.value;
+    if (token) {
+      const { payload } = await jwtVerify(token, SECRET);
+      if (payload.role === "client") clientEmail = payload.email as string;
+    }
+  } catch {}
   try {
     const rows = await db
       .select({
@@ -21,7 +31,8 @@ export async function GET() {
       .from(projects)
       .orderBy(desc(projects.updatedAt));
 
-    return NextResponse.json(rows);
+    const filtered = clientEmail ? rows.filter((p: any) => p.clientEmail === clientEmail) : rows;
+    return NextResponse.json(filtered);
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 });
