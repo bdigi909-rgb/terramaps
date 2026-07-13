@@ -338,8 +338,6 @@ export default function SurveyPage() {
                 <button onClick={() => setMapExpanded(e => !e)} style={{ position: mapExpanded ? "fixed" : "absolute", top: mapExpanded ? 70 : 8, right: mapExpanded ? 16 : 8, zIndex: 999999, background: "#F97316", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: 700, boxShadow: "0 4px 12px rgba(0,0,0,0.5)" }}>
                   {mapExpanded ? "⊡ Reduire" : "⊞ Agrandir"}
                 </button>
-                  {mapExpanded ? "⊡ Reduire" : "⊞ Agrandir"}
-                </button>
               </div>
             )}
 
