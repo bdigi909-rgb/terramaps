@@ -247,7 +247,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         title={project.name}
         subtitle={`${TYPE_LABELS[project.type] ?? project.type} · EPSG:${project.epsgCode}`}
         actions={
-          <div style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
             <Link href="/projects" style={{ textDecoration: "none" }}>
               <button className="btn-secondary"><ArrowLeft size={14} /> Retour</button>
             </Link>
