@@ -8,6 +8,19 @@ export default function FacturePage() {
   const [savedId, setSavedId] = useState<number|null>(null);
   const [signature, setSignature] = useState("");
   const [societe, setSociete] = useState<any>({});
+  useEffect(() => {
+    const saved = localStorage.getItem("tm_settings");
+    if (saved) setSociete(JSON.parse(saved));
+    fetch("/api/factures").then(r => r.json()).then(d => {
+      if (Array.isArray(d) && d.length > 0) {
+        const last = d[0];
+        const lastNum = parseInt(last.numero?.split("-").pop() || "0");
+        const nextNum = String(lastNum + 1).padStart(3, "0");
+        const year = new Date().getFullYear();
+        setForm(f => ({ ...f, numero: `FAC-${year}-${nextNum}` }));
+      }
+    });
+  }, []);
   const [form, setForm] = useState({
     numero: "FAC-2026-001",
     date: new Date().toLocaleDateString("fr-FR"),
