@@ -489,7 +489,6 @@ export default function ProjectsPage() {
                   onChange={(e) => setForm({ ...form, company: e.target.value } as any)}
                   placeholder="BTP Maroc SARL"
                 />
-                  placeholder="client@email.com"
                 />
               </div>
 
