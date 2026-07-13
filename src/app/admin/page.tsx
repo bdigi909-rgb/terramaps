@@ -277,6 +277,7 @@ export default function AdminPage() {
                   { label: "Nom complet", key: "name", type: "text", placeholder: "Ahmed Benali" },
                   { label: "Email", key: "email", type: "email", placeholder: "ahmed@terramaps.ma" },
                   { label: "Mot de passe", key: "password", type: "password", placeholder: "••••••••" },
+                  { label: "Société", key: "company", type: "text", placeholder: "BTP Maroc SARL" },
                 ].map(f => (
                   <div key={f.key}>
                     <label style={{ display: "block", fontSize: 11, color: "#64748B", marginBottom: 4 }}>{f.label}</label>

@@ -479,6 +479,19 @@ export default function ProjectsPage() {
                   placeholder="client@email.com"
                 />
               </div>
+              <div>
+                <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
+                  🏢 Société (pour Client Admin)
+                </label>
+                <input
+                  className="srm-input"
+                  value={(form as any).company || ""}
+                  onChange={(e) => setForm({ ...form, company: e.target.value } as any)}
+                  placeholder="BTP Maroc SARL"
+                />
+                  placeholder="client@email.com"
+                />
+              </div>
 
               <div>
                 <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
