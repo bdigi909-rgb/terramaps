@@ -27,6 +27,7 @@ export async function GET(req: NextRequest) {
         epsgCode: projects.epsgCode,
         createdAt: projects.createdAt,
         updatedAt: projects.updatedAt,
+        clientEmail: projects.clientEmail,
       })
       .from(projects)
       .orderBy(desc(projects.updatedAt));
