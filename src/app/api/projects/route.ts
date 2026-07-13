@@ -12,7 +12,11 @@ export async function GET(req: NextRequest) {
     if (token) {
       const { payload } = await jwtVerify(token, SECRET);
       if (payload.role === "client") clientEmail = payload.email as string;
-      if (payload.role === "client_admin") { const u = await db.select().from(projects).limit(0); clientEmail = "client_admin:" + payload.company; }
+      if (payload.role === "client_admin") {
+        const { users } = await import("@/db/schema");
+        const [u] = await db.select().from(users).where(eq(users.id, payload.id as number));
+        clientEmail = "client_admin:" + (u as any).company;
+      }
       // client_admin voit tous les projets (pas de filtre)
     }
   } catch {}
