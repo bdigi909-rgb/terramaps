@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     if (token) {
       const { payload } = await jwtVerify(token, SECRET);
       if (payload.role === "client") clientEmail = payload.email as string;
+      if (payload.role === "client_admin") clientEmail = "client_admin:" + payload.company;
       // client_admin voit tous les projets (pas de filtre)
     }
   } catch {}
@@ -33,7 +34,11 @@ export async function GET(req: NextRequest) {
       .from(projects)
       .orderBy(desc(projects.updatedAt));
 
-    const filtered = clientEmail ? rows.filter((p: any) => p.clientEmail === clientEmail) : rows;
+    const filtered = clientEmail 
+      ? clientEmail.startsWith("client_admin:") 
+        ? rows.filter((p: any) => p.company === clientEmail.split(":")[1])
+        : rows.filter((p: any) => p.clientEmail === clientEmail)
+      : rows;
     return NextResponse.json(filtered);
   } catch (e) {
     console.error(e);

@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const user = await getUser(req);
   if (!user || user.role !== "admin") return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
-  const { name, email, password, role } = await req.json();
+  const { name, email, password, role, company } = await req.json();
   const hash = await bcrypt.hash(password, 10);
   const [created] = await db.insert(users).values({ name, email, password: hash, role }).returning();
   sendWelcomeEmail(email, name, password, role).catch(() => {});

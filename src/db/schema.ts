@@ -45,6 +45,7 @@ export const projects = pgTable("projects", {
   location: text("location"),
   epsgCode: text("epsg_code").default("4326"),
   clientEmail: text("client_email"),
+  company: text("company"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -191,6 +192,7 @@ export const users = pgTable('users', {
   email: text('email').notNull().unique(),
   password: text('password').notNull(),
   role: text('role').notNull().default('agent'),
+  company: text('company'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
@@ -223,6 +225,7 @@ export const devis = pgTable("devis", {
   clientAdresse: text("client_adresse"),
   clientTel: text("client_tel"),
   clientEmail: text("client_email"),
+  company: text("company"),
   projet: text("projet"),
   sousTotal: real("sous_total").default(0),
   tva: real("tva").default(20),
@@ -241,6 +244,7 @@ export const factures = pgTable("factures", {
   clientAdresse: text("client_adresse"),
   clientTel: text("client_tel"),
   clientEmail: text("client_email"),
+  company: text("company"),
   projet: text("projet"),
   sousTotal: real("sous_total").default(0),
   tva: real("tva").default(20),

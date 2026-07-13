@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: "Utilisateur introuvable" }, { status: 401 });
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 });
-  const token = await new SignJWT({ id: user.id, role: user.role, name: user.name, email: user.email })
+  const token = await new SignJWT({ id: user.id, role: user.role, name: user.name, email: user.email, company: (user as any).company })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("7d")
     .sign(SECRET);
