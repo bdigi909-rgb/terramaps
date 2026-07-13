@@ -11,21 +11,24 @@ export default function ClientSpacePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/auth/me").then(r => r.json()).then(d => {
+    fetch("/api/auth/me").then(r => r.json()).then(async d => {
       if (!d.user) { router.push("/login"); return; }
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
-      Promise.all([
-        fetch("/api/projects", { credentials: "include" }).then(r => r.json()),
-        fetch("/api/devis", { credentials: "include" }).then(r => r.json()),
-        fetch("/api/factures", { credentials: "include" }).then(r => r.json()),
-      ]).then(([proj, dev, fact]) => {
+      try {
+        const [proj, dev, fact] = await Promise.all([
+          fetch("/api/projects").then(r => r.json()),
+          fetch("/api/devis").then(r => r.json()),
+          fetch("/api/factures").then(r => r.json()),
+        ]);
         if (Array.isArray(proj)) setProjects(proj);
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
-        setLoading(false);
-      }).catch(() => setLoading(false));
-    });
+      } catch (e) {
+        console.error(e);
+      }
+      setLoading(false);
+    }).catch(() => setLoading(false));
   }, []);
 
   if (loading) return (
