@@ -382,7 +382,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <label style={{ fontSize: 11, color: "#4b6080", display: "block", marginBottom: 4 }}>Email client</label>
                       <input className="srm-input" type="email" placeholder="client@email.com" value={(project as any).clientEmail ?? ""} onChange={(e) => setProject({ ...project, clientEmail: e.target.value } as any)} />
                     </div>
-                    </div>
                     <div>
                       <label style={{ fontSize: 11, color: "#4b6080", display: "block", marginBottom: 4 }}>Localisation</label>
                       <input className="srm-input" value={project.location ?? ""} onChange={(e) => setProject({ ...project, location: e.target.value })} />
