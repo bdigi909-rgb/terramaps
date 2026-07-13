@@ -15,16 +15,16 @@ export default function ClientSpacePage() {
       if (!d.user) { router.push("/login"); return; }
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
-    });
-    Promise.all([
-      fetch("/api/projects").then(r => r.json()),
-      fetch("/api/devis").then(r => r.json()),
-      fetch("/api/factures").then(r => r.json()),
-    ]).then(([proj, dev, fact]) => {
-      if (Array.isArray(proj)) setProjects(proj);
-      if (Array.isArray(dev)) setDevis(dev.filter((d: any) => d.client === user?.name || d.clientEmail === user?.email));
-      if (Array.isArray(fact)) setFactures(fact.filter((f: any) => f.client === user?.name || f.clientEmail === user?.email));
-      setLoading(false);
+      Promise.all([
+        fetch("/api/projects").then(r => r.json()),
+        fetch("/api/devis").then(r => r.json()),
+        fetch("/api/factures").then(r => r.json()),
+      ]).then(([proj, dev, fact]) => {
+        if (Array.isArray(proj)) setProjects(proj);
+        if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
+        if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
+        setLoading(false);
+      });
     });
   }, []);
 
