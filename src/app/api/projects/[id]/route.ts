@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { projects } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -38,6 +38,7 @@ export async function PUT(
         client: body.client,
         location: body.location,
         epsgCode: body.epsgCode,
+        clientEmail: body.clientEmail ?? null,
         updatedAt: new Date(),
       })
       .where(eq(projects.id, parseInt(id)))
