@@ -32,7 +32,7 @@ export default function LoginPage() {
       });
       const totpData = await totpRes.json();
       if (totpData.skip) {
-        router.push("/dashboard");
+        router.push(data.user.role === "client" ? "/client-space" : "/dashboard");
       } else {
         setUserId(data.user.id);
         setStep("2fa");
