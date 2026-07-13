@@ -503,7 +503,25 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       <td style={{ fontFamily: "monospace", color: "#4ade80" }}>{p.y.toFixed(3)}</td>
                       <td style={{ fontFamily: "monospace", color: "#f97316" }}>{p.z.toFixed(3)}</td>
                       <td>
+                      <td>
+                        <button onClick={async () => {
+                          const name = prompt("Nom:", p.name || "");
+                          if (name === null) return;
+                          const code = prompt("Code:", p.code || "") || p.code;
+                          const x = parseFloat(prompt("X:", p.x.toString()) || p.x.toString());
+                          const y = parseFloat(prompt("Y:", p.y.toString()) || p.y.toString());
+                          const z = parseFloat(prompt("Z:", p.z.toString()) || p.z.toString());
+                          await fetch("/api/survey-points", {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: p.id, name, code, x, y, z })
+                          });
+                          setPoints(prev => prev.map(pt => pt.id === p.id ? { ...pt, name, code, x, y, z } : pt));
+                        }} style={{ background: "none", border: "none", cursor: "pointer", color: "#3B82F6", marginRight: 6 }}>✏️</button>
                         <button onClick={() => handleDeletePoint(p.id)} style={{ background: "none", border: "none", cursor: "pointer", color: "#f87171" }}>
+                          <Trash2 size={13} />
+                        </button>
+                      </td>
                           <Trash2 size={13} />
                         </button>
                       </td>
