@@ -6,17 +6,18 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
-  const { missionId } = await req.json();
+  const { missionId, email } = await req.json();
   
   const result = await db.execute(sql`SELECT * FROM missions WHERE id = ${missionId}`);
   if (result.rows.length === 0) return NextResponse.json({ error: "Mission introuvable" }, { status: 404 });
   
   const mission = result.rows[0] as any;
-  if (!mission.email_technicien) return NextResponse.json({ error: "Email technicien manquant" }, { status: 400 });
+  const toEmail = email || mission.email_technicien;
+  if (!toEmail) return NextResponse.json({ error: "Email technicien manquant" }, { status: 400 });
 
   await resend.emails.send({
     from: "onboarding@resend.dev",
-    to: mission.email_technicien,
+    to: toEmail,
     subject: `📅 Rappel mission: ${mission.titre}`,
     html: `
       <div style="font-family: Arial; max-width: 600px; margin: 0 auto;">
@@ -28,7 +29,7 @@ export async function POST(req: NextRequest) {
           <h2 style="color: #1a2f46;">📅 ${mission.titre}</h2>
           <table style="width: 100%; border-collapse: collapse;">
             <tr><td style="padding: 8px 0; color: #64748B;">Projet:</td><td style="font-weight: 600;">${mission.projet || "—"}</td></tr>
-            <tr><td style="padding: 8px 0; color: #64748B;">Technicien:</td><td style="font-weight: 600;">${mission.technicien}</td></tr>
+            <tr><td style="padding: 8px 0; color: #64748B;">Technicien:</td><td style="font-weight: 600;">${mission.technicien || "—"}</td></tr>
             <tr><td style="padding: 8px 0; color: #64748B;">Date:</td><td style="font-weight: 600; color: #F97316;">${mission.date}</td></tr>
             <tr><td style="padding: 8px 0; color: #64748B;">Statut:</td><td style="font-weight: 600;">${mission.statut}</td></tr>
           </table>
