@@ -128,6 +128,45 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       setAlignments(aligns);
       setLoading(false);
     }).catch(() => setLoading(false));
+  }, [id]);
+
+  const handleSave = async () => {
+    if (!project) return;
+    setSaving(true);
+    const r = await fetch(`/api/projects/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(project),
+    });
+    const updated = await r.json();
+    setProject(updated);
+    setSaving(false);
+  };
+
+  const handleAddPoint = async () => {
+    if (!pForm.x || !pForm.y || !pForm.z) return;
+    const x = parseFloat(pForm.x);
+    const y = parseFloat(pForm.y);
+    const z = parseFloat(pForm.z);
+    const errors: string[] = [];
+    if (z < 0 || z > 5000) errors.push(`Z suspect: ${z}m`);
+    if (x < 100000 || x > 1200000) errors.push(`X hors zone Maroc: ${x}`);
+    if (pForm.name && points.some(p => p.name === pForm.name)) errors.push(`Point duplique: ${pForm.name}`);
+    if (errors.length > 0) {
+      const ok = confirm("Anomalies:\n" + errors.join("\n") + "\n\nContinuer ?");
+      if (!ok) return;
+    }
+    await fetch(`/api/projects/${id}/survey-points`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...pForm, x, y, z }),
+    });
+    const pts = await fetch(`/api/projects/${id}/survey-points`).then(r => r.json());
+    setPoints(pts);
+    setShowPointForm(false);
+    setPForm({ name: "", code: "", x: "", y: "", z: "" });
+    const st = await fetch(`/api/projects/${id}/stats`).then(r => r.json());
+    setStats(st);
   };
   const handleDeletePoint = async (pid: number) => {
     await fetch(`/api/projects/${id}/survey-points?pointId=${pid}`, { method: "DELETE" });
