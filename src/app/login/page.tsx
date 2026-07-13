@@ -35,6 +35,7 @@ export default function LoginPage() {
         router.push(data.user.role === "client" ? "/client-space" : "/dashboard");
       } else {
         setUserId(data.user.id);
+        setUserRole(data.user.role);
         setStep("2fa");
       }
     } else {
@@ -52,7 +53,7 @@ export default function LoginPage() {
       body: JSON.stringify({ userId, code })
     });
     if (res.ok) {
-      router.push(data.user?.role === "client" ? "/client-space" : "/dashboard");
+      router.push(userRole === "client" ? "/client-space" : "/dashboard");
     } else {
       setCodeError("Code invalide. Reessayez.");
     }
