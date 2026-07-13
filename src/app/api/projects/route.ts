@@ -34,6 +34,7 @@ export async function GET(req: NextRequest) {
         createdAt: projects.createdAt,
         updatedAt: projects.updatedAt,
         clientEmail: projects.clientEmail,
+        company: projects.company,
       })
       .from(projects)
       .orderBy(desc(projects.updatedAt));
