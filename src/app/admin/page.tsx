@@ -290,7 +290,10 @@ export default function AdminPage() {
                   <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })}
                     style={{ width: "100%", background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 6, padding: "8px 12px", color: "#fff", fontSize: 13 }}>
                     <option value="agent">Agent</option>
+                    <option value="agent">Agent</option>
                     <option value="manager">Manager</option>
+                    <option value="admin">Admin</option>
+                    <option value="client">Client (lecture seule)</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
