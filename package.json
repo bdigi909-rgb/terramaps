@@ -50,6 +50,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/web-push": "^3.6.4",
+    "canvas": "^3.2.3",
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",

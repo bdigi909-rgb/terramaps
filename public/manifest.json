@@ -1,12 +1,12 @@
 ﻿{
-  "name": "TerraMaps — Topographie & Cartographie",
+  "name": "TerraMaps",
   "short_name": "TerraMaps",
   "description": "Plateforme SaaS topographique marocaine",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#0D1117",
   "theme_color": "#F97316",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -19,25 +19,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "categories": ["productivity", "utilities"],
-  "lang": "fr",
-  "shortcuts": [
-    {
-      "name": "Survey Points",
-      "url": "/survey",
-      "description": "Points de levé topographique"
-    },
-    {
-      "name": "Levé Topo",
-      "url": "/leve-topo",
-      "description": "Générer un levé officiel"
-    },
-    {
-      "name": "Calculatrice",
-      "url": "/calculatrice",
-      "description": "Calculatrice topographique"
     }
   ]
 }
