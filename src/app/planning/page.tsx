@@ -34,41 +34,41 @@ export default function PlanningPage() {
   });
 
   useEffect(() => {
-    const saved = localStorage.getItem("tm_missions");
-    if (saved) setMissions(JSON.parse(saved));
+    fetch("/api/missions").then(r => r.json()).then(d => { if (Array.isArray(d)) setMissions(d); });
     fetch("/api/projects").then(r => r.json()).then(d => { if (Array.isArray(d)) setProjects(d); });
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); });
   }, []);
 
-  function saveMissions(m: Mission[]) {
+  async function saveMissions(m: Mission[]) {
     setMissions(m);
-    localStorage.setItem("tm_missions", JSON.stringify(m));
   }
-  function addMission() {
+  async function addMission() {
     if (!form.titre || !form.date) return;
-    const newMission: Mission = { id: Date.now(), ...form };
-    saveMissions([...missions, newMission]);
+    const res = await fetch("/api/missions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form })
+    });
+    const newMission = await res.json();
+    setMissions(prev => [...prev, newMission]);;
     // Notification
     fetch("/api/notifications", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: "Nouvelle mission planifiee",
-        message: form.titre + (form.technicien ? " — " + form.technicien : "") + " — " + form.date,
-        type: "info",
-        userId: 1
-      })
+      body: JSON.stringify({ title: "Nouvelle mission planifiee", message: form.titre + " — " + form.date, type: "info", userId: 1 })
     });
     setForm({ titre: "", projet: "", technicien: "", date: "", statut: "planifiee", couleur: "#F97316" });
     setShowForm(false);
   }
 
-  function deleteMission(id: number) {
-    saveMissions(missions.filter(m => m.id !== id));
+  async function deleteMission(id: number) {
+    await fetch("/api/missions", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    setMissions(prev => prev.filter(m => m.id !== id));
   }
 
-  function updateStatut(id: number, statut: Mission["statut"]) {
-    saveMissions(missions.map(m => m.id === id ? { ...m, statut } : m));
+  async function updateStatut(id: number, statut: Mission["statut"]) {
+    await fetch("/api/missions", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, statut }) });
+    setMissions(prev => prev.map(m => m.id === id ? { ...m, statut } : m));
   }
 
   // Calendrier
@@ -184,7 +184,17 @@ export default function PlanningPage() {
                       </select>
                     </td>
                     <td style={{ padding: "8px 10px" }}>
+                    <td style={{ padding: "8px 10px" }}>
                       <button onClick={() => deleteMission(m.id)} style={{ background: "transparent", border: "none", color: "#EF4444", cursor: "pointer", fontSize: 14 }}>🗑️</button>
+                      <button onClick={async () => {
+                        const email = prompt("Email du technicien:");
+                        if (!email) return;
+                        await fetch("/api/missions", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: m.id, statut: m.statut }) });
+                        const res = await fetch("/api/missions/rappel", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ missionId: m.id, email }) });
+                        const data = await res.json();
+                        alert(data.success ? "📧 Rappel envoyé !" : "Erreur: " + (data.error || "inconnue"));
+                      }} style={{ background: "transparent", border: "none", color: "#3B82F6", cursor: "pointer", fontSize: 14, marginLeft: 6 }}>📧</button>
+                    </td>
                     </td>
                   </tr>
                 ))}
