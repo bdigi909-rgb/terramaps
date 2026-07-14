@@ -79,7 +79,6 @@ export default function ProjectsPage() {
       .then((r) => r.json())
       .catch(() => setLoading(false));
   };
-      .catch(() => setLoading(false));
   useEffect(() => { 
     fetchProjects(); 
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); }).catch(() => {});
