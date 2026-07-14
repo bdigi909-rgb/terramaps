@@ -41,15 +41,14 @@ export default function ClientSpacePage() {
         <div style={{ fontSize: 18, fontWeight: 700 }}>Terra<span style={{ color: "#F97316" }}>Maps</span></div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 13, color: "#8BACC8" }}>👤 {user?.name}</span>
-          <button onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); router.push("/login"); }}
           <button onClick={() => router.push("/messages")}
             style={{ background: "#1E2D3D", border: "none", color: "#8BACC8", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
             💬 Messages
           </button>
+          <button onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); router.push("/login"); }}
+            style={{ background: "transparent", border: "1px solid #EF4444", color: "#EF4444", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
             Déconnexion
           </button>
-        </div>
-      </div>
       <div style={{ padding: 32, maxWidth: 1000, margin: "0 auto" }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>Mon Espace Client</h1>
         <p style={{ color: "#64748B", marginBottom: 32 }}>Bienvenue {user?.name} — Consultez vos projets et documents</p>
