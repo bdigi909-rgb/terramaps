@@ -52,9 +52,6 @@ export default function ClientSpacePage() {
             style={{ background: unreadReplies > 0 ? "#F97316" : "#1E2D3D", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: unreadReplies > 0 ? 700 : 400, position: "relative" }}>
             💬 Messages {unreadReplies > 0 && <span style={{ background: "#EF4444", color: "#fff", borderRadius: "50%", padding: "1px 6px", fontSize: 10, marginLeft: 4 }}>{unreadReplies}</span>}
           </button>
-            style={{ background: "#1E2D3D", border: "none", color: "#8BACC8", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
-            💬 Messages
-          </button>
           <button onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); router.push("/login"); }}
             style={{ background: "transparent", border: "1px solid #EF4444", color: "#EF4444", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
             Déconnexion
