@@ -106,6 +106,7 @@ export default function ClientSpacePage() {
             </table>
           )}
         </div>
+        </div>
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>🧾 Mes Factures</h3>
           {factures.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucune facture</div> : (
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
