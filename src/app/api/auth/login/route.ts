@@ -10,9 +10,10 @@ const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "terramaps-sec
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
   const [user] = await db.select().from(users).where(eq(users.email, email));
+  await db.execute(sql`INSERT INTO login_attempts (email, ip, success) VALUES (${email}, ${ip}, FALSE)`).catch(() => {});
   if (!user) return NextResponse.json({ error: "Utilisateur introuvable" }, { status: 401 });
   const valid = await bcrypt.compare(password, user.password);
-  if (!valid) return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 });
+  if (!valid) { await db.execute(sql`INSERT INTO login_attempts (email, ip, success) VALUES (${email}, ${ip}, FALSE)`).catch(() => {}); return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 });
   const token = await new SignJWT({ id: user.id, role: user.role, name: user.name, email: user.email, company: (user as any).company })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("7d")
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
     details: "Connexion de " + user.name + " (" + user.email + ")",
   }).catch(() => {});
   const res = NextResponse.json({ success: true, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+  await db.execute(sql`INSERT INTO login_attempts (email, ip, success) VALUES (${email}, ${ip}, TRUE)`).catch(() => {});
   res.cookies.set("tm_token", token, { httpOnly: true, maxAge: 60 * 60 * 24 * 7, path: "/" });
   return res;
 }
