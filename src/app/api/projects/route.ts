@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     if (token) {
       const { payload } = await jwtVerify(token, SECRET);
       if (payload.role === "client") clientEmail = payload.email as string;
+      if (payload.role === "agent") clientEmail = "agent:" + payload.id;
       if (payload.role === "client_admin") {
         const { users } = await import("@/db/schema");
         const [u] = await db.select().from(users).where(eq(users.id, payload.id as number));
@@ -35,12 +36,15 @@ export async function GET(req: NextRequest) {
         updatedAt: projects.updatedAt,
         clientEmail: projects.clientEmail,
         company: projects.company,
+        assignedTo: projects.assignedTo,
       })
       .from(projects)
       .orderBy(desc(projects.updatedAt));
 
-    const filtered = clientEmail 
-      ? clientEmail.startsWith("client_admin:") 
+    const filtered = clientEmail
+      ? clientEmail.startsWith("agent:")
+        ? rows.filter((p: any) => p.assignedTo === parseInt(clientEmail.split(":")[1]))
+        : clientEmail.startsWith("client_admin:") 
         ? rows.filter((p: any) => p.company === clientEmail.split(":")[1])
         : rows.filter((p: any) => p.clientEmail === clientEmail)
       : rows;
