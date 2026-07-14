@@ -494,7 +494,6 @@ export default function ProjectsPage() {
                   placeholder="BTP Maroc SARL"
                 />
               </div>
-              </div>
               <div>
                 <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
                   👷 Assigner à un agent
