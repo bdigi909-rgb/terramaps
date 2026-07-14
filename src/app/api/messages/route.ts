@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   const isAdmin = user.role === "admin" || user.role === "manager";
   const rows = isAdmin
     ? await db.execute(sql`SELECT * FROM messages ORDER BY created_at DESC`)
-    : await db.execute(sql`SELECT * FROM messages WHERE user_id = ${user.id as number} ORDER BY created_at DESC`);
+    : await db.execute(sql`SELECT * FROM messages WHERE user_id = ${user.id as number} OR to_user_id = ${user.id as number} ORDER BY created_at DESC`);
   return NextResponse.json(rows.rows);
 }
 
