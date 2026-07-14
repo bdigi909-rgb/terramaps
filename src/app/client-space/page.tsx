@@ -9,8 +9,6 @@ export default function ClientSpacePage() {
   const [devis, setDevis] = useState<any[]>([]);
   const [factures, setFactures] = useState<any[]>([]);
   const [unreadReplies, setUnreadReplies] = useState(0);
-  const [devis, setDevis] = useState<any[]>([]);
-  const [factures, setFactures] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
