@@ -28,8 +28,6 @@ export default function ClientSpacePage() {
       setLoading(false);
         console.error(e);
       }
-      setLoading(false);
-    }).catch(() => setLoading(false));
   }, []);
 
   if (loading) return (
