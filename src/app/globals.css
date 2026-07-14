@@ -787,3 +787,10 @@ body.light-mode [style*="background: #0f1923"] {
     padding: 6px 8px !important;
   }
 }
+
+/* Client space mobile */
+@media (max-width: 600px) {
+  table { font-size: 11px !important; }
+  td, th { padding: 6px 8px !important; }
+  h1 { font-size: 18px !important; }
+}

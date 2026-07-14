@@ -37,7 +37,7 @@ export default function ClientSpacePage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#0D1117", color: "#E2EAF2", fontFamily: "Arial" }}>
-      <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "0 32px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "0 16px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
         <div style={{ fontSize: 18, fontWeight: 700 }}>Terra<span style={{ color: "#F97316" }}>Maps</span></div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 13, color: "#8BACC8" }}>👤 {user?.name}</span>
@@ -49,10 +49,10 @@ export default function ClientSpacePage() {
             style={{ background: "transparent", border: "1px solid #EF4444", color: "#EF4444", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
             Déconnexion
           </button>
-      <div style={{ padding: 32, maxWidth: 1000, margin: "0 auto" }}>
+      <div style={{ padding: "16px", maxWidth: 1000, margin: "0 auto", width: "100%", boxSizing: "border-box" as any }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>Mon Espace Client</h1>
         <p style={{ color: "#64748B", marginBottom: 32 }}>Bienvenue {user?.name} — Consultez vos projets et documents</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: 12, marginBottom: 24 }}>
           {[
             { icon: "📁", label: "Projets", value: projects.length, color: "#3B82F6" },
             { icon: "📋", label: "Devis", value: devis.length, color: "#F97316" },
