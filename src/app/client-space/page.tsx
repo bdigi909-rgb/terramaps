@@ -16,15 +16,16 @@ export default function ClientSpacePage() {
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
       try {
-        const [proj, dev, fact] = await Promise.all([
-          fetch("/api/projects").then(r => r.json()),
-          fetch("/api/devis").then(r => r.json()),
-          fetch("/api/factures").then(r => r.json()),
-        ]);
+        const proj = await fetch("/api/projects").then(r => r.ok ? r.json() : []);
+        const dev = await fetch("/api/devis").then(r => r.ok ? r.json() : []);
+        const fact = await fetch("/api/factures").then(r => r.ok ? r.json() : []);
         if (Array.isArray(proj)) setProjects(proj);
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
       } catch (e) {
+        console.error(e);
+      }
+      setLoading(false);
         console.error(e);
       }
       setLoading(false);
