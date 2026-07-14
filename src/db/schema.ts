@@ -47,7 +47,6 @@ export const projects = pgTable("projects", {
   clientEmail: text("client_email"),
   company: text("company"),
   assignedTo: integer("assigned_to"),
-  assignedTo: integer("assigned_to"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
