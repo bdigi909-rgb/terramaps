@@ -74,7 +74,10 @@ export default function ProjectsPage() {
   const [view, setView] = useState<"grid" | "list">("grid");
 
   const fetchProjects = () => {
-    setLoading(true);
+    fetch("/api/projects")
+      .then((r) => r.json())
+      .then((d) => { setProjects(d); setLoading(false); })
+      .catch(() => setLoading(false));
     fetch("/api/projects")
       .then((r) => r.json())
       .catch(() => setLoading(false));
