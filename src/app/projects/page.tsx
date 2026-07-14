@@ -59,7 +59,8 @@ const EMPTY_FORM = {
 };
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -78,7 +79,10 @@ export default function ProjectsPage() {
       .then((r) => r.json())
       .then((d) => { setProjects(d); setLoading(false); })
       .catch(() => setLoading(false));
-  };
+  useEffect(() => { 
+    fetchProjects(); 
+    fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); }).catch(() => {});
+  }, []);
 
   useEffect(() => { fetchProjects(); }, []);
 
@@ -490,7 +494,19 @@ export default function ProjectsPage() {
                   placeholder="BTP Maroc SARL"
                 />
               </div>
-
+              </div>
+              <div>
+                <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
+                  👷 Assigner à un agent
+                </label>
+                <select className="srm-select" value={(form as any).assignedTo || ""}
+                  onChange={(e) => setForm({ ...form, assignedTo: e.target.value } as any)}>
+                  <option value="">-- Non assigné --</option>
+                  {users.filter((u: any) => u.role === "agent").map((u: any) => (
+                    <option key={u.id} value={u.id}>{u.name}</option>
+                  ))}
+                </select>
+              </div>
               <div>
                 <label style={{ fontSize: 12, color: "#8bacc8", display: "block", marginBottom: 4 }}>
                   Code EPSG (Système de coordonnées)
