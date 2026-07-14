@@ -31,7 +31,7 @@ export default function MessagesAdmin() {
       ) : messages.map(m => (
         <div key={m.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, padding: 16, marginBottom: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontWeight: 600, color: "#F97316" }}>👤 {m.from_name}</span>
+            <span style={{ fontWeight: 600, color: "#F97316" }}>👤 {m.from_name || "Client"}</span>
             <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
           </div>
           {m.subject && <div style={{ fontSize: 12, color: "#8BACC8", marginBottom: 6 }}>Sujet: {m.subject}</div>}
