@@ -8,6 +8,9 @@ export default function ClientSpacePage() {
   const [projects, setProjects] = useState<any[]>([]);
   const [devis, setDevis] = useState<any[]>([]);
   const [factures, setFactures] = useState<any[]>([]);
+  const [unreadReplies, setUnreadReplies] = useState(0);
+  const [devis, setDevis] = useState<any[]>([]);
+  const [factures, setFactures] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +22,11 @@ export default function ClientSpacePage() {
         const proj = await fetch("/api/projects").then(r => r.ok ? r.json() : []);
         const dev = await fetch("/api/devis").then(r => r.ok ? r.json() : []);
         const fact = await fetch("/api/factures").then(r => r.ok ? r.json() : []);
+        const msgs = await fetch("/api/messages").then(r => r.ok ? r.json() : []);
         if (Array.isArray(proj)) setProjects(proj);
+        if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
+        if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
+        if (Array.isArray(msgs)) setUnreadReplies(msgs.filter((m: any) => m.is_reply && !m.read).length);
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
       } catch (e) {
@@ -42,6 +49,9 @@ export default function ClientSpacePage() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 13, color: "#8BACC8" }}>👤 {user?.name}</span>
           <button onClick={() => router.push("/messages")}
+            style={{ background: unreadReplies > 0 ? "#F97316" : "#1E2D3D", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12, fontWeight: unreadReplies > 0 ? 700 : 400, position: "relative" }}>
+            💬 Messages {unreadReplies > 0 && <span style={{ background: "#EF4444", color: "#fff", borderRadius: "50%", padding: "1px 6px", fontSize: 10, marginLeft: 4 }}>{unreadReplies}</span>}
+          </button>
             style={{ background: "#1E2D3D", border: "none", color: "#8BACC8", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
             💬 Messages
           </button>

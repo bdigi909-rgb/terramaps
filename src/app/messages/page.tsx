@@ -84,8 +84,8 @@ export default function MessagesPage() {
           ) : messages.map(m => (
             <div key={m.id} style={{ borderBottom: "1px solid #1E2D3D", padding: "14px 0" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: m.from_user_id === user?.id ? "#F97316" : "#3B82F6" }}>
-                  {m.from_user_id === user?.id ? "📤 Vous" : "📥 TerraMaps"} — {m.subject || "Sans sujet"}
+                <span style={{ fontSize: 13, fontWeight: 600, color: m.is_reply ? "#22C55E" : m.from_user_id === user?.id ? "#F97316" : "#3B82F6" }}>
+                {m.is_reply ? "📬 Réponse TerraMaps" : m.from_user_id === user?.id ? "📤 Vous" : "📥 TerraMaps"} — {m.subject || "Sans sujet"}
                 </span>
                 <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
               </div>

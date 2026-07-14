@@ -15,7 +15,7 @@ export default function MessagesAdmin() {
     if (!reply[msgId]) return;
     await fetch("/api/messages", {
       method: "POST",
-      body: JSON.stringify({ content: reply[msgId], subject: "Réponse TerraMaps" })
+      body: JSON.stringify({ content: reply[msgId], subject: "Réponse TerraMaps", toUserId, isReply: true })
     });
     setReply(prev => ({ ...prev, [msgId]: "" }));
     const msgs = await fetch("/api/messages").then(r => r.json());
