@@ -24,10 +24,15 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const user = await getUser(req);
   if (!user) return NextResponse.json({ error: "Non connecte" }, { status: 401 });
-  const { subject, content, toUserId, isReply } = await req.json();
+  
+  const body = await req.json();
+  const { content, toUserId, isReply } = body;
+  
+  console.log("POST messages:", { content, toUserId, isReply, userId: user.id });
+  
   const result = await db.execute(sql`
     INSERT INTO messages (user_id, user_name, content, is_reply, to_user_id)
-    VALUES (${user.id as number}, ${user.name as string}, ${content}, ${isReply || false}, ${toUserId || null})
+    VALUES (${user.id as number}, ${user.name as string}, ${content}, ${isReply === true}, ${toUserId || null})
     RETURNING *
   `);
   return NextResponse.json(result.rows[0]);
