@@ -16,7 +16,7 @@ export default function MessagesAdmin() {
     await fetch("/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: reply[msgId], toUserId, subject: "Réponse TerraMaps" })
+      body: JSON.stringify({ content: reply[msgId], toUserId: m.user_id, subject: "Réponse TerraMaps" })
     });
     setReply(prev => ({ ...prev, [msgId]: "" }));
     const msgs = await fetch("/api/messages").then(r => r.json());
@@ -31,7 +31,7 @@ export default function MessagesAdmin() {
       ) : messages.map(m => (
         <div key={m.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, padding: 16, marginBottom: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontWeight: 600, color: "#F97316" }}>👤 {m.from_name || "Client"}</span>
+            <span style={{ fontWeight: 600, color: "#F97316" }}>👤 {m.user_name || "Client"}</span>
             <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
           </div>
           {m.subject && <div style={{ fontSize: 12, color: "#8BACC8", marginBottom: 6 }}>Sujet: {m.subject}</div>}
@@ -40,7 +40,7 @@ export default function MessagesAdmin() {
             <input value={reply[m.id] || ""} onChange={e => setReply(prev => ({ ...prev, [m.id]: e.target.value }))}
               placeholder="Votre réponse..."
               style={{ flex: 1, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 6, padding: "6px 10px", color: "#E2EAF2", fontSize: 12 }} />
-            <button onClick={() => sendReply(m.from_user_id, m.id)}
+            <button onClick={() => sendReply(m.user_id, m.id)}
               style={{ background: "#F97316", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
               Répondre
             </button>
