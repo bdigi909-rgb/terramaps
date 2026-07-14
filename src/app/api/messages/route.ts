@@ -14,9 +14,10 @@ async function getUser(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const user = await getUser(req);
   if (!user) return NextResponse.json({ error: "Non connecte" }, { status: 401 });
+  const isAdmin = user.role === "admin" || user.role === "manager";
   const rows = await db.execute(sql`
     SELECT * FROM messages 
-    WHERE from_user_id = ${user.id as number} OR to_user_id = ${user.id as number}
+    WHERE ${isAdmin ? sql`TRUE` : sql`from_user_id = ${user.id as number} OR to_user_id = ${user.id as number}`}
     ORDER BY created_at DESC
   `);
   return NextResponse.json(rows.rows);
