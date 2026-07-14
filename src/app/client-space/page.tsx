@@ -132,6 +132,7 @@ export default function ClientSpacePage() {
         </div>
         <div style={{ textAlign: "center", marginTop: 32, color: "#64748B", fontSize: 12 }}>TerraMaps v2.0 — terramaps.vercel.app</div>
       </div>
+      </div>
     </div>
   );
 }
