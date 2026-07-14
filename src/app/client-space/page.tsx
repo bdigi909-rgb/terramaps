@@ -68,7 +68,7 @@ export default function ClientSpacePage() {
         <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24, marginBottom: 24 }}>
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>📁 Mes Projets</h3>
           {projects.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucun projet</div> : (
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, display: "block", overflowX: "auto" }}>
               <thead><tr style={{ borderBottom: "1px solid #1E2D3D" }}>
                 {["Nom","Type","Statut","Modifié"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
               </tr></thead>
@@ -85,7 +85,7 @@ export default function ClientSpacePage() {
         <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24, marginBottom: 24 }}>
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>📋 Mes Devis</h3>
           {devis.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucun devis</div> : (
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, display: "block", overflowX: "auto" }}>
               <thead><tr style={{ borderBottom: "1px solid #1E2D3D" }}>
                 {["Numéro","Client","Total","Statut","PDF"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
               </tr></thead>
@@ -109,7 +109,7 @@ export default function ClientSpacePage() {
         </div>
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>🧾 Mes Factures</h3>
           {factures.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucune facture</div> : (
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, display: "block", overflowX: "auto" }}>
               <thead><tr style={{ borderBottom: "1px solid #1E2D3D" }}>
                 {["Numéro","Client","Total","Statut","PDF"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
               </tr></thead>
