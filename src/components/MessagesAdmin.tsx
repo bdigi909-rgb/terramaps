@@ -15,6 +15,7 @@ export default function MessagesAdmin() {
     if (!reply[msgId]) return;
     await fetch("/api/messages", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content: reply[msgId], subject: "Réponse TerraMaps", toUserId, isReply: true })
     });
     setReply(prev => ({ ...prev, [msgId]: "" }));
