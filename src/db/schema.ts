@@ -228,7 +228,6 @@ export const devis = pgTable("devis", {
   clientEmail: text("client_email"),
   company: text("company"),
   assignedTo: integer("assigned_to"),
-  assignedTo: integer("assigned_to"),
   projet: text("projet"),
   sousTotal: real("sous_total").default(0),
   tva: real("tva").default(20),
