@@ -42,7 +42,11 @@ export default function ClientSpacePage() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 13, color: "#8BACC8" }}>👤 {user?.name}</span>
           <button onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); router.push("/login"); }}
-            style={{ background: "transparent", border: "1px solid #EF4444", color: "#EF4444", padding: "6px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
+          <span style={{ fontSize: 13, color: "#8BACC8" }}>👤 {user?.name}</span>
+          <button onClick={() => router.push("/messages")}
+            style={{ background: "#1E2D3D", border: "none", color: "#8BACC8", padding: "6px 14px", borderRadius: 8, cursor: "pointer", fontSize: 12 }}>
+            💬 Messages
+          </button>
             Déconnexion
           </button>
         </div>
