@@ -82,7 +82,7 @@ export default function ClientSpacePage() {
           )}
         </div>
         <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24, marginBottom: 24 }}>
-          <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>📋 Mes Devis</h3>
+                {["Numéro","Client","Total","Statut","PDF"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
           {devis.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucun devis</div> : (
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
               <thead><tr style={{ borderBottom: "1px solid #1E2D3D" }}>
@@ -94,6 +94,12 @@ export default function ClientSpacePage() {
                   <td style={{ padding: "10px 12px", color: "#8BACC8" }}>{d.client}</td>
                   <td style={{ padding: "10px 12px", color: "#22C55E", fontFamily: "monospace" }}>{parseFloat(d.total || 0).toFixed(2)} MAD</td>
                   <td style={{ padding: "10px 12px" }}><span style={{ background: "#3B82F622", color: "#3B82F6", fontSize: 11, padding: "2px 8px", borderRadius: 20 }}>{d.statut}</span></td>
+                  <td style={{ padding: "10px 12px" }}>
+                    <a href={`/doc-public?type=devis&token=${d.shareToken}`} target="_blank"
+                      style={{ background: "#F97316", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 11, textDecoration: "none", fontWeight: 600 }}>
+                      📄 PDF
+                    </a>
+                  </td>
                 </tr>
               ))}</tbody>
             </table>
@@ -101,7 +107,7 @@ export default function ClientSpacePage() {
         </div>
         <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 24 }}>
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>🧾 Mes Factures</h3>
-          {factures.length === 0 ? <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucune facture</div> : (
+                {["Numéro","Client","Total","Statut","PDF"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
               <thead><tr style={{ borderBottom: "1px solid #1E2D3D" }}>
                 {["Numéro","Client","Total","Statut"].map(h => <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#64748B", fontSize: 11 }}>{h}</th>)}
@@ -112,6 +118,12 @@ export default function ClientSpacePage() {
                   <td style={{ padding: "10px 12px", color: "#8BACC8" }}>{f.client}</td>
                   <td style={{ padding: "10px 12px", color: "#22C55E", fontFamily: "monospace" }}>{parseFloat(f.total || 0).toFixed(2)} MAD</td>
                   <td style={{ padding: "10px 12px" }}><span style={{ background: "#22C55E22", color: "#22C55E", fontSize: 11, padding: "2px 8px", borderRadius: 20 }}>{f.statut}</span></td>
+                  <td style={{ padding: "10px 12px" }}>
+                    <a href={`/doc-public?type=facture&token=${f.shareToken}`} target="_blank"
+                      style={{ background: "#F97316", color: "#fff", padding: "4px 10px", borderRadius: 6, fontSize: 11, textDecoration: "none", fontWeight: 600 }}>
+                      📄 PDF
+                    </a>
+                  </td>
                 </tr>
               ))}</tbody>
             </table>
