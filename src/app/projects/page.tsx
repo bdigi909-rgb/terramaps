@@ -77,14 +77,14 @@ export default function ProjectsPage() {
     setLoading(true);
     fetch("/api/projects")
       .then((r) => r.json())
-      .then((d) => { setProjects(d); setLoading(false); })
+      .catch(() => setLoading(false));
+  };
       .catch(() => setLoading(false));
   useEffect(() => { 
     fetchProjects(); 
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); }).catch(() => {});
   }, []);
 
-  useEffect(() => { fetchProjects(); }, []);
 
   const handleCreate = async () => {
     if (!form.name.trim()) return;
