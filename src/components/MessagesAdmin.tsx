@@ -7,7 +7,7 @@ export default function MessagesAdmin() {
   const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("/api/messages").then(r => r.json()).then(d => { if (Array.isArray(d)) setMessages(d); });
+    fetch("/api/messages").then(r => r.json()).then(d => { if (Array.isArray(d)) setMessages(d.filter((m: any) => !m.is_reply)); });
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); });
   }, []);
 
@@ -20,7 +20,7 @@ export default function MessagesAdmin() {
     });
     setReply(prev => ({ ...prev, [msgId]: "" }));
     const msgs = await fetch("/api/messages").then(r => r.json());
-    if (Array.isArray(msgs)) setMessages(msgs);
+    if (Array.isArray(msgs)) setMessages(msgs.filter((m: any) => !m.is_reply));
   }
 
   return (
