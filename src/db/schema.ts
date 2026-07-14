@@ -47,6 +47,7 @@ export const projects = pgTable("projects", {
   clientEmail: text("client_email"),
   company: text("company"),
   assignedTo: integer("assigned_to"),
+  assignedTo: integer("assigned_to"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -228,6 +229,7 @@ export const devis = pgTable("devis", {
   clientEmail: text("client_email"),
   company: text("company"),
   assignedTo: integer("assigned_to"),
+  assignedTo: integer("assigned_to"),
   projet: text("projet"),
   sousTotal: real("sous_total").default(0),
   tva: real("tva").default(20),
@@ -247,6 +249,7 @@ export const factures = pgTable("factures", {
   clientTel: text("client_tel"),
   clientEmail: text("client_email"),
   company: text("company"),
+  assignedTo: integer("assigned_to"),
   assignedTo: integer("assigned_to"),
   projet: text("projet"),
   sousTotal: real("sous_total").default(0),
