@@ -1,4 +1,5 @@
 ﻿"use client";
+import MessagesAdmin from "@/components/MessagesAdmin";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -61,7 +62,7 @@ export default function AdminPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "agent" });
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
-  const [activeTab, setActiveTab] = useState<"overview"|"users"|"activity"|"stats">("overview");
+  const [activeTab, setActiveTab] = useState<"overview"|"users"|"activity"|"stats"|"messages">("overview");
   const [agentStats, setAgentStats] = useState<any[]>([]);
 
   useEffect(() => {
