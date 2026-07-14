@@ -190,6 +190,7 @@ export default function AdminPage() {
           { key: "users", label: "Utilisateurs" },
           { key: "activity", label: "Activité" },
           { key: "stats", label: "Stats Agents", onClick: loadAgentStats },
+          { key: "messages", label: "💬 Messages" },
         ].map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key as any)}
             style={{ background: "transparent", border: "none", borderBottom: activeTab === tab.key ? "2px solid #F97316" : "2px solid transparent", color: activeTab === tab.key ? "#F97316" : "#64748B", padding: "14px 20px", cursor: "pointer", fontSize: 13, fontWeight: activeTab === tab.key ? 600 : 400 }}>
@@ -395,6 +396,10 @@ export default function AdminPage() {
               </div>
             )}
           </div>
+        )}
+        {/* MESSAGES TAB */}
+        {activeTab === "messages" && (
+          <MessagesAdmin />
         )}
       </div>
     </div>
