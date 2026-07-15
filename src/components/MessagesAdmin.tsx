@@ -11,12 +11,12 @@ export default function MessagesAdmin() {
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); });
   }, []);
 
-  async function sendReply(toUserId: number, msgId: number) {
+  async function sendReply(toUserId: number, msgId: number, subject: string) {
     if (!reply[msgId]) return;
     await fetch("/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: reply[msgId], subject: "Réponse à: " + (m.subject || m.content.substring(0, 30)), toUserId, isReply: true })
+      body: JSON.stringify({ content: reply[msgId], subject: "Réponse à: " + subject, toUserId, isReply: true })
     });
     setReply(prev => ({ ...prev, [msgId]: "" }));
     const msgs = await fetch("/api/messages").then(r => r.json());
@@ -40,7 +40,7 @@ export default function MessagesAdmin() {
             <input value={reply[m.id] || ""} onChange={e => setReply(prev => ({ ...prev, [m.id]: e.target.value }))}
               placeholder="Votre réponse..."
               style={{ flex: 1, background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 6, padding: "6px 10px", color: "#E2EAF2", fontSize: 12 }} />
-            <button onClick={() => sendReply(m.user_id, m.id)}
+            <button onClick={() => sendReply(m.user_id, m.id, m.subject || m.content.substring(0, 30))}
               style={{ background: "#F97316", border: "none", color: "#fff", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
               Répondre
             </button>
