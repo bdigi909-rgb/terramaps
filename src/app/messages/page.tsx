@@ -40,7 +40,7 @@ export default function MessagesPage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#0D1117", color: "#E2EAF2", fontFamily: "Arial" }}>
-      <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "0 32px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#161B22", borderBottom: "1px solid #1E2D3D", padding: "0 16px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ fontSize: 18, fontWeight: 700 }}>Terra<span style={{ color: "#F97316" }}>Maps</span></div>
         <div style={{ display: "flex", gap: 12 }}>
           <button onClick={() => router.push("/client-space")}
@@ -53,7 +53,7 @@ export default function MessagesPage() {
           </button>
         </div>
       </div>
-      <div style={{ padding: 32, maxWidth: 800, margin: "0 auto" }}>
+      <div style={{ padding: "16px", maxWidth: 800, boxSizing: "border-box" as any, width: "100%", margin: "0 auto" }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 24 }}>💬 Messagerie</h1>
 
         {/* Formulaire nouveau message */}
