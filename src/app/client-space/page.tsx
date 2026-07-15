@@ -13,7 +13,6 @@ export default function ClientSpacePage() {
 
   useEffect(() => {
     fetch("/api/auth/me").then(r => r.json()).then(async d => {
-    fetch("/api/auth/me").then(r => r.json()).then(async d => {
       if (!d.user) { router.push("/login"); return; }
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
