@@ -1,5 +1,7 @@
 ﻿"use client";
 import MessagesAdmin from "@/components/MessagesAdmin";
+import RatingsOverview from "@/components/RatingsOverview";
+import MessagesAdmin from "@/components/MessagesAdmin";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -206,6 +208,11 @@ export default function AdminPage() {
         {activeTab === "overview" && (
           <>
             {/* KPI Grid */}
+            {/* Notes clients */}
+            <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 20, marginBottom: 24 }}>
+              <h3 style={{ margin: "0 0 12px", fontSize: 14, color: "#F97316" }}>⭐ Satisfaction clients</h3>
+              <RatingsOverview />
+            </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
               {kpis.map(k => (
                 <div key={k.label} style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: "20px 24px", borderLeft: `3px solid ${k.color}` }}>
