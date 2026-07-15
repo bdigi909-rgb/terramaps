@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import RatingStars from "@/components/RatingStars";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 export default function ClientSpacePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
