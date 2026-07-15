@@ -17,7 +17,9 @@ export default function MessagesPage() {
       setUser(d.user);
     });
     fetch("/api/messages").then(r => r.ok ? r.json() : []).then(msgs => {
-      if (Array.isArray(msgs)) setMessages(msgs);
+      if (Array.isArray(msgs)) setMessages(msgs.filter((m: any) => 
+        m.is_reply === true || (m.user_id === user?.id && !m.is_reply)
+      ));
     });
   }, []);
 
