@@ -89,8 +89,4 @@ export default function ClientSpacePage() {
         </div>
       </div>
     </div>
-  );
-      </div>
-    </div>
-  );
 }
