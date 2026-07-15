@@ -1,41 +1,9 @@
 ﻿"use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-export default function ClientSpacePage() {
-  const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-  const [projects, setProjects] = useState<any[]>([]);
-  const [devis, setDevis] = useState<any[]>([]);
-  const [factures, setFactures] = useState<any[]>([]);
-  const [unreadReplies, setUnreadReplies] = useState(0);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetch("/api/auth/me").then(r => r.json()).then(async d => {
       if (!d.user) { router.push("/login"); return; }
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
-      setUser(d.user);
-      // Demander permission notifications push
-      // Demander permission notifications push
-      try {
-        if ("Notification" in window && "serviceWorker" in navigator) {
-          const permission = await Notification.requestPermission();
-          if (permission === "granted") {
-            const reg = await navigator.serviceWorker.ready;
-            const sub = await reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: "BOqYeiKA0GQFeY9YSpxhJJbhZ_G93WiLmWN2oB5R_zQJ22MDmedRVKB64eM9kpnJZRKaqaJQl5tIw3whIOF-N9c"
-            });
-            await fetch("/api/push", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ subscription: sub })
-            });
-          }
-        }
-      } catch (e) { console.error("Push error:", e); }
-      setUser(d.user);
       setUser(d.user);
       try {
         const proj = await fetch("/api/projects").then(r => r.ok ? r.json() : []);
@@ -46,10 +14,22 @@ export default function ClientSpacePage() {
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(msgs)) setUnreadReplies(msgs.filter((m: any) => m.is_reply && !m.read).length);
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) { console.error(e); }
       setLoading(false);
+      // Push notifications
+      try {
+        if ("Notification" in window && "serviceWorker" in navigator) {
+          const permission = await Notification.requestPermission();
+          if (permission === "granted") {
+            const reg = await navigator.serviceWorker.ready;
+            const sub = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: "BOqYeiKA0GQFeY9YSpxhJJbhZ_G93WiLmWN2oB5R_zQJ22MDmedRVKB64eM9kpnJZRKaqaJQl5tIw3whIOF-N9c"
+            });
+            await fetch("/api/push", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ subscription: sub }) });
+          }
+        }
+      } catch (e) { console.error("Push:", e); }
     }).catch(() => setLoading(false));
   }, []);
 
