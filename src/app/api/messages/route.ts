@@ -35,5 +35,18 @@ export async function POST(req: NextRequest) {
     VALUES (${user.id as number}, ${user.name as string}, ${content}, ${isReply === true}, ${toUserId || null})
     RETURNING *
   `);
-  return NextResponse.json(result.rows[0]);
+  const msg = result.rows[0];
+  // Envoyer notification push si c est une reponse
+  if (isReply === true && toUserId) {
+    fetch(new URL("/api/push", req.url).toString(), {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: "💬 Nouveau message TerraMaps",
+        body: content,
+        url: "/messages"
+      })
+    }).catch(() => {});
+  }
+  return NextResponse.json(msg);
 }
