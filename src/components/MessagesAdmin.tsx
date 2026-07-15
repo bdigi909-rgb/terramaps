@@ -7,7 +7,7 @@ export default function MessagesAdmin() {
   const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("/api/messages").then(r => r.json()).then(d => { if (Array.isArray(d)) setMessages(d.filter((m: any) => !m.is_reply && m.user_name !== "Bourig Mustapha")); });
+    fetch("/api/messages").then(r => r.json()).then(d => { if (Array.isArray(d)) setMessages(d.filter((m: any) => !m.is_reply && m.user_id !== 1)); });
     fetch("/api/users").then(r => r.json()).then(d => { if (Array.isArray(d)) setUsers(d); });
   }, []);
 
