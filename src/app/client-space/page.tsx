@@ -1,6 +1,9 @@
 ﻿"use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import RatingStars from "@/components/RatingStars";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function ClientSpacePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
@@ -56,6 +59,7 @@ export default function ClientSpacePage() {
             <div key={p.id} style={{ borderBottom: "1px solid #1E2D3D", padding: "10px 0", display: "flex", justifyContent: "space-between" }}>
               <span style={{ color: "#F97316", fontWeight: 600 }}>{p.name}</span>
               <span style={{ color: "#64748B", fontSize: 11 }}>{p.status}</span>
+              <RatingStars projectId={p.id} />
             </div>
           ))}
         </div>
