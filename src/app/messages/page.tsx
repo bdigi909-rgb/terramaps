@@ -87,7 +87,7 @@ export default function MessagesPage() {
                 <span style={{ fontSize: 13, fontWeight: 600, color: m.is_reply ? "#22C55E" : m.from_user_id === user?.id ? "#F97316" : "#3B82F6" }}>
                 {m.is_reply ? "📬 Réponse TerraMaps" : m.from_user_id === user?.id ? "📤 Vous" : "📥 TerraMaps"} — {m.subject || "Sans sujet"}
                 </span>
-                <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
+                <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleString("fr-FR", { timeZone: "Africa/Casablanca", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
               </div>
               <p style={{ margin: 0, fontSize: 13, color: "#8BACC8", lineHeight: 1.5 }}>{m.content}</p>
             </div>

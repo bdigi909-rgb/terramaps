@@ -32,7 +32,7 @@ export default function MessagesAdmin() {
         <div key={m.id} style={{ background: "#0D1117", border: "1px solid #1E2D3D", borderRadius: 10, padding: 16, marginBottom: 12 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
             <span style={{ fontWeight: 600, color: "#F97316" }}>👤 {m.user_name || "Client"}</span>
-            <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleDateString("fr-FR")}</span>
+            <span style={{ fontSize: 11, color: "#64748B" }}>{new Date(m.created_at).toLocaleString("fr-FR", { timeZone: "Africa/Casablanca", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
           </div>
           {m.subject && <div style={{ fontSize: 12, color: "#8BACC8", marginBottom: 6 }}>Sujet: {m.subject}</div>}
           <p style={{ margin: "0 0 12px", color: "#E2EAF2", fontSize: 13 }}>{m.content}</p>
