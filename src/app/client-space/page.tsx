@@ -36,7 +36,6 @@ export default function ClientSpacePage() {
         }
       } catch (e) { console.error("Push error:", e); }
       setUser(d.user);
-      try {
         const proj = await fetch("/api/projects").then(r => r.ok ? r.json() : []);
         const dev = await fetch("/api/devis").then(r => r.ok ? r.json() : []);
         const fact = await fetch("/api/factures").then(r => r.ok ? r.json() : []);
