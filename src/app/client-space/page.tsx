@@ -44,8 +44,6 @@ export default function ClientSpacePage() {
         if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
         if (Array.isArray(msgs)) setUnreadReplies(msgs.filter((m: any) => m.is_reply && !m.read).length);
-        if (Array.isArray(dev)) setDevis(dev.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
-        if (Array.isArray(fact)) setFactures(fact.filter((x: any) => x.client === d.user.name || x.clientEmail === d.user.email));
       } catch (e) {
         console.error(e);
       }
