@@ -17,9 +17,7 @@ export default function MessagesPage() {
       setUser(d.user);
     });
     fetch("/api/messages").then(r => r.ok ? r.json() : []).then(msgs => {
-      if (Array.isArray(msgs)) setMessages(msgs.filter((m: any) => 
-        m.is_reply === true || (m.user_id === user?.id && !m.is_reply)
-      ));
+      if (Array.isArray(msgs)) setMessages(msgs);
     });
   }, []);
 
@@ -83,7 +81,7 @@ export default function MessagesPage() {
           <h3 style={{ margin: "0 0 16px", fontSize: 14, color: "#8BACC8" }}>📥 Historique</h3>
           {messages.length === 0 ? (
             <div style={{ textAlign: "center", padding: 30, color: "#64748B" }}>Aucun message</div>
-          ) : messages.map(m => (
+          ) : messages.filter((m: any) => m.is_reply || m.user_id === user?.id).map(m => (
             <div key={m.id} style={{ borderBottom: "1px solid #1E2D3D", padding: "14px 0" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: m.is_reply ? "#22C55E" : m.from_user_id === user?.id ? "#F97316" : "#3B82F6" }}>
