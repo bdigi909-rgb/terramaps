@@ -35,10 +35,6 @@ export default function ClientSpacePage() {
           }
         }
       } catch (e) { console.error("Push error:", e); }
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ subscription: sub })
-          });
-        }
       setUser(d.user);
       try {
         const proj = await fetch("/api/projects").then(r => r.ok ? r.json() : []);
