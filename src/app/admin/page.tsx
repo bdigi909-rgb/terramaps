@@ -1,7 +1,6 @@
 ﻿"use client";
 import MessagesAdmin from "@/components/MessagesAdmin";
 import RatingsOverview from "@/components/RatingsOverview";
-import MessagesAdmin from "@/components/MessagesAdmin";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
