@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import RatingStars from "@/components/RatingStars";
+import MissionsCalendar from "@/components/MissionsCalendar";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import RatingStars from "@/components/RatingStars";
 export default function ClientSpacePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
@@ -79,6 +83,13 @@ export default function ClientSpacePage() {
             </div>
           ))}
         </div>
+        <div style={{ background: "#161B22", border: "1px solid #1E2D3D", borderRadius: 12, padding: 20, marginTop: 16 }}>
+          <h3 style={{ margin: "0 0 12px", fontSize: 13, color: "#8BACC8" }}>🗓️ Calendrier des missions</h3>
+          <MissionsCalendar projectIds={projects.map((p: any) => p.id)} />
+        </div>
+      </div>
+    </div>
+  );
       </div>
     </div>
   );
