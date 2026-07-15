@@ -7,7 +7,7 @@ export default function MissionsCalendar({ projectIds }: { projectIds: number[] 
   useEffect(() => {
     fetch("/api/missions").then(r => r.json()).then(d => {
       if (Array.isArray(d)) {
-        setMissions(d.filter((m: any) => projectIds.includes(m.project_id) || projectIds.includes(parseInt(m.projet))));
+        setMissions(d.filter((m: any) => projectIds.includes(m.project_id)));
       }
     });
   }, [projectIds]);
