@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import RatingStars from "@/components/RatingStars";
 import MissionsCalendar from "@/components/MissionsCalendar";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import RatingStars from "@/components/RatingStars";
 export default function ClientSpacePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
