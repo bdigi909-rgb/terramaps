@@ -28,10 +28,10 @@ export default function HomePage() {
           Plateforme professionnelle de topographie, cartographie et conception routière — compatible Covadis & LandXML. Levés officiels, devis, factures et planning en un seul outil.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href="/login" style={{ background: "#F97316", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 16, fontWeight: 700 }}>
+          <Link href="/login" style={{ background: "#F97316", color: "#fff", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 16, fontWeight: 700, maxWidth: 320, textAlign: "center" as any, width: "100%", boxSizing: "border-box" as any }}>
             🚀 Démarrer gratuitement
           </Link>
-          <Link href="/help" style={{ background: "transparent", color: "#E2EAF2", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 16, fontWeight: 600, border: "1px solid #1E2D3D" }}>
+          <Link href="/help" style={{ background: "transparent", color: "#E2EAF2", padding: "14px 32px", borderRadius: 10, textDecoration: "none", fontSize: 16, fontWeight: 600, border: "1px solid #1E2D3D", maxWidth: 320, textAlign: "center" as any, width: "100%", boxSizing: "border-box" as any }}>
             📖 Voir les fonctionnalités
           </Link>
         </div>
