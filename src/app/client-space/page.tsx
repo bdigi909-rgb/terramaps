@@ -13,7 +13,26 @@ export default function ClientSpacePage() {
 
   useEffect(() => {
     fetch("/api/auth/me").then(r => r.json()).then(async d => {
+    fetch("/api/auth/me").then(r => r.json()).then(async d => {
       if (!d.user) { router.push("/login"); return; }
+      if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
+      setUser(d.user);
+      // Demander permission notifications push
+      if ("Notification" in window && "serviceWorker" in navigator) {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          const reg = await navigator.serviceWorker.ready;
+          const sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: "BOqYeiKA0GQFeY9YSpxhJJbhZ_G93WiLmWN2oB5R_zQJ22MDmedRVKB64eM9kpnJZRKaqaJQl5tIw3whIOF-N9c"
+          });
+          await fetch("/api/push", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ subscription: sub })
+          });
+        }
+      }
       if (d.user.role !== "client" && d.user.role !== "client_admin") { router.push("/dashboard"); return; }
       setUser(d.user);
       try {
